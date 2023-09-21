@@ -9,6 +9,7 @@ const Layout = styled.div`
     grid-gap: 40px;
     height: 100%;
     padding: 40px;
+    background-color: var(--template-background-color);
 `
 
 const zakekeEnvironment = new ZakekeEnvironment();
