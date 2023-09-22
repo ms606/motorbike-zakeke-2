@@ -2,12 +2,19 @@ import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useZakeke, Option } from "zakeke-configurator-react";
 import { List, ListItem, ListItemImage } from "./list";
+import "./selector.css";
+
 import Cameras from "./Cameras/Cameras";
 import Menu from "./Menu/Menu";
 
 const Container = styled.div`
   height: 100%;
   overflow: auto;
+  font-family: "Avenir Next", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
 `;
 
 const Selector: FunctionComponent<{}> = () => {
@@ -147,8 +154,7 @@ const Selector: FunctionComponent<{}> = () => {
             marginTop: "64px",
             backgroundColor: "var(--template-primary--000)",
             borderRadius: "32px",
-            padding: "32px 26px", 
-
+            padding: "32px 26px",
           }}
         >
           <div
@@ -289,16 +295,40 @@ const Selector: FunctionComponent<{}> = () => {
           </div>
         </div>
 
-        <h3>Price: {price}</h3>
-        {isAddToCartLoading ? (
-          "Adding to cart..."
-        ) : (
-          <button onClick={addToCart}>Add to cart</button>
-        )}
+        <div className="menu_footer">
+          <div className="menu_price">
+            <div className="price_text">Price: </div>
+            <div className="price_value">{price}</div>
+          </div>
+          <div className="menu_actions">
+            {isAddToCartLoading ? (
+              "Adding to cart..."
+            ) : (
+              <button onClick={addToCart}
+                className="btn btn-primary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__cart__31D9c"
+              >Add to cart</button>
+            )}
+            {
+              <button className="btn btn-secondary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__share__1sacu">
+                <div className="menu_btn_share_icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.25 15a3.752 3.752 0 00-2.918 1.418L8.85 12.99c.2-.645.2-1.335 0-1.98l5.482-3.427A3.75 3.75 0 1013.5 5.25c.003.335.054.669.15.99L8.167 9.668a3.75 3.75 0 100 4.665l5.483 3.427a3.59 3.59 0 00-.15.99A3.75 3.75 0 1017.25 15zm0-12a2.25 2.25 0 110 4.5 2.25 2.25 0 010-4.5zm-12 11.25a2.25 2.25 0 110-4.499 2.25 2.25 0 010 4.499zm12 6.75a2.25 2.25 0 110-4.5 2.25 2.25 0 010 4.5z"
+                      fill="#292929"
+                    ></path>
+                  </svg>
+                </div>
+                {/* <span className="Menu_ff_menu__btn__share_text__3eeX0">Share</span> */}
+              </button>
+            }
+          </div>
+        </div>
 
         {/* ----------------------------------------- */}
-
-        {/* <Cameras camera={group} />     */}
 
         {/* <Menu
          //  groups={groups}

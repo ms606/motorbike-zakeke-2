@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { ZakekeEnvironment, ZakekeViewer, ZakekeProvider } from 'zakeke-configurator-react';
 import Selector from './selector';
+import Viewer from '../pages/Viewer/Viewer';
 
 const Layout = styled.div`
     display: grid;
@@ -9,15 +10,14 @@ const Layout = styled.div`
     grid-gap: 40px;
     height: 100%;
     padding: 40px;
-    background-color: var(--template-background-color);
-`
+`;
 
 const zakekeEnvironment = new ZakekeEnvironment();
 
 const App: FunctionComponent<{}> = () => {
     return <ZakekeProvider environment={zakekeEnvironment}>
         <Layout>
-            <div><ZakekeViewer /></div>
+            <Viewer />
             <Selector />
         </Layout>
     </ZakekeProvider>;

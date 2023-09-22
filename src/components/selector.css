@@ -1,0 +1,40 @@
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+}
+
+.btn.btn-primary, .btn.btn-secondary {
+    border: 1px solid var(--template-primary--900);
+}
+
+.btn.btn-primary {
+    color: var(--template-primary--200);
+    background-color: var(--template-primary--900);
+}
+
+.menu_footer {
+    display: flex;
+    flex-flow: row;
+    /* border: 2px solid #d3d3d3; */
+    align-items: center;
+    position: relative;
+    bottom: 3em;
+}
+
+.menu_price {
+    display: flex;
+}
+
+.menu_actions { 
+    display: flex;
+    margin-left: auto;
+}
+
+.menu_btn_share_icon {
+    width: 16px;
+    height: 16px;
+}
