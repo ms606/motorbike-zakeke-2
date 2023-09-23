@@ -19,15 +19,16 @@ export interface CameraInterface {
 
 export type CamerasProps = {
   cameras: CameraInterface[];
-//  onSelect: (camera: CameraInterface) => void;
+  onSelect: any;
+  // onSelect: (camera: CameraInterface) => void;
 };
 
 const Cameras: React.FC<CamerasProps> = React.memo(props => {
   return !!props.cameras.length ? (
-    <div>
+    <div style={{position: "absolute", right: "93%"}}>
       {props.cameras.map(camera => (
         <div
-          // onClick={() => props.onSelect(camera)}
+          onClick={(e) => props.onSelect(camera.cameraLocationId)}
           key={camera.id}
           data-testid="camera"
           className="cameras_camera"

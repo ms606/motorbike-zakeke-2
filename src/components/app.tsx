@@ -16,10 +16,10 @@ const zakekeEnvironment = new ZakekeEnvironment();
 
 const App: FunctionComponent<{}> = () => {
     return <ZakekeProvider environment={zakekeEnvironment}>
-        <Layout>
+        {/* <Layout> */}
             <Viewer />
-            <Selector />
-        </Layout>
+            {/* <Selector /> */}
+        {/* </Layout> */}
     </ZakekeProvider>;
 }
 

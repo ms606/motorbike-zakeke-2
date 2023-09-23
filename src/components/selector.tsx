@@ -7,6 +7,8 @@ import "./selector.css";
 import Cameras from "./Cameras/Cameras";
 import Menu from "./Menu/Menu";
 
+import Viewer from '../pages/Viewer/Viewer';
+
 const Container = styled.div`
   height: 100%;
   overflow: auto;
@@ -34,6 +36,9 @@ const Selector: FunctionComponent<{}> = () => {
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
   const [selectedStepId, selectStep] = useState<number | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
+ 
+  const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
+
   console.log(groups, "to check for imgs ", Option);
 
   const selectedGroup = groups.find((group) => group.id === selectedGroupId);
@@ -50,9 +55,12 @@ const Selector: FunctionComponent<{}> = () => {
     (attribute) => attribute.id === selectedAttributeId
   );
 
+ 
+
   // Open the first group and the first step when loaded
   useEffect(() => {
     if (!selectedGroup && groups.length > 0) {
+
       selectGroup(groups[0].id);
 
       if (groups[0].steps.length > 0) selectStep(groups[0].steps[0].id);
@@ -75,10 +83,11 @@ const Selector: FunctionComponent<{}> = () => {
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
-    }
 
+      if (selectedCameraID) setCamera(selectedCameraID)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroupId]);
+  }, [selectedGroupId, selectedCameraID]);
 
   if (isSceneLoading || !groups || groups.length === 0)
     return <span>Loading scene...</span>;
@@ -91,8 +100,10 @@ const Selector: FunctionComponent<{}> = () => {
   // -- -- -- options
 
   return (
+    
     <Container>
-      <div className="menu" style={{ display: "flex", flexFlow: "column" }}>
+      <Cameras cameras={groups} onSelect={setSelectedCameraID}/>
+      <div className="menu" style={{ display: "flex", flexFlow: "column", position: "relative" }}>
         <div
           className="menu_group"
           style={{
@@ -252,6 +263,7 @@ const Selector: FunctionComponent<{}> = () => {
               flexFlow: "row-wrap",
               justifyContent: "flex-start",
               flexWrap: "wrap",
+              margin: "0 8px"
             }}
           >
             {selectedAttribute &&
@@ -305,7 +317,7 @@ const Selector: FunctionComponent<{}> = () => {
               "Adding to cart..."
             ) : (
               <button onClick={addToCart}
-                className="btn btn-primary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__cart__31D9c"
+                className="btn btn-primary menu_btn_cart"
               >Add to cart</button>
             )}
             {

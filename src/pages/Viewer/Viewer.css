@@ -3,6 +3,7 @@
 }
 
 .ff_viewer_left_actions {
+    z-index: 1;
     position: absolute;
     width: 90px;
     padding: 30px;
