@@ -39,8 +39,6 @@ const Selector: FunctionComponent<{}> = () => {
  
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
 
-  console.log(groups, "to check for imgs ", Option);
-
   const selectedGroup = groups.find((group) => group.id === selectedGroupId);
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
@@ -74,6 +72,8 @@ const Selector: FunctionComponent<{}> = () => {
   // Select attribute first time
   useEffect(() => {
     if (!selectedAttribute && attributes.length > 0)
+    console.log(attributes[0],'selecting attribute');
+    
       selectAttribute(attributes[0].id);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,6 +81,9 @@ const Selector: FunctionComponent<{}> = () => {
 
   useEffect(() => {
     if (selectedGroup) {
+
+      console.log(selectedGroup,'selectedGroup');
+
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
 
@@ -100,7 +103,6 @@ const Selector: FunctionComponent<{}> = () => {
   // -- -- -- options
 
   return (
-    
     <Container>
       <Cameras cameras={groups} onSelect={setSelectedCameraID}/>
       <div className="menu" style={{ display: "flex", flexFlow: "column", position: "relative" }}>
