@@ -24,9 +24,17 @@ export type CamerasProps = {
 };
 
 const Cameras: React.FC<CamerasProps> = React.memo(props => {
+
+  let cameraViews = 
+  props.cameras.filter(x => {
+    if(x.imageUrl != null){
+      return x      
+    }
+  })
+  
   return !!props.cameras.length ? (
     <div style={{position: "absolute", right: "93%"}}>
-      {props.cameras.map(camera => (
+      {cameraViews.map(camera => (
         <div
           onClick={(e) => props.onSelect(camera.cameraLocationId)}
           key={camera.id}

@@ -36,6 +36,7 @@ const Selector: FunctionComponent<{}> = () => {
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
   const [selectedStepId, selectStep] = useState<number | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
+  const [selectedAttributeOptionName, setSelectedAttributeOptionName] = useState<string | null>(null);
  
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
 
@@ -43,18 +44,24 @@ const Selector: FunctionComponent<{}> = () => {
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
+    
 
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
     () => (selectedStep || selectedGroup)?.attributes ?? [],
     [selectedGroup, selectedStep]
   );
+
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
 
- 
 
+  //console.log(selectedAttributeOptionName?.name,'selectedAttributeOptionName');  
+  // console.log(selectedAttribute?.options.map(x => if((x.selected === true)
+  // )) 'selectedAttribute');
+  
+ 
   // Open the first group and the first step when loaded
   useEffect(() => {
     if (!selectedGroup && groups.length > 0) {
@@ -71,18 +78,18 @@ const Selector: FunctionComponent<{}> = () => {
 
   // Select attribute first time
   useEffect(() => {
-    if (!selectedAttribute && attributes.length > 0)
-    console.log(attributes[0],'selecting attribute');
-    
-      selectAttribute(attributes[0].id);
+    if (!selectedAttribute && attributes.length > 0) selectAttribute(attributes[0]?.id);
 
+    setSelectedAttributeOptionName(
+      selectedAttribute && selectedAttribute.options
+        ? selectedAttribute.options.find(x => x.selected === true)?.name || null
+        : null
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
     if (selectedGroup) {
-
-      console.log(selectedGroup,'selectedGroup');
 
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
@@ -109,7 +116,7 @@ const Selector: FunctionComponent<{}> = () => {
         <div
           className="menu_group"
           style={{
-            position: "absolute",
+            // position: "absolute",
             height: "58px",
             overflow: "auto",
             whiteSpace: "nowrap",
@@ -146,19 +153,104 @@ const Selector: FunctionComponent<{}> = () => {
         </div>
 
         {selectedGroup && selectedGroup.steps.length > 0 && (
-          <List>
+          <div
+            style={{
+              margin: '0',
+              padding: '0',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginBottom: '40px',
+            }}
+            >
             {selectedGroup.steps.map((step) => {
+               console.log(selectedGroup, 'selected step, selectedGroup');
               return (
-                <ListItem
+                <div
+                  className="step"
                   key={step.id}
                   onClick={() => selectStep(step.id)}
-                  selected={selectedStep === step}
+                  style={{width: '100%', display: 'flex', flexDirection: 'column'}}
+                  //selected={selectedStep === step}
                 >
                   Step: {step.name}
-                </ListItem>
+
+
+                  <br />
+                  <br />
+
+                  {step.attributes.map(x => {
+                     
+                   return( 
+                   
+                   <div
+                      style={{display: 'flex', flexDirection: 'column', width: '100%'}}
+                   >
+
+                      <br />
+                      <br />
+                      <br />
+
+                      {x.name}
+
+                      <br />
+                      <br />
+                      <br />
+                      <div style={{display: 'flex', flexDirection: 'row'}}>
+                      {x.options.map(option => {
+                          return (
+                            <div>
+                              <div>
+                              {option.imageUrl && (
+                                      <ListItem
+                                      key={option.id}
+                                      onClick={() => selectOption(option.id)}
+                                      selected={option.selected}
+                                      className="menu_choice_option"
+                                    >
+                                      <div
+                                        className="menu_choice_option_image_container"
+                                        style={{
+                                          width: "68px",
+                                          height: "68px",
+                                          margin: "0 auto",
+                                          borderRadius: "8px",
+                                        }}
+                                      >
+                                        {option.imageUrl && (
+                                          <ListItemImage src={option.imageUrl} />
+                                        )}
+                                      </div>
+                  
+                                      <div
+                                        className="menu_choice_option_description"
+                                        style={{
+                                          fontSize: "16px",
+                                          lineHeight: "1.4em",
+                                          textAlign: "center",
+                                          marginTop: "8px",
+                                          color: "var(--template-primary--600)",
+                                        }}
+                                      >
+                                        {option.name}
+                                      </div>
+                                    </ListItem>
+                                 )}
+                              </div>  
+                            </div>  
+                          )
+                        })
+                      }
+                    </div>
+
+                    </div>)
+                  })
+                  }
+
+                </div>
               );
             })}
-          </List>
+          </div>
         )}
 
         <div
@@ -231,7 +323,7 @@ const Selector: FunctionComponent<{}> = () => {
                         className="menu_choice_attribute_description"
                         style={{ marginLeft: "auto" }}
                       >
-                        Color name
+                        {selectedAttributeOptionName}
                       </div>
                       <div
                         className="menu_choice_attribute_state_icon"
