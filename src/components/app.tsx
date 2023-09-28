@@ -6,8 +6,8 @@ import Viewer from '../pages/Viewer/Viewer';
 
 const Layout = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 40px;
+    grid-template-columns: 1fr 0.6fr;
+    // grid-gap: 40px;
     height: 100%;
     padding: 40px;
 `;

@@ -21,9 +21,10 @@ export const ListItem = styled.div<{ selected?: boolean }>`
      border-radius: 16px;
      margin-bottom: 12px;
      margin-right: 8px;
-     border: 1px solid transparent;
+    // border: 1px solid transparent;
      cursor: pointer;
-   
+     border: ${props => props.selected ? '1px solid var(--template-primary--900)' : ''};
+    
 `;
 
 export const ListItemImage = styled.img`
