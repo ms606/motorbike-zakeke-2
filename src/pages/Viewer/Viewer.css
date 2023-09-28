@@ -1,5 +1,6 @@
 .ff_root {
     position: relative;
+    background-color: var(--template-background-color);
 }
 
 .ff_viewer_left_actions {

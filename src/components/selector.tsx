@@ -79,7 +79,7 @@ const Selector: FunctionComponent<{}> = () => {
   // Select attribute first time
   useEffect(() => {
     if (!selectedAttribute && attributes.length > 0) selectAttribute(attributes[0]?.id);
-
+    
     setSelectedAttributeOptionName(
       selectedAttribute && selectedAttribute.options
         ? selectedAttribute.options.find(x => x.selected === true)?.name || null
@@ -112,7 +112,14 @@ const Selector: FunctionComponent<{}> = () => {
   return (
     <Container>
       <Cameras cameras={groups} onSelect={setSelectedCameraID}/>
-      <div className="menu" style={{ display: "flex", flexFlow: "column", position: "relative" }}>
+      <div className="menu" 
+           style={{ display: "flex", flexFlow: "column", position: "relative", 
+                    maxHeight: 'calc(100% - 3px)',
+                    overflowY: 'auto',
+                    padding: '32px 26px',
+                    backgroundColor: 'var(--template-primary--000)',
+                    borderRadius: '32px'
+                  }}>
         <div
           className="menu_group"
           style={{
@@ -164,45 +171,98 @@ const Selector: FunctionComponent<{}> = () => {
             }}
             >
             {selectedGroup.steps.map((step) => {
-               console.log(selectedGroup, 'selected step, selectedGroup');
               return (
                 <div
-                  className="step"
+                  className="menu_choice_step_title"
                   key={step.id}
                   onClick={() => selectStep(step.id)}
-                  style={{width: '100%', display: 'flex', flexDirection: 'column'}}
+                  style={{
+                      width: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      padding: '16px 4px',
+                      fontFamily: "Avenir Next ,sans-serif",
+                      fontStyle: 'normal',
+                      lineHeight: '16px',
+                      fontWeight: '400',
+                      fontSize: '20px',
+                      color: 'var(--template-primary--900)',
+                      cursor: 'pointer',
+                    }}
                   //selected={selectedStep === step}
                 >
-                  Step: {step.name}
+                  {step.name}
 
 
                   <br />
                   <br />
 
-                  {step.attributes.map(x => {
-                     
+                  {step.attributes.map(attribute => {
+                   //   console.log(attribute, 'selected step, selectedGroup');
                    return( 
-                   
+                   <>
                    <div
-                      style={{display: 'flex', flexDirection: 'column', width: '100%'}}
+                      // className="menu_choice_attribute_title"
+                      style={{ 
+                          display: 'flex', 
+                          flexDirection: 'row',
+                          width: '100%', 
+                          cursor: "pointer",
+                          padding: '16px 4px',
+                          fontFamily: "Avenir Next ,sans-serif",
+                          fontStyle: 'normal',
+                          fontWeight: '400',
+                          fontSize: '16px',
+                          lineHeight: '16px',
+                          color: 'var(--template-primary--900)',
+
+                            }}
+                      onClick={() => {
+                        console.log('clicking checking attri old', selectedAttributeId, 'new', attribute.id );
+                        if(selectedAttributeId === attribute.id) {
+                          selectAttribute(null) 
+                        } else {
+                          selectAttribute(attribute.id)
+                        }
+                      }}   
                    >
+                      <br />   
+                      <div
+                        className="menu_choice_attribute_selection_icon"
+                        style={{
+                          width: "21px",
+                          height: "21px",
+                          marginRight: "12px",
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 32 32"
+                          data-testid="check-icon"
+                        >
+                          <path d="M14 21.414l-5-5.001L10.413 15 14 18.586 21.585 11 23 12.415l-9 8.999z"></path>
+                          <path d="M16 2a14 14 0 1014 14A14 14 0 0016 2zm0 26a12 12 0 1112-12 12 12 0 01-12 12z"></path>
+                          <path
+                            data-name="<Transparent Rectangle>"
+                            fill="none"
+                            d="M0 0h32v32H0z"
+                          ></path>
+                        </svg>
+                      </div>
+
+                      {attribute.name}
 
                       <br />
-                      <br />
-                      <br />
 
-                      {x.name}
-
-                      <br />
-                      <br />
-                      <br />
-                      <div style={{display: 'flex', flexDirection: 'row'}}>
-                      {x.options.map(option => {
+                      </div>
+                      <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+                      {attribute.options.map(option => {
+                        //  console.log(option,'attribute option detail');       
                           return (
-                            <div>
+                            <div style={{marginRight: '10px', width: 'calc(25% - 8px)'}}>
                               <div>
-                              {option.imageUrl && (
-                                      <ListItem
+                              {selectedAttributeId === option.attribute.id && option.imageUrl && (
+                                    <ListItem
                                       key={option.id}
                                       onClick={() => selectOption(option.id)}
                                       selected={option.selected}
@@ -243,7 +303,8 @@ const Selector: FunctionComponent<{}> = () => {
                       }
                     </div>
 
-                    </div>)
+                    </>
+                    )
                   })
                   }
 
@@ -253,7 +314,7 @@ const Selector: FunctionComponent<{}> = () => {
           </div>
         )}
 
-        <div
+        {/* <div
           className="menu_choice"
           style={{
             marginTop: "64px",
@@ -268,6 +329,8 @@ const Selector: FunctionComponent<{}> = () => {
           >
             {attributes &&
               attributes.map((attribute) => {
+             //   console.log(attribute, 'attribute names');
+                
                 return (
                   <div
                     className="menu_choice_attribute"
@@ -399,7 +462,7 @@ const Selector: FunctionComponent<{}> = () => {
                 );
               })}
           </div>
-        </div>
+        </div> */}
 
         <div className="menu_footer">
           <div className="menu_price">
