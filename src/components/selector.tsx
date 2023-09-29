@@ -40,6 +40,7 @@ const Selector: FunctionComponent<{}> = () => {
     useState<string | null>(null);
 
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const selectedGroup = groups.find((group) => group.id === selectedGroupId);
   const selectedStep = selectedGroup
@@ -47,15 +48,30 @@ const Selector: FunctionComponent<{}> = () => {
     : null;
     
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
-  const attributes = useMemo(
-    () => (selectedStep || selectedGroup)?.attributes ?? [],
-    [selectedGroup, selectedStep]
-  );
+  const attributes = useMemo(() => (selectedStep || selectedGroup)?.attributes ?? [], [selectedGroup, selectedStep]);
+  //console.log(attributes, 'attributes name selection on check');
+  
+  const previeFunc = attributes.forEach((attr)=> {
+    attr.options.forEach((option) => {
+          if (option.selected && !!option.imageUrl) {
+            const Previewdata = {
+              image: option.imageUrl,
+              optionName: option.id,
+              attributeName: attr.id,
+              stepName: attr.name,
+              groupName: attr.code,
+            };
+           // console.log(Previewdata,'acct');   
+            return Previewdata
+                     
+          }
+    })
+  })
 
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
-
+  
   //console.log(selectedAttributeOptionName?.name,'selectedAttributeOptionName');
   // console.log(selectedAttribute?.options.map(x => if((x.selected === true)
   // )) 'selectedAttribute');
@@ -69,7 +85,6 @@ const Selector: FunctionComponent<{}> = () => {
 
       if (templates.length > 0) setTemplate(templates[0].id);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroup, groups]);
 
@@ -95,6 +110,49 @@ const Selector: FunctionComponent<{}> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedCameraID]);
 
+
+  // useEffect(() => {
+
+  //     // selectedGroup?.groups.forEach((group) => {
+  //     //   if (instanceOfViewerGroupAttribute(group)) {
+  //     //     group.attributes.forEach((attr) => {
+  //     //       attr.options.forEach((option) => {
+  //     //         if (option.selected && !!option.imageUrl) {
+  //     //           const Previewdata = {
+  //     //             image: option.imageUrl,
+  //     //             optionName: option.id,
+  //     //             attributeName: attr.id,
+  //     //             stepName: undefined,
+  //     //             groupName: group.id,
+  //     //           };
+  //     //           setPreviewImage(Previewdata);
+  //     //         }
+  //     //       });
+  //     //     });
+  //     //   }
+     
+  //       selectedGroup?.steps.forEach((step) => {
+  //           step.attributes.forEach((attr) => {
+  //             attr.options.forEach((option) => {
+  //               if (option.selected && !!option.imageUrl) {
+  //                 const Previewdata = {
+  //                   image: option.imageUrl,
+  //                   optionName: option.id,
+  //                   attributeName: attr.id,
+  //                   stepName: step.id,
+  //                   groupName: 'Kuch bhi' //group.id,
+  //                 };
+  //                 setPreviewImage(Previewdata);
+  //               }
+  //             });
+  //           });
+  //         });
+        
+  //         console.log('previewwwwwwwwwwwwwwww', previewImage);
+  //        // eslint-disable-next-line react-hooks/exhaustive-deps     
+  // }, [ selectedAttributeId, previewImage]);
+  
+
   if (isSceneLoading || !groups || groups.length === 0)
     return <span>Loading scene...</span>;
 
@@ -108,6 +166,9 @@ const Selector: FunctionComponent<{}> = () => {
   return (
     <Container>
       <Cameras cameras={groups} onSelect={setSelectedCameraID} />
+      <div>
+        <img src={previewImage?.image}/>
+      </div>
       <div
         className="menu"
         style={{
@@ -173,7 +234,7 @@ const Selector: FunctionComponent<{}> = () => {
             }}
           >
             {selectedGroup.steps.map((step) => {
-              console.log(selectedStepId, step ,'selected step');
+       //       console.log(selectedStepId, step ,'selected step');
               return (
                 <div
                   className="menu_choice_step_title"
