@@ -8,6 +8,9 @@ import Cameras from "./Cameras/Cameras";
 import Menu from "./Menu/Menu";
 
 import Viewer from "../pages/Viewer/Viewer";
+import Loader from "../components/Loader/Loader"
+// '../../../../components/Loader/Loader';
+
 
 const Container = styled.div`
   height: 100%;
@@ -49,25 +52,37 @@ const Selector: FunctionComponent<{}> = () => {
     
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(() => (selectedStep || selectedGroup)?.attributes ?? [], [selectedGroup, selectedStep]);
-  //console.log(attributes, 'attributes name selection on check');
   
-  const previeFunc = attributes.forEach((attr)=> {
-    attr.options.forEach((option) => {
-          if (option.selected && !!option.imageUrl) {
-            const Previewdata = {
-              image: option.imageUrl,
-              optionName: option.id,
-              attributeName: attr.id,
-              stepName: attr.name,
-              groupName: attr.code,
-            };
-           // console.log(Previewdata,'acct');   
-            return Previewdata
-                     
-          }
-    })
-  })
+  useEffect(() => {
 
+    console.log(attributes,'attri ')
+
+    const previewImage = attributes.forEach((attr)=> {
+       attr.options.forEach((option) => {
+             if (option.selected && !!option.imageUrl) {
+               const Previewdata = {
+                 image: option.imageUrl,
+                 optionName: option.id,
+                 attributeName: attr.id,
+                 stepName: attr.name,
+                 groupName: attr.code,
+               };
+               setPreviewImage(Previewdata)
+             //  console.log(Previewdata, 'previewImage');
+               //console.log(Previewdata,'attributes');
+               return;
+             }
+       })
+     })
+
+     console.log(previewImage,'prevoew');
+     
+
+  },[attributes, selectedGroup, selectedAttributeId, selectedCameraID])
+
+   
+
+  //  console.log(previewImage,'previewImage');
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
@@ -154,7 +169,7 @@ const Selector: FunctionComponent<{}> = () => {
   
 
   if (isSceneLoading || !groups || groups.length === 0)
-    return <span>Loading scene...</span>;
+    return <Loader visible={isSceneLoading} />
 
   // groups
   // -- attributes
@@ -165,8 +180,8 @@ const Selector: FunctionComponent<{}> = () => {
 
   return (
     <Container>
-      <Cameras cameras={groups} onSelect={setSelectedCameraID} />
       <div>
+       <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         <img src={previewImage?.image}/>
       </div>
       <div
