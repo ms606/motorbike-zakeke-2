@@ -5,12 +5,12 @@ import { List, ListItem, ListItemImage } from "./list";
 import "./selector.css";
 
 import Cameras from "./Cameras/Cameras";
+import Preview from "./Preview/Preview";
 import Menu from "./Menu/Menu";
-
+import SvgArrowDown from "../icons/Arrowdown";
 import Viewer from "../pages/Viewer/Viewer";
-import Loader from "../components/Loader/Loader"
+import Loader from "../components/Loader/Loader";
 // '../../../../components/Loader/Loader';
-
 
 const Container = styled.div`
   height: 100%;
@@ -49,44 +49,42 @@ const Selector: FunctionComponent<{}> = () => {
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
-    
+
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
-  const attributes = useMemo(() => (selectedStep || selectedGroup)?.attributes ?? [], [selectedGroup, selectedStep]);
-  
+  const attributes = useMemo(
+    () => (selectedStep || selectedGroup)?.attributes ?? [],
+    [selectedGroup, selectedStep]
+  );
+
   useEffect(() => {
+    //console.log(attributes,'attri ')
 
-    console.log(attributes,'attri ')
+    const previewImage = attributes.forEach((attr) => {
+      attr.options.forEach((option) => {
+        if (option.selected && !!option.imageUrl) {
+          const Previewdata = {
+            image: option.imageUrl,
+            optionName: option.id,
+            attributeName: attr.id,
+            stepName: attr.name,
+            groupName: attr.code,
+          };
+          setPreviewImage(Previewdata);
+          //  console.log(Previewdata, 'previewImage');
+          //console.log(Previewdata,'attributes');
+          return;
+        }
+      });
+    });
 
-    const previewImage = attributes.forEach((attr)=> {
-       attr.options.forEach((option) => {
-             if (option.selected && !!option.imageUrl) {
-               const Previewdata = {
-                 image: option.imageUrl,
-                 optionName: option.id,
-                 attributeName: attr.id,
-                 stepName: attr.name,
-                 groupName: attr.code,
-               };
-               setPreviewImage(Previewdata)
-             //  console.log(Previewdata, 'previewImage');
-               //console.log(Previewdata,'attributes');
-               return;
-             }
-       })
-     })
-
-     console.log(previewImage,'prevoew');
-     
-
-  },[attributes, selectedGroup, selectedAttributeId, selectedCameraID])
-
-   
+    //console.log(previewImage,'prevoew');
+  }, [attributes, selectedGroup, selectedAttributeId, selectedCameraID]);
 
   //  console.log(previewImage,'previewImage');
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
-  
+
   //console.log(selectedAttributeOptionName?.name,'selectedAttributeOptionName');
   // console.log(selectedAttribute?.options.map(x => if((x.selected === true)
   // )) 'selectedAttribute');
@@ -125,7 +123,6 @@ const Selector: FunctionComponent<{}> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedCameraID]);
 
-
   // useEffect(() => {
 
   //     // selectedGroup?.groups.forEach((group) => {
@@ -145,7 +142,7 @@ const Selector: FunctionComponent<{}> = () => {
   //     //       });
   //     //     });
   //     //   }
-     
+
   //       selectedGroup?.steps.forEach((step) => {
   //           step.attributes.forEach((attr) => {
   //             attr.options.forEach((option) => {
@@ -162,14 +159,13 @@ const Selector: FunctionComponent<{}> = () => {
   //             });
   //           });
   //         });
-        
+
   //         console.log('previewwwwwwwwwwwwwwww', previewImage);
-  //        // eslint-disable-next-line react-hooks/exhaustive-deps     
+  //        // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [ selectedAttributeId, previewImage]);
-  
 
   if (isSceneLoading || !groups || groups.length === 0)
-    return <Loader visible={isSceneLoading} />
+    return <Loader visible={isSceneLoading} />;
 
   // groups
   // -- attributes
@@ -181,8 +177,9 @@ const Selector: FunctionComponent<{}> = () => {
   return (
     <Container>
       <div>
-       <Cameras cameras={groups} onSelect={setSelectedCameraID} />
-        <img src={previewImage?.image}/>
+        <Cameras cameras={groups} onSelect={setSelectedCameraID} />
+        {previewImage?.image && <Preview PreviewImage={previewImage} />}
+        {/* <img src={previewImage?.image}/> */}
       </div>
       <div
         className="menu"
@@ -235,8 +232,8 @@ const Selector: FunctionComponent<{}> = () => {
             );
           })}
         </div>
-        
-         <br />
+
+        <br />
         {selectedGroup && selectedGroup.steps.length > 0 && (
           <div
             style={{
@@ -249,7 +246,7 @@ const Selector: FunctionComponent<{}> = () => {
             }}
           >
             {selectedGroup.steps.map((step) => {
-       //       console.log(selectedStepId, step ,'selected step');
+              //       console.log(selectedStepId, step ,'selected step');
               return (
                 <div
                   className="menu_choice_step_title"
@@ -262,7 +259,7 @@ const Selector: FunctionComponent<{}> = () => {
                     padding: "12px 4px",
                     fontFamily: "Avenir Next ,sans-serif",
                     fontStyle: "normal",
-                    lineHeight: "16px",
+                    lineHeight: "10px",
                     fontWeight: "400",
                     fontSize: "20px",
                     color: "var(--template-primary--900)",
@@ -272,141 +269,163 @@ const Selector: FunctionComponent<{}> = () => {
                 >
                   <br />
                   <br />
-
-                  {step.name}
+                  <div className="menu_choice_step_description">{step.name}</div>
+                  
 
                   <br />
                   <br />
 
-                  {step.id === selectedStepId && step.attributes.map((attribute) => {
-                    //   console.log(attribute, 'selected step, selectedGroup');
-                    return (
-                      <>
-                        <div
-                          className="menu_choice_attribute_title"
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            width: "100%",
-                            cursor: "pointer",
-                            padding: "16px 4px",
-                            fontFamily: "Avenir Next ,sans-serif",
-                            fontStyle: "normal",
-                            fontWeight: "400",
-                            fontSize: "16px",
-                            lineHeight: "16px",
-                            color: "var(--template-primary--600)",
-                            borderBottom: selectedAttributeId != attribute.id ?  "1px solid var(--template-primary--400)" : ''
-
-                          }}
-                          onClick={() => {
-                            if (selectedAttributeId === attribute.id) {
-                              selectAttribute(null);
-                            } else {
-                              selectAttribute(attribute.id);
-                            }
-                          }}
-                        >
-                          <br />
+                  {step.id === selectedStepId &&
+                    step.attributes.map((attribute) => {
+                      //   console.log(attribute, 'selected step, selectedGroup');
+                      return (
+                        <>
                           <div
-                            className="menu_choice_attribute_selection_icon"
+                            className="menu_choice_attribute_title"
                             style={{
-                              width: "21px",
-                              height: "21px",
-                              marginRight: "12px",
-                              fill: "var(--template-primary--600)"
+                              display: "flex",
+                              flexDirection: "row",
+                              width: "100%",
+                              cursor: "pointer",
+                              padding: "16px 4px",
+                              fontFamily: "Avenir Next ,sans-serif",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              fontSize: "16px",
+                              lineHeight: "10px",
+                              color: selectedAttributeId === attribute.id ? "var(--template-primary--900)" : "var(--template-primary--600)",
+                              borderBottom:
+                                selectedAttributeId != attribute.id
+                                  ? "1px solid var(--template-primary--400)"
+                                  : "",
+                            }}
+                            onClick={() => {
+                              if (selectedAttributeId === attribute.id) {
+                                selectAttribute(null);
+                              } else {
+                                selectAttribute(attribute.id);
+                              }
                             }}
                           >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 32 32"
-                              data-testid="check-icon"
+                            <br />
+                            <div
+                              className="menu_choice_attribute_selection_icon"
+                              style={{
+                                width: "21px",
+                                height: "21px",
+                                marginRight: "12px",
+                                fill: selectedAttributeId === attribute.id ? "var(--template-primary--900)" : "var(--template-primary--600)",
+                              }}
                             >
-                              <path d="M14 21.414l-5-5.001L10.413 15 14 18.586 21.585 11 23 12.415l-9 8.999z"></path>
-                              <path d="M16 2a14 14 0 1014 14A14 14 0 0016 2zm0 26a12 12 0 1112-12 12 12 0 01-12 12z"></path>
-                              <path
-                                data-name="<Transparent Rectangle>"
-                                fill="none"
-                                d="M0 0h32v32H0z"
-                              ></path>
-                            </svg>
-                          </div>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 32 32"
+                                data-testid="check-icon"
+                              >
+                                <path d="M14 21.414l-5-5.001L10.413 15 14 18.586 21.585 11 23 12.415l-9 8.999z"></path>
+                                <path d="M16 2a14 14 0 1014 14A14 14 0 0016 2zm0 26a12 12 0 1112-12 12 12 0 01-12 12z"></path>
+                                <path
+                                  data-name="<Transparent Rectangle>"
+                                  fill="none"
+                                  d="M0 0h32v32H0z"
+                                ></path>
+                              </svg>
+                            </div>
 
-                          {attribute.name}
-
-                          <br />
-
-                          <div className="MenuChoiceAttributeTitle_ff_menu_choice_attribute_state_icon__2wu0g"
-                          style={{width: "21px",
-                          height: "21px",}}
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M16 22L6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"></path><path fill="none" d="M0 0h32v32H0z"></path></svg></div>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                          }}
-                        >
-                          {attribute.options.map((option) => {
-                            //  console.log(option,'attribute option detail');
-                            return (
+                            <div
+                              className="menu_choice_attribute_description"
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginRight: "auto",
+                              }}
+                            >
+                              {attribute.name}
+                            </div>
+                            <br />
+                            <div
+                              className="menu_choice_attribute_state_icon"
+                              style={{ width: "21px", height: "21px" }}
+                            >
                               <div
                                 style={{
-                                  marginRight: "10px",
-                                  width: "calc(25% - 16px)",
+                                  transform:
+                                    attribute.id === selectedAttributeId
+                                      ? "rotate(-180deg)"
+                                      : "",
                                 }}
                               >
-                                <div>
-                                  {selectedAttributeId ===
-                                    option.attribute.id &&
-                                    option.imageUrl && (
-                                      <ListItem
-                                        key={option.id}
-                                        onClick={() => selectOption(option.id)}
-                                        selected={option.selected}
-                                        className="menu_choice_option"
-                                      >
-                                        <div
-                                          className="menu_choice_option_image_container"
-                                          style={{
-                                            width: "68px",
-                                            height: "68px",
-                                            margin: "0 auto",
-                                            borderRadius: "8px",
-                                          }}
-                                        >
-                                          {option.imageUrl && (
-                                            <ListItemImage
-                                              src={option.imageUrl}
-                                            />
-                                          )}
-                                        </div>
-
-                                        <div
-                                          className="menu_choice_option_description"
-                                          style={{
-                                            fontSize: "16px",
-                                            lineHeight: "1.4em",
-                                            textAlign: "center",
-                                            marginTop: "8px",
-                                            color:
-                                              "var(--template-primary--600)",
-                                          }}
-                                        >
-                                          {option.name}
-                                        </div>
-                                      </ListItem>
-                                    )}
-                                </div>
+                              <SvgArrowDown />
                               </div>
-                            );
-                          })}
-                        </div>
-                      </>
-                    );
-                  })}
+                            </div>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              flexWrap: "wrap",
+                            }}
+                          >
+                            {attribute.options.map((option) => {
+                              //  console.log(option,'attribute option detail');
+                              return (
+                                <div
+                                  style={{
+                                    marginRight: "10px",
+                                    width: "calc(25% - 16px)",
+                                  }}
+                                >
+                                  <div>
+                                    {selectedAttributeId ===
+                                      option.attribute.id &&
+                                      option.imageUrl && (
+                                        <ListItem
+                                          key={option.id}
+                                          onClick={() =>
+                                            selectOption(option.id)
+                                          }
+                                          selected={option.selected}
+                                          className="menu_choice_option"
+                                        >
+                                          <div
+                                            className="menu_choice_option_image_container"
+                                            style={{
+                                              width: "68px",
+                                              height: "68px",
+                                              margin: "0 auto",
+                                              borderRadius: "8px",
+                                            }}
+                                          >
+                                            {option.imageUrl && (
+                                              <ListItemImage
+                                                src={option.imageUrl}
+                                              />
+                                            )}
+                                          </div>
+
+                                          <div
+                                            className="menu_choice_option_description"
+                                            style={{
+                                              fontSize: "16px",
+                                              lineHeight: "1.4em",
+                                              textAlign: "center",
+                                              marginTop: "8px",
+                                              color:
+                                                "var(--template-primary--600)",
+                                            }}
+                                          >
+                                            {option.name}
+                                          </div>
+                                        </ListItem>
+                                      )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </>
+                      );
+                    })}
                 </div>
               );
             })}
