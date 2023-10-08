@@ -40,6 +40,7 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
           key={camera.id}
           data-testid="camera"
           className="cameras_camera"
+          style={{filter: "grayscale(1)"}}
         >
           <img
             src={camera.imageUrl || `imgs/camera.png`}

@@ -23,7 +23,7 @@
     align-items: center;
     position: relative;
     bottom: 3em;
-    padding: 20px 0 0 20px;
+    padding: 27px 0 0 20px;
 }
 
 .menu_price {
@@ -44,6 +44,10 @@
 .menu_actions { 
     display: flex;
     margin-left: auto;
+}
+
+.menu_btn_cart {
+    margin-right: 10px;
 }
 
 .menu_btn_share_icon {

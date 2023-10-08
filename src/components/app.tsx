@@ -4,13 +4,13 @@ import { ZakekeEnvironment, ZakekeViewer, ZakekeProvider } from 'zakeke-configur
 import Selector from './selector';
 import Viewer from '../pages/Viewer/Viewer';
 
-const Layout = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 0.6fr;
-    // grid-gap: 40px;
-    height: 100%;
-    padding: 40px;
-`;
+// const Layout = styled.div`
+//     display: grid;
+//     grid-template-columns: 1fr 0.6fr;
+//     // grid-gap: 40px;
+//     height: 100%;
+//     padding: 40px;
+// `;
 
 const zakekeEnvironment = new ZakekeEnvironment();
 

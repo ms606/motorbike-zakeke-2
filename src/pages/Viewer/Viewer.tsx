@@ -14,7 +14,7 @@ const zakekeEnvironment = new ZakekeEnvironment();
 
 const Layout = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     grid-gap: 40px;
     height: 100%;
     padding: 40px;

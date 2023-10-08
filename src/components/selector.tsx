@@ -6,7 +6,7 @@ import "./selector.css";
 
 import Cameras from "./Cameras/Cameras";
 import Preview from "./Preview/Preview";
-import Menu from "./Menu/Menu";
+//import Menu from "./Menu/Menu";
 import SvgArrowDown from "../icons/Arrowdown";
 import Viewer from "../pages/Viewer/Viewer";
 import Loader from "../components/Loader/Loader";
@@ -188,10 +188,10 @@ const Selector: FunctionComponent<{}> = () => {
           flexFlow: "column",
           position: "relative",
           maxHeight: "calc(100% - 3px)",
-          overflowY: "auto",
-          padding: "32px 26px",
-          backgroundColor: "var(--template-primary--000)",
-          borderRadius: "32px",
+          height: "calc(100vh - 72px)",
+          // padding: "32px 26px",
+          // backgroundColor: "var(--template-primary--000)",
+          // borderRadius: "32px",
         }}
       >
         <div
@@ -237,19 +237,22 @@ const Selector: FunctionComponent<{}> = () => {
         {selectedGroup && selectedGroup.steps.length > 0 && (
           <div
             style={{
+              // height: "69vh",
               margin: "0",
-              padding: "0",
+              padding: "32px 26px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               marginBottom: "40px",
+              borderRadius: "32px",
+              backgroundColor: "var(--template-primary--000)",
             }}
           >
             {selectedGroup.steps.map((step) => {
               //       console.log(selectedStepId, step ,'selected step');
               return (
                 <div
-                  className="menu_choice_step_title"
+                  className="menu_choice_step_step"
                   key={step.id}
                   onClick={() => selectStep(step.id)}
                   style={{
@@ -267,13 +270,22 @@ const Selector: FunctionComponent<{}> = () => {
                   }}
                   //selected={selectedStep === step}
                 >
-                  <br />
-                  <br />
-                  <div className="menu_choice_step_description">{step.name}</div>
-                  
+             
+                  <div className="menu_choice_step_title" 
+                      style={{display: "flex", 
+                              borderBottom: selectedStepId != step.id ? "1px solid var(--template-primary--400)" : ''}}>
 
-                  <br />
-                  <br />
+                    <div className="menu_choice_step_description"
+                        style={{paddingBottom: "1em", 
+                                // borderBottom: selectedStepId != step.id ? "1px solid var(--template-primary--400)": "",
+                                marginRight: "auto"}}>
+                        {step.name}
+                    </div>
+                    <div className="menu_choice_step_toggle" 
+                         style={{fontSize: "12px", lineHeight: "16px", textTransform: "uppercase"}}>
+                        {selectedStepId != step.id ? 'Customize' : 'Close'}
+                    </div>  
+                  </div>
 
                   {step.id === selectedStepId &&
                     step.attributes.map((attribute) => {
@@ -371,8 +383,9 @@ const Selector: FunctionComponent<{}> = () => {
                               return (
                                 <div
                                   style={{
-                                    marginRight: "10px",
-                                    width: "calc(25% - 16px)",
+                                    //marginRight: "10px",
+                                    marginLeft: "5px",
+                                    width: "23%",
                                   }}
                                 >
                                   <div>
