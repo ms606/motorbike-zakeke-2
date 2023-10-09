@@ -270,21 +270,36 @@ const Selector: FunctionComponent<{}> = () => {
                   }}
                   //selected={selectedStep === step}
                 >
-             
-                  <div className="menu_choice_step_title" 
-                      style={{display: "flex", 
-                              borderBottom: selectedStepId != step.id ? "1px solid var(--template-primary--400)" : ''}}>
-
-                    <div className="menu_choice_step_description"
-                        style={{paddingBottom: "1em", 
-                                // borderBottom: selectedStepId != step.id ? "1px solid var(--template-primary--400)": "",
-                                marginRight: "auto"}}>
-                        {step.name}
+                  <div
+                    className="menu_choice_step_title"
+                    style={{
+                      display: "flex",
+                      borderBottom:
+                        selectedStepId != step.id
+                          ? "1px solid var(--template-primary--400)"
+                          : "",
+                    }}
+                  >
+                    <div
+                      className="menu_choice_step_description"
+                      style={{
+                        paddingBottom: "1em",
+                        // borderBottom: selectedStepId != step.id ? "1px solid var(--template-primary--400)": "",
+                        marginRight: "auto",
+                      }}
+                    >
+                      {step.name}
                     </div>
-                    <div className="menu_choice_step_toggle" 
-                         style={{fontSize: "12px", lineHeight: "16px", textTransform: "uppercase"}}>
-                        {selectedStepId != step.id ? 'Customize' : 'Close'}
-                    </div>  
+                    <div
+                      className="menu_choice_step_toggle"
+                      style={{
+                        fontSize: "12px",
+                        lineHeight: "16px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {selectedStepId != step.id ? "Customize" : "Close"}
+                    </div>
                   </div>
 
                   {step.id === selectedStepId &&
@@ -305,7 +320,10 @@ const Selector: FunctionComponent<{}> = () => {
                               fontWeight: "400",
                               fontSize: "16px",
                               lineHeight: "10px",
-                              color: selectedAttributeId === attribute.id ? "var(--template-primary--900)" : "var(--template-primary--600)",
+                              color:
+                                selectedAttributeId === attribute.id
+                                  ? "var(--template-primary--900)"
+                                  : "var(--template-primary--600)",
                               borderBottom:
                                 selectedAttributeId != attribute.id
                                   ? "1px solid var(--template-primary--400)"
@@ -326,7 +344,10 @@ const Selector: FunctionComponent<{}> = () => {
                                 width: "21px",
                                 height: "21px",
                                 marginRight: "12px",
-                                fill: selectedAttributeId === attribute.id ? "var(--template-primary--900)" : "var(--template-primary--600)",
+                                fill:
+                                  selectedAttributeId === attribute.id
+                                    ? "var(--template-primary--900)"
+                                    : "var(--template-primary--600)",
                               }}
                             >
                               <svg
@@ -355,6 +376,9 @@ const Selector: FunctionComponent<{}> = () => {
                               {attribute.name}
                             </div>
                             <br />
+                            <div>
+                              Color Name
+                            </div>
                             <div
                               className="menu_choice_attribute_state_icon"
                               style={{ width: "21px", height: "21px" }}
@@ -367,74 +391,90 @@ const Selector: FunctionComponent<{}> = () => {
                                       : "",
                                 }}
                               >
-                              <SvgArrowDown />
+                                <SvgArrowDown />
                               </div>
                             </div>
                           </div>
                           <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              flexWrap: "wrap",
-                            }}
+                            style={
+                              {
+                                display: "flex",
+                                flexDirection: "row",
+                                flexWrap: "wrap",
+                              }
+                            }
                           >
-                            {attribute.options.map((option) => {
-                              //  console.log(option,'attribute option detail');
-                              return (
-                                <div
-                                  style={{
-                                    //marginRight: "10px",
-                                    marginLeft: "5px",
-                                    width: "23%",
-                                  }}
-                                >
-                                  <div>
-                                    {selectedAttributeId ===
-                                      option.attribute.id &&
-                                      option.imageUrl && (
-                                        <ListItem
-                                          key={option.id}
-                                          onClick={() =>
-                                            selectOption(option.id)
-                                          }
-                                          selected={option.selected}
-                                          className="menu_choice_option"
-                                        >
-                                          <div
-                                            className="menu_choice_option_image_container"
-                                            style={{
-                                              width: "68px",
-                                              height: "68px",
-                                              margin: "0 auto",
-                                              borderRadius: "8px",
-                                            }}
-                                          >
-                                            {option.imageUrl && (
-                                              <ListItemImage
-                                                src={option.imageUrl}
-                                              />
-                                            )}
-                                          </div>
+                            {/* <div className="menu_choice_options_container">
+                              <div
+                                className="menu_choice_options"
+                                style={{
+                                  display: "flex",
+                                  height: "0",
+                                  flexFlow: "row wrap",
+                                  justifyContent: "flex-start",
+                                  transition: "all .5s ease-out",
+                                  opacity: "1",
+                                }}
+                              > */}
+                                {attribute.options.map((option) => {
+                                  //  console.log(option,'attribute option detail');
+                                  return (
+                                    <div
+                                      style={{
+                                        //marginRight: "10px",
+                                        marginLeft: "5px",
+                                        width: "23%",
+                                      }}
+                                    >
+                                      <div>
+                                        {selectedAttributeId ===
+                                          option.attribute.id &&
+                                          option.imageUrl && (
+                                            <ListItem
+                                              key={option.id}
+                                              onClick={() =>
+                                                selectOption(option.id)
+                                              }
+                                              selected={option.selected}
+                                              className="menu_choice_option"
+                                            >
+                                              <div
+                                                className="menu_choice_option_image_container"
+                                                style={{
+                                                  width: "68px",
+                                                  height: "68px",
+                                                  margin: "0 auto",
+                                                  borderRadius: "8px",
+                                                }}
+                                              >
+                                                {option.imageUrl && (
+                                                  <ListItemImage
+                                                    src={option.imageUrl}
+                                                  />
+                                                )}
+                                              </div>
 
-                                          <div
-                                            className="menu_choice_option_description"
-                                            style={{
-                                              fontSize: "16px",
-                                              lineHeight: "1.4em",
-                                              textAlign: "center",
-                                              marginTop: "8px",
-                                              color:
-                                                "var(--template-primary--600)",
-                                            }}
-                                          >
-                                            {option.name}
-                                          </div>
-                                        </ListItem>
-                                      )}
-                                  </div>
-                                </div>
-                              );
-                            })}
+                                              <div
+                                                className="menu_choice_option_description"
+                                                style={{
+                                                  fontSize: "16px",
+                                                  lineHeight: "1.4em",
+                                                  textAlign: "center",
+                                                  marginTop: "8px",
+                                                  color:
+                                                    "var(--template-primary--600)",
+                                                }}
+                                              >
+                                                {option.name}
+                                              </div>
+                                            </ListItem>
+                                          )}
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              {/* </div>
+                            </div> */}
                           </div>
                         </>
                       );
