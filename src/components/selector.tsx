@@ -3,13 +3,16 @@ import styled from "styled-components";
 import { useZakeke, Option } from "zakeke-configurator-react";
 import { List, ListItem, ListItemImage } from "./list";
 import "./selector.css";
+import "./Menu/menu.css";
 
 import Cameras from "./Cameras/Cameras";
 import Preview from "./Preview/Preview";
 //import Menu from "./Menu/Menu";
 import SvgArrowDown from "../icons/Arrowdown";
+import ShareIcon from "../icons/ShareIcon";
 import Viewer from "../pages/Viewer/Viewer";
 import Loader from "../components/Loader/Loader";
+import SelectionIcon from "../icons/SelectionIcon";
 // '../../../../components/Loader/Loader';
 
 const Container = styled.div`
@@ -41,6 +44,7 @@ const Selector: FunctionComponent<{}> = () => {
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
   const [selectedAttributeOptionName, setSelectedAttributeOptionName] =
     useState<string | null>(null);
+  const [selectedOptionName, selectOptionName] = useState<string | null>(null);
 
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
@@ -181,46 +185,12 @@ const Selector: FunctionComponent<{}> = () => {
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
         {/* <img src={previewImage?.image}/> */}
       </div>
-      <div
-        className="menu"
-        style={{
-          display: "flex",
-          flexFlow: "column",
-          position: "relative",
-          maxHeight: "calc(100% - 3px)",
-          height: "calc(100vh - 72px)",
-          // padding: "32px 26px",
-          // backgroundColor: "var(--template-primary--000)",
-          // borderRadius: "32px",
-        }}
-      >
-        <div
-          className="menu_group"
-          style={{
-            // position: "absolute",
-            height: "58px",
-            // overflow: "auto",
-            whiteSpace: "nowrap",
-            top: "30px",
-          }}
-        >
+      <div className="menu">
+        <div className="menu_group">
           {groups.map((group) => {
             return (
               <div
-                style={{
-                  display: "inline-block",
-                  padding: "16px",
-                  background: "#f4f4f4",
-                  color: "#838383",
-                  fontSize: "16px",
-                  fontWeight: "400",
-                  boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-                  borderRadius: "60px",
-                  marginLeft: "8px",
-                  cursor: "pointer",
-                  marginRight: "4px",
-                  marginBottom: "2px",
-                }}
+                className="menu_item"
                 key={group.id}
                 onClick={() => {
                   selectGroup(group.id);
@@ -235,19 +205,7 @@ const Selector: FunctionComponent<{}> = () => {
 
         <br />
         {selectedGroup && selectedGroup.steps.length > 0 && (
-          <div
-            style={{
-              // height: "69vh",
-              margin: "0",
-              padding: "32px 26px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginBottom: "40px",
-              borderRadius: "32px",
-              backgroundColor: "var(--template-primary--000)",
-            }}
-          >
+          <div className="menu_choice_steps">
             {selectedGroup.steps.map((step) => {
               //       console.log(selectedStepId, step ,'selected step');
               return (
@@ -255,19 +213,6 @@ const Selector: FunctionComponent<{}> = () => {
                   className="menu_choice_step_step"
                   key={step.id}
                   onClick={() => selectStep(step.id)}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "12px 4px",
-                    fontFamily: "Avenir Next ,sans-serif",
-                    fontStyle: "normal",
-                    lineHeight: "10px",
-                    fontWeight: "400",
-                    fontSize: "20px",
-                    color: "var(--template-primary--900)",
-                    cursor: "pointer",
-                  }}
                   //selected={selectedStep === step}
                 >
                   <div
@@ -284,7 +229,6 @@ const Selector: FunctionComponent<{}> = () => {
                       className="menu_choice_step_description"
                       style={{
                         paddingBottom: "1em",
-                        // borderBottom: selectedStepId != step.id ? "1px solid var(--template-primary--400)": "",
                         marginRight: "auto",
                       }}
                     >
@@ -310,16 +254,6 @@ const Selector: FunctionComponent<{}> = () => {
                           <div
                             className="menu_choice_attribute_title"
                             style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              width: "100%",
-                              cursor: "pointer",
-                              padding: "16px 4px",
-                              fontFamily: "Avenir Next ,sans-serif",
-                              fontStyle: "normal",
-                              fontWeight: "400",
-                              fontSize: "16px",
-                              lineHeight: "10px",
                               color:
                                 selectedAttributeId === attribute.id
                                   ? "var(--template-primary--900)"
@@ -350,19 +284,7 @@ const Selector: FunctionComponent<{}> = () => {
                                     : "var(--template-primary--600)",
                               }}
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 32 32"
-                                data-testid="check-icon"
-                              >
-                                <path d="M14 21.414l-5-5.001L10.413 15 14 18.586 21.585 11 23 12.415l-9 8.999z"></path>
-                                <path d="M16 2a14 14 0 1014 14A14 14 0 0016 2zm0 26a12 12 0 1112-12 12 12 0 01-12 12z"></path>
-                                <path
-                                  data-name="<Transparent Rectangle>"
-                                  fill="none"
-                                  d="M0 0h32v32H0z"
-                                ></path>
-                              </svg>
+                              <SelectionIcon />
                             </div>
 
                             <div
@@ -376,8 +298,16 @@ const Selector: FunctionComponent<{}> = () => {
                               {attribute.name}
                             </div>
                             <br />
-                            <div>
-                              Color Name
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginRight: "1em",
+                              }}
+                            >
+                              {selectedAttributeId === attribute.id
+                                ? selectedOptionName
+                                : ""}
                             </div>
                             <div
                               className="menu_choice_attribute_state_icon"
@@ -389,6 +319,10 @@ const Selector: FunctionComponent<{}> = () => {
                                     attribute.id === selectedAttributeId
                                       ? "rotate(-180deg)"
                                       : "",
+                                  fill:
+                                    attribute.id === selectedAttributeId
+                                      ? "var(--template-primary--900)"
+                                      : "var(--template-primary--600)",
                                 }}
                               >
                                 <SvgArrowDown />
@@ -396,84 +330,54 @@ const Selector: FunctionComponent<{}> = () => {
                             </div>
                           </div>
                           <div
-                            style={
-                              {
-                                display: "flex",
-                                flexDirection: "row",
-                                flexWrap: "wrap",
-                              }
-                            }
+                            style={{
+                              marginTop: "10px",
+                              display: "flex",
+                              flexDirection: "row",
+                              flexWrap: "wrap",
+                            }}
                           >
-                            {/* <div className="menu_choice_options_container">
-                              <div
-                                className="menu_choice_options"
-                                style={{
-                                  display: "flex",
-                                  height: "0",
-                                  flexFlow: "row wrap",
-                                  justifyContent: "flex-start",
-                                  transition: "all .5s ease-out",
-                                  opacity: "1",
-                                }}
-                              > */}
-                                {attribute.options.map((option) => {
-                                  //  console.log(option,'attribute option detail');
-                                  return (
-                                    <div
-                                      style={{
-                                        //marginRight: "10px",
-                                        marginLeft: "5px",
-                                        width: "23%",
-                                      }}
-                                    >
-                                      <div>
-                                        {selectedAttributeId ===
-                                          option.attribute.id &&
-                                          option.imageUrl && (
-                                            <ListItem
-                                              key={option.id}
-                                              onClick={() =>
-                                                selectOption(option.id)
-                                              }
-                                              selected={option.selected}
-                                              className="menu_choice_option"
-                                            >
-                                              <div
-                                                className="menu_choice_option_image_container"
-                                                style={{
-                                                  width: "68px",
-                                                  height: "68px",
-                                                  margin: "0 auto",
-                                                  borderRadius: "8px",
-                                                }}
-                                              >
-                                                {option.imageUrl && (
-                                                  <ListItemImage
-                                                    src={option.imageUrl}
-                                                  />
-                                                )}
-                                              </div>
+                            {attribute.options.map((option) => {
+                              //  console.log(option,'attribute option detail');
+                              return (
+                                <div
+                                  style={{
+                                    //marginRight: "10px",
+                                    marginLeft: "5px",
+                                    width: "23%",
+                                  }}
+                                >
+                                  <div>
+                                    {selectedAttributeId ===
+                                      option.attribute.id &&
+                                      option.imageUrl && (
+                                        <ListItem
+                                          key={option.id}
+                                          onClick={() => {
+                                            selectOptionName(option.name);
+                                            selectOption(option.id);
+                                          }}
+                                          selected={option.selected}
+                                          className="menu_choice_option"
+                                        >
+                                          <div className="menu_choice_option_image_container">
+                                            {option.imageUrl && (
+                                              <ListItemImage
+                                                src={option.imageUrl}
+                                              />
+                                            )}
+                                          </div>
 
-                                              <div
-                                                className="menu_choice_option_description"
-                                                style={{
-                                                  fontSize: "16px",
-                                                  lineHeight: "1.4em",
-                                                  textAlign: "center",
-                                                  marginTop: "8px",
-                                                  color:
-                                                    "var(--template-primary--600)",
-                                                }}
-                                              >
-                                                {option.name}
-                                              </div>
-                                            </ListItem>
-                                          )}
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              {/* </div>
+                                          <div className="menu_choice_option_description">
+                                            {option.name}
+                                          </div>
+                                        </ListItem>
+                                      )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                            {/* </div>
                             </div> */}
                           </div>
                         </>
@@ -484,156 +388,6 @@ const Selector: FunctionComponent<{}> = () => {
             })}
           </div>
         )}
-
-        {/* <div
-          className="menu_choice"
-          style={{
-            marginTop: "64px",
-            backgroundColor: "var(--template-primary--000)",
-            borderRadius: "32px",
-            padding: "32px 26px",
-          }}
-        >
-          <div
-            className="menu_choice_attributes"
-            style={{ color: "var(--template-primary--600)", overflowY: "auto" }}
-          >
-            {attributes &&
-              attributes.map((attribute) => {
-             //   console.log(attribute, 'attribute names');
-                
-                return (
-                  <div
-                    className="menu_choice_attribute"
-                    style={{
-                      display: "flex",
-                      flexFlow: "column",
-                      borderBottom: "1px Solid #d7d7d7",
-                      maxWidth: "100%",
-                    }}
-                  >
-                    <div
-                      className="menu_choice_attribute_title"
-                      key={attribute.id}
-                      onClick={() => selectAttribute(attribute.id)}
-                      style={{
-                        display: "flex",
-                        flexFlow: "row",
-                        alignItems: "center",
-                        cursor: "pointer",
-                      }}
-                      //selected={selectedAttribute === attribute}
-                    >
-                      <div
-                        className="menu_choice_attribute_selection_icon"
-                        style={{
-                          width: "21px",
-                          height: "21px",
-                          marginRight: "12px",
-                        }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 32 32"
-                          data-testid="check-icon"
-                        >
-                          <path d="M14 21.414l-5-5.001L10.413 15 14 18.586 21.585 11 23 12.415l-9 8.999z"></path>
-                          <path d="M16 2a14 14 0 1014 14A14 14 0 0016 2zm0 26a12 12 0 1112-12 12 12 0 01-12 12z"></path>
-                          <path
-                            data-name="<Transparent Rectangle>"
-                            fill="none"
-                            d="M0 0h32v32H0z"
-                          ></path>
-                        </svg>
-                      </div>
-                      <div
-                        className="menu_choice_attribute_description"
-                        style={{ marginRight: "auto" }}
-                      >
-                        {" "}
-                        {attribute.name}
-                      </div>
-                      <div
-                        className="menu_choice_attribute_description"
-                        style={{ marginLeft: "auto" }}
-                      >
-                        {selectedAttributeOptionName}
-                      </div>
-                      <div
-                        className="menu_choice_attribute_state_icon"
-                        style={{
-                          width: "21px",
-                          height: "21px",
-                          marginRight: "12px",
-                        }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 32 32"
-                        >
-                          <path d="M16 22L6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"></path>
-                          <path fill="none" d="M0 0h32v32H0z"></path>
-                        </svg>
-                      </div>
-
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexFlow: "row-wrap",
-              justifyContent: "flex-start",
-              flexWrap: "wrap",
-              margin: "0 8px"
-            }}
-          >
-            {selectedAttribute &&
-              selectedAttribute.options.map((option) => {
-                return (
-                  <ListItem
-                    key={option.id}
-                    onClick={() => selectOption(option.id)}
-                    selected={option.selected}
-                    className="menu_choice_option"
-                  >
-                    <div
-                      className="menu_choice_option_image_container"
-                      style={{
-                        width: "68px",
-                        height: "68px",
-                        margin: "0 auto",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      {option.imageUrl && (
-                        <ListItemImage src={option.imageUrl} />
-                      )}
-                    </div>
-
-                    <div
-                      className="menu_choice_option_description"
-                      style={{
-                        fontSize: "16px",
-                        lineHeight: "1.4em",
-                        textAlign: "center",
-                        marginTop: "8px",
-                        color: "var(--template-primary--600)",
-                      }}
-                    >
-                      {option.name}
-                    </div>
-                  </ListItem>
-                );
-              })}
-          </div>
-        </div> */}
 
         <div className="menu_footer">
           <div className="menu_price">
@@ -654,16 +408,7 @@ const Selector: FunctionComponent<{}> = () => {
             {
               <button className="btn btn-secondary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__share__1sacu">
                 <div className="menu_btn_share_icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.25 15a3.752 3.752 0 00-2.918 1.418L8.85 12.99c.2-.645.2-1.335 0-1.98l5.482-3.427A3.75 3.75 0 1013.5 5.25c.003.335.054.669.15.99L8.167 9.668a3.75 3.75 0 100 4.665l5.483 3.427a3.59 3.59 0 00-.15.99A3.75 3.75 0 1017.25 15zm0-12a2.25 2.25 0 110 4.5 2.25 2.25 0 010-4.5zm-12 11.25a2.25 2.25 0 110-4.499 2.25 2.25 0 010 4.499zm12 6.75a2.25 2.25 0 110-4.5 2.25 2.25 0 010 4.5z"
-                      fill="#292929"
-                    ></path>
-                  </svg>
+                  <ShareIcon />
                 </div>
                 {/* <span className="Menu_ff_menu__btn__share_text__3eeX0">Share</span> */}
               </button>

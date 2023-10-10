@@ -1,0 +1,86 @@
+.menu {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    max-height: calc(100% - 3px);
+    height: calc(100vh - 72px);
+}
+
+.menu_group {
+    height: 58px;
+    white-space: nowrap;
+    top: 30px;
+}
+
+.menu_item {
+    display: inline-block;
+    padding: 16px;
+    background: #f4f4f4;
+    color: #838383;
+    font-size: 16px;
+    font-weight: 400;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 60px;
+    margin-left: 8px;
+    cursor: pointer;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
+
+.menu_choice_steps {
+    margin: 0;
+    padding: 32px 26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    border-radius: 32px;
+    background-color: var(--template-primary--000);
+}
+
+.menu_choice_step_step {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 4px;
+    font-family: Avenir Next ,sans-serif;
+    font-style: normal;
+    line-height: 10px;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--template-primary--900);
+    cursor: pointer;
+} 
+
+.menu_choice_step_description {
+    margin-right: auto;
+    padding: 1em 0em 1em 0em;
+}
+
+.menu_choice_attribute_title {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    cursor: pointer;
+    padding: 12px 4px;
+    font-family: Avenir Next ,sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 10px;
+}
+
+.menu_choice_option_image_container {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.menu_choice_option_description {
+    font-size: 16px;
+    line-height: 1.4em;
+    text-align: center;
+    margin-top: 8px;
+    color: var(--template-primary--600);
+}
