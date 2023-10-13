@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { ZakekeEnvironment, ZakekeViewer, ZakekeProvider } from 'zakeke-configurator-react';
 import Selector from './selector';
 import Viewer from '../pages/Viewer/Viewer';
+import useStore from '../Store';
+import LayoutMobile from '../LayoutMobile';
 
 // const Layout = styled.div`
 //     display: grid;
@@ -12,12 +14,27 @@ import Viewer from '../pages/Viewer/Viewer';
 //     padding: 40px;
 // `;
 
+
 const zakekeEnvironment = new ZakekeEnvironment();
 
 const App: FunctionComponent<{}> = () => {
+    const {
+		isLoading,
+		setPriceFormatter,
+		setSelectedAttributeId,
+		setSelectedGroupId,
+		setSelectedStepId,
+		isMobile,
+		selectedGroupId,
+		setIsMobile,
+		setNotifications,
+		setLastSelectedItem
+	} = useStore();
+
     return <ZakekeProvider environment={zakekeEnvironment}>
+        {isMobile ? <LayoutMobile /> :<Viewer /> }
         {/* <Layout> */}
-            <Viewer />
+            {/* <Viewer /> */}
             {/* <Selector /> */}
         {/* </Layout> */}
     </ZakekeProvider>;

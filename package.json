@@ -13,13 +13,18 @@
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
     "cpy-cli": "^4.2.0",
+    "immutable": "^5.0.0-beta.4",
     "lodash": "^4.17.21",
+    "nuka-carousel": "^6.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.4.5",
     "react-scripts": "5.0.1",
+    "react-select": "^5.7.7",
     "styled-components": "^5.3.10",
     "typescript": "^5.0.4",
-    "zakeke-configurator-react": "0.0.160"
+    "zakeke-configurator-react": "0.0.160",
+    "zustand": "^4.4.3"
   },
   "scripts": {
     "copy": "cpy node_modules/zakeke-configurator-react/dist/globals*.js public/",
