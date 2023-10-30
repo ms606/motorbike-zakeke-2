@@ -16,6 +16,35 @@
     background-color: var(--template-primary--900);
 }
 
+.bubble_button {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 50%;
+    top: 30%;
+}
+
+.bubble_button_button {
+    /* /border: 1px solid lightgray; */
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 4px 8px var(--template-default-box-shadow-color);;
+}
+
+.bubble_button_text {
+    font-family: "Avenir Next",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--template-primary--600);
+    margin-top: 8px;
+    padding-top: "15px"
+}
+
 .menu_footer {
     display: flex;
     flex-flow: row;

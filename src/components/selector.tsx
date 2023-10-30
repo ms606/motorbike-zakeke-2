@@ -13,7 +13,9 @@ import ShareIcon from "../icons/ShareIcon";
 import Viewer from "../pages/Viewer/Viewer";
 import Loader from "../components/Loader/Loader";
 import SelectionIcon from "../icons/SelectionIcon";
+import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 // '../../../../components/Loader/Loader';
+import { Icon } from "./Atomic";
 
 const Container = styled.div`
   height: 100%;
@@ -23,6 +25,11 @@ const Container = styled.div`
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
+`;
+
+export const ExplodeIcon = styled(Icon)`
+  width: 32px;
+  height: 32px;
 `;
 
 const Selector: FunctionComponent<{}> = () => {
@@ -36,6 +43,8 @@ const Selector: FunctionComponent<{}> = () => {
     templates,
     setTemplate,
     setCamera,
+    setExplodedMode,
+    hasExplodedMode,
   } = useZakeke();
 
   // Keep saved the ID and not the refereces, they will change on each update
@@ -46,6 +55,10 @@ const Selector: FunctionComponent<{}> = () => {
     useState<string | null>(null);
   const [selectedOptionName, selectOptionName] = useState<string | null>(null);
 
+  const [selectedExplodedState, setSelectedExplodedStatese] = useState<
+    boolean | null
+  >(false);
+
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
@@ -53,6 +66,7 @@ const Selector: FunctionComponent<{}> = () => {
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
+  //console.log(groups, selectedGroup, "groups");
 
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
@@ -81,7 +95,10 @@ const Selector: FunctionComponent<{}> = () => {
       });
     });
 
-    //console.log(previewImage,'prevoew');
+    
+
+    console.log(previewImage,'prevoew');
+    
   }, [attributes, selectedGroup, selectedAttributeId, selectedCameraID]);
 
   //  console.log(previewImage,'previewImage');
@@ -180,9 +197,37 @@ const Selector: FunctionComponent<{}> = () => {
 
   return (
     <Container>
+      <div className="bubble_button">
+        <div 
+          className="bubble_button_button">
+          <ExplodeIcon
+            hoverable
+            onClick={() => {
+              {
+                selectedExplodedState == true
+                  ? setSelectedExplodedStatese(false)
+                  : setSelectedExplodedStatese(true);
+              }
+              {
+                selectedExplodedState == true
+                  ? setExplodedMode(true)
+                  : setExplodedMode(false);
+              }
+            }}
+          >
+            <ExplodeSolid />
+          </ExplodeIcon>
+        </div>
+
+        <div className='bubble_button_text'>
+          {!selectedExplodedState ? "Close" : "Open"}
+        </div>
+      </div>
+
       <div>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
+
         {/* <img src={previewImage?.image}/> */}
       </div>
       <div className="menu">
