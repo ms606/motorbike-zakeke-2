@@ -45,6 +45,8 @@ const Selector: FunctionComponent<{}> = () => {
     setCamera,
     setExplodedMode,
     hasExplodedMode,
+    zoomIn,
+    zoomOut,
   } = useZakeke();
 
   // Keep saved the ID and not the refereces, they will change on each update
@@ -61,6 +63,15 @@ const Selector: FunctionComponent<{}> = () => {
 
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
+
+  const idsToRemove = [10483, -1];
+
+  for (let i = groups.length - 1; i >= 0; i--) {
+    if (idsToRemove.includes(groups[i].id)) {
+      groups.splice(i, 1);
+    }
+  }
+  console.log(groups);
 
   const selectedGroup = groups.find((group) => group.id === selectedGroupId);
   const selectedStep = selectedGroup
@@ -94,21 +105,12 @@ const Selector: FunctionComponent<{}> = () => {
         }
       });
     });
-
-    
-
-    console.log(previewImage,'prevoew');
-    
   }, [attributes, selectedGroup, selectedAttributeId, selectedCameraID]);
 
   //  console.log(previewImage,'previewImage');
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
-
-  //console.log(selectedAttributeOptionName?.name,'selectedAttributeOptionName');
-  // console.log(selectedAttribute?.options.map(x => if((x.selected === true)
-  // )) 'selectedAttribute');
 
   // Open the first group and the first step when loaded
   useEffect(() => {
@@ -198,8 +200,7 @@ const Selector: FunctionComponent<{}> = () => {
   return (
     <Container>
       <div className="bubble_button">
-        <div 
-          className="bubble_button_button">
+        <div className="bubble_button_button">
           <ExplodeIcon
             hoverable
             onClick={() => {
@@ -219,7 +220,7 @@ const Selector: FunctionComponent<{}> = () => {
           </ExplodeIcon>
         </div>
 
-        <div className='bubble_button_text'>
+        <div className="bubble_button_text">
           {!selectedExplodedState ? "Close" : "Open"}
         </div>
       </div>
@@ -227,9 +228,27 @@ const Selector: FunctionComponent<{}> = () => {
       <div>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
+        <div className="viewer_zoom">
+          <div className="ff_zoom_in" onClick={() => zoomIn()}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
+              <path d="M24 15h-7V8h-2v7H8v2h7v7h2v-7h7z"></path>
+              <path fill="none" d="M0 0h32v32H0z"></path>
+            </svg>
+          </div>
 
-        {/* <img src={previewImage?.image}/> */}
+          <div className="ff_zoom_description">ZOOM</div>
+          <div className="ff_zoom_out" onClick={() => zoomOut()}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+              <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
+              <path d="M8 15h16v2H8z"></path>
+              <path fill="none" d="M0 0h32v32H0z"></path>
+            </svg>
+          </div>
+          {/* <img src={previewImage?.image}/> */}
+        </div>
       </div>
+
       <div className="menu">
         <div className="menu_group">
           {groups.map((group) => {

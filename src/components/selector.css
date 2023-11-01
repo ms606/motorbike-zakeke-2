@@ -1,3 +1,40 @@
+.viewer_zoom {
+    display: flex;
+    flex-direction: column;
+    position: absolute; 
+    right: 92.7%;
+    top: 48%; 
+    color: var(--template-primary--600);
+}
+
+.ff_zoom_in {
+    width: 28px;
+    height: 28px;
+    /* position: absolute;
+    right: 93.7%;
+    top: 65%; */
+    fill: var(--template-primary--600);
+    padding-bottom: 48px;
+}
+
+.ff_zoom_out {
+    width: 28px;
+    height: 28px;
+    /* position: absolute;
+    right: 93.7%;
+    top: 76.4%; */
+    fill: var(--template-primary--600);
+}
+
+.ff_zoom_description {
+    /* position: absolute;
+    right: 93.1%;
+    top: 72%; */
+    color: var(--template-primary--600);
+    padding-bottom: 15px;
+}
+
+
 .btn {
     display: flex;
     flex-direction: row;

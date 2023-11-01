@@ -47,7 +47,7 @@ const Preview: React.FC<PreviewProps> = React.memo(props => {
 
   return !!props.PreviewImage?.image ? (
     <div //className={styles.ff_preview} 
-        style={{position: "absolute", right: "93%", top: "54%"}}
+        style={{position: "absolute", right: "93%", top: "38%"}}
          data-testid="preview">
     <div
         className="preview_preview"
