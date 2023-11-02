@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useRef } from "react";
 import styled from "styled-components";
 import {
   ZakekeEnvironment,
@@ -16,11 +16,11 @@ import { Icon } from '../../components/Atomic';
 const zakekeEnvironment = new ZakekeEnvironment();
 
 const Layout = styled.div`
+    padding: 12px 24px 60px;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     grid-gap: 40px;
     height: 100%;
-    padding: 40px;
 `;
 
 const ExplodeIcon = styled(Icon)`
@@ -42,6 +42,12 @@ const Viewer: FunctionComponent<{}> = () => {
     setExplodedMode,
   } = useZakeke();
 
+  const viewElement = useRef<HTMLDivElement | null>(null);
+  
+  const fullScreen = () => {
+    (viewElement.current!).requestFullscreen()
+  }
+  
   return (
     <ZakekeProvider environment={zakekeEnvironment}>
       <Layout>
@@ -53,15 +59,13 @@ const Viewer: FunctionComponent<{}> = () => {
           </div>
           <div className="ff_viewer_right_actions">
           </div>
-          <div className="ff_viewer_zakeke">
+          <div className="ff_viewer_zakeke" ref={viewElement}>
             <ZakekeViewer />
           </div>
-
-
         </div>
       </div>
       </>
-      <Selector />
+      <Selector refViewer={viewElement} fullScreen={fullScreen} />
       </Layout>
       
     </ZakekeProvider>

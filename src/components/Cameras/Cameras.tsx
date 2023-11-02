@@ -36,7 +36,6 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
 
   cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
 
-  console.log(cameraViews);
   
   return !!props.cameras.length ? (
     <div style={{position: "absolute", right: "93%"}}>
@@ -46,7 +45,7 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
           key={camera.id}
           data-testid="camera"
           className="cameras_camera"
-          style={{filter: "grayscale(1)"}}
+          style={{filter: "grayscale(1)", cursor: 'pointer'}}
         >
           <img
             src={camera.imageUrl || `imgs/camera.png`}

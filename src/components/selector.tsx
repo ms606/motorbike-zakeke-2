@@ -32,7 +32,15 @@ export const ExplodeIcon = styled(Icon)`
   height: 32px;
 `;
 
-const Selector: FunctionComponent<{}> = () => {
+interface SelectorProps {
+  refViewer: React.RefObject<HTMLElement>;
+  fullScreen: any;
+}
+
+
+const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
+
+  console.log(refViewer);
   const {
     isSceneLoading,
     isAddToCartLoading,
@@ -93,7 +101,7 @@ const Selector: FunctionComponent<{}> = () => {
   // removeItem('e7c7bf12-c701-4792-875b-c62cfee0a363')
   // addItemText(item, 385515)
 
-      console.log(groups,items,templates,'inside effec');
+      // console.log(groups,items,templates,'inside effec');
       const fullBlazerGroup = groups.filter(obj => obj.id === 10483); 
       
     // console.log(fullBlazerGroup,'1'); 
@@ -267,11 +275,24 @@ const Selector: FunctionComponent<{}> = () => {
         </div>
       </div>
 
+
+      <div className="bubble_button_fullScreen" onClick={() => {refViewer.current?.requestFullscreen()}}>
+        <div className="bubble_button_button">
+        <ExplodeIcon>
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2H2v6h2V4h4V2zM24 2h6v6h-2V4h-4V2zM8 30H2v-6h2v4h4v2zM24 30h6v-6h-2v4h-4v2zM24 24H8a2.002 2.002 0 01-2-2V10a2.002 2.002 0 012-2h16a2.002 2.002 0 012 2v12a2.002 2.002 0 01-2 2zM8 10v12h16V10H8z" fill="#838383"></path></svg>
+        </ExplodeIcon>
+        </div>
+
+        <div className="bubble_button_text">
+          Full Screen
+        </div>
+      </div>
+
       <div>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
-        <div className="viewer_zoom">
-          <div className="ff_zoom_in" onClick={() => zoomIn()}>
+        <div className="viewer_zoom" >
+          <div className="ff_zoom_in" onClick={() => zoomIn()} style={{cursor: 'pointer'}}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
               <path d="M24 15h-7V8h-2v7H8v2h7v7h2v-7h7z"></path>
@@ -280,7 +301,7 @@ const Selector: FunctionComponent<{}> = () => {
           </div>
 
           <div className="ff_zoom_description">ZOOM</div>
-          <div className="ff_zoom_out" onClick={() => zoomOut()}>
+          <div className="ff_zoom_out" onClick={() => zoomOut()} style={{cursor: 'pointer'}}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
               <path d="M8 15h16v2H8z"></path>
@@ -483,7 +504,9 @@ const Selector: FunctionComponent<{}> = () => {
                                           selected={option.selected}
                                           className="menu_choice_option"
                                         >
-                                          <div className="menu_choice_option_image_container">
+                                          <div className="menu_choice_option_image_container" 
+                                          // style={}
+                                          >
                                             {option.imageUrl && (
                                               <ListItemImage
                                                 src={option.imageUrl}

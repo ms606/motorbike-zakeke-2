@@ -245,7 +245,7 @@ const Viewer = () => {
               <ExplodeIcon
                 hoverable
                 onClick={() => {
-					console.log(ref.current);
+					
 			
 					
 					// (ref.current!).requestFullscreen()

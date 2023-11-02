@@ -55,8 +55,14 @@ const SelectorMobile = () => {
 	// const undoRegistering = useUndoRegister();
 	// const undoRedoActions = useUndoRedoActions();
 
-	const actualGroups = useActualGroups() ?? [];
+	let actualGroups = useActualGroups() ?? [];
 
+	const idsToRemove = [10483, -1];
+
+    actualGroups = actualGroups.filter(obj => !idsToRemove.includes(obj.id));
+
+	// console.log(actualGroups,'actualGroups');
+	
 	const selectedGroup = selectedGroupId ? actualGroups.find((group) => group.id === selectedGroupId) : null;
 	const selectedStep = selectedGroupId
 		? actualGroups.find((group) => group.id === selectedGroupId)?.steps.find((step) => step.id === selectedStepId)

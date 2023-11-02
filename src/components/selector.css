@@ -83,6 +83,16 @@
     padding-top: "15px"
 }
 
+.bubble_button_fullScreen {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 49.8%;
+    top: 45%;
+}
+
+
 .menu_footer {
     display: flex;
     flex-flow: row;

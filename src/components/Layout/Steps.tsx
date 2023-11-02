@@ -75,10 +75,10 @@ const ActualStepName = styled.h4<{ isMobile?: boolean }>`
     color: #313c46;
     font-size: 1em;
     ${props => props.isMobile && `
-        white-space: nowrap;
+        // white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
-        max-width:70px;
+        // text-overflow: ellipsis;
+        // max-width:70px;
     `}
 `;
 
