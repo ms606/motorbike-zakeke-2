@@ -31,6 +31,12 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
       return x      
     }
   })
+
+  const idsToRemove = ['full view', 'blazer', 'pant'];
+
+  cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
+
+  console.log(cameraViews);
   
   return !!props.cameras.length ? (
     <div style={{position: "absolute", right: "93%"}}>

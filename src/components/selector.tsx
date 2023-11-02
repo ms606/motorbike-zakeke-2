@@ -47,7 +47,17 @@ const Selector: FunctionComponent<{}> = () => {
     hasExplodedMode,
     zoomIn,
     zoomOut,
+    addItemText,
+    items,
+    fonts,
+    defaultColor,
+    removeItem
   } = useZakeke();
+
+
+  const idsToRemove = [10483, -1];
+
+  const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
 
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
@@ -64,22 +74,47 @@ const Selector: FunctionComponent<{}> = () => {
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
-  const idsToRemove = [10483, -1];
 
-  for (let i = groups.length - 1; i >= 0; i--) {
-    if (idsToRemove.includes(groups[i].id)) {
-      groups.splice(i, 1);
-    }
+  useEffect(() => {
+
+    const item = {
+      guid: '',
+      name: 'Ammu my darling',
+      text: "Text",
+      fillColor: defaultColor,
+      fontFamily: 'Rubik',
+      fontSize: 58,
+      fontWeight: 'bold bold',
+      isTextOnPath: false,
+      constraints: null,
   }
-  console.log(groups);
+  // removeItem('cf38ec2c-91ea-433f-a491-fb849998daf7')
+  // removeItem('c1c008ca-7bb2-460f-e288-74efbe9afbd3')
+  // removeItem('e7c7bf12-c701-4792-875b-c62cfee0a363')
+  // addItemText(item, 385515)
 
-  const selectedGroup = groups.find((group) => group.id === selectedGroupId);
+      console.log(groups,items,templates,'inside effec');
+      const fullBlazerGroup = groups.filter(obj => obj.id === 10483); 
+      
+    // console.log(fullBlazerGroup,'1'); 
+  },[groups])
+  
+  // const idsToRemove = [10483, -1];
+
+  // for (let i = groups1.length - 1; i >= 0; i--) {
+  //   if (idsToRemove.includes(groups1[i].id)) {
+  //     groups1.splice(i, 1);
+  //   }
+  // }
+
+  
+  const selectedGroup = groups1.find((group) => group.id === selectedGroupId);
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
-  //console.log(groups, selectedGroup, "groups");
+  //console.log(groups1, selectedGroup, "groups1");
 
-  // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
+  // Attributes can be in both groups1 and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
     () => (selectedStep || selectedGroup)?.attributes ?? [],
     [selectedGroup, selectedStep]
@@ -114,15 +149,16 @@ const Selector: FunctionComponent<{}> = () => {
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    if (!selectedGroup && groups.length > 0) {
-      selectGroup(groups[0].id);
+    if (!selectedGroup && groups1.length > 0) {
 
-      if (groups[0].steps.length > 0) selectStep(groups[0].steps[0].id);
+      selectGroup(groups1[0].id);
+
+      if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
 
       if (templates.length > 0) setTemplate(templates[0].id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroup, groups]);
+  }, [selectedGroup, groups1]);
 
   // Select attribute first time
   // useEffect(() => {
@@ -142,13 +178,19 @@ const Selector: FunctionComponent<{}> = () => {
       if (camera) setCamera(camera);
 
       if (selectedCameraID) setCamera(selectedCameraID);
+      
+      // setCamera(selectedStep?.attributes[0].cameraLocationId);
+
+      //console.log(setCamera,selectedStep?.attributes[0]);
+      
+      // if (selectedStepId) setCamera(selectedStep?.attributes[0].cameraLocationID)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroupId, selectedCameraID]);
+  }, [selectedGroupId, selectedCameraID, selectedStepId]);
 
   // useEffect(() => {
 
-  //     // selectedGroup?.groups.forEach((group) => {
+  //     // selectedGroup?.groups1.forEach((group) => {
   //     //   if (instanceOfViewerGroupAttribute(group)) {
   //     //     group.attributes.forEach((attr) => {
   //     //       attr.options.forEach((option) => {
@@ -187,16 +229,16 @@ const Selector: FunctionComponent<{}> = () => {
   //        // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [ selectedAttributeId, previewImage]);
 
-  if (isSceneLoading || !groups || groups.length === 0)
+  if (isSceneLoading || !groups1 || groups1.length === 0)
     return <Loader visible={isSceneLoading} />;
 
-  // groups
+  // groups1
   // -- attributes
   // -- -- options
   // -- steps
   // -- -- attributes
   // -- -- -- options
-
+  
   return (
     <Container>
       <div className="bubble_button">
@@ -251,15 +293,29 @@ const Selector: FunctionComponent<{}> = () => {
 
       <div className="menu">
         <div className="menu_group">
-          {groups.map((group) => {
+          {groups1.map((group) => {
             return (
               <div
                 className="menu_item"
                 key={group.id}
                 onClick={() => {
                   selectGroup(group.id);
+                  // console.log(group);
+                  if(group.name.toLowerCase() === 'pant'){
+                    setExplodedMode(true)
+                  }else {
+                    setExplodedMode(false)
+                  }
+                  
+                  if(group.name.toLowerCase() === 'blazer view'){
+                    selectOption(1363645); // Open jacket comm                    
+                  }
+                  else {
+                    selectOption(1363646);
+                  }  
+                  
                 }}
-                //   selected={selectedGroup === group}
+                
               >
                 {group.id === -1 ? "Other" : group.name}
               </div>
@@ -276,7 +332,10 @@ const Selector: FunctionComponent<{}> = () => {
                 <div
                   className="menu_choice_step_step"
                   key={step.id}
-                  onClick={() => selectStep(step.id)}
+                  onClick={() => {
+                    selectStep(step.id)
+                    setCamera(step?.attributes[0].cameraLocationId || '')                    
+                  }}
                   //selected={selectedStep === step}
                 >
                   <div
@@ -483,7 +542,7 @@ const Selector: FunctionComponent<{}> = () => {
         {/* ----------------------------------------- */}
 
         {/* <Menu
-         //  groups={groups}
+         //  groups1={groups1}
            //price={price}
          //  selectedGroupId={selectedGroupId || null}
         // selectedStepId={viewerState?.stepId || null}

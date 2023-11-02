@@ -73,6 +73,7 @@ const ActualStepName = styled.h4<{ isMobile?: boolean }>`
     ${props => !props.isMobile && `margin-top: 15px`};
     font-weight: 500;
     color: #313c46;
+    font-size: 1em;
     ${props => props.isMobile && `
         white-space: nowrap;
         overflow: hidden;
@@ -121,11 +122,14 @@ export const Steps: FC<{
             }
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [steps, currentStep]);
+
+        console.log(actualStepIndex, (actualStepIndex === 0),!(actualStepIndex === 0),hasPreviousGroup);
+        
         return <StepsContainer>
-            {(!(actualStepIndex === 0) || hasPreviousGroup) && !isMobile && <ArrowIcons onClick={handlePreviousClick}><LeftArrow /></ArrowIcons>}
+            {((actualStepIndex > 0) || hasPreviousGroup) && !isMobile && <ArrowIcons onClick={handlePreviousClick}><LeftArrow /></ArrowIcons>}
 
             <StepsIcons isMobile={isMobile}>
-                {(!(actualStepIndex === 0) || hasPreviousGroup) && isMobile && <Icon onClick={handlePreviousClick}><LeftArrow /></Icon>}
+                {((actualStepIndex > 0) || hasPreviousGroup) && isMobile && <Icon onClick={handlePreviousClick}><LeftArrow /></Icon>}
                 {steps && (steps.length < maxItems ? steps : rangeOfSteps).map((step, index) => {
                     return <React.Fragment key={step.id}>
 

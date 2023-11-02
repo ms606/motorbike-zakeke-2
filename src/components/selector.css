@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     position: absolute; 
-    right: 92.7%;
+    right: 93%;
     top: 48%; 
     color: var(--template-primary--600);
 }
@@ -30,6 +30,7 @@
     /* position: absolute;
     right: 93.1%;
     top: 72%; */
+    font-size: 13px;
     color: var(--template-primary--600);
     padding-bottom: 15px;
 }
@@ -126,3 +127,15 @@
         width: 216px;
     }
 }
+
+@media screen and (max-width: 786px) {
+    .bubble_button_button, .bubble_button_text{
+        position: relative;
+        top: 0%;
+        right: 99%;
+        bottom: 50px;
+        /* left: 0%; */
+    }
+}
+
+

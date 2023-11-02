@@ -1,5 +1,6 @@
 import {
 	Image,
+	ImageItem,
 	Item,
 	ProductArea,
 	TemplateArea,
@@ -11,15 +12,13 @@ import useStore from '../../Store';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import Select, { GroupBase, OptionProps, SingleValueProps, components } from 'react-select';
 import styled from 'styled-components/macro';
-// import { T } from '../../Helpers';
-import ArrowLeftIcon from '../../assets/icons/arrow-left-solid.svg';
-import ArrowRightIcon from '../../assets/icons/arrow-right-solid.svg';
-import Arrows from '../../assets/icons/arrows-alt-solid.svg';
-import Add from '../../assets/icons/plus-circle-solid.svg';
-import SearchMinusSolid from '../../assets/icons/plus-circle-solid.svg';
-import SearchPlusSolid from '../../assets/icons/plus-circle-solid.svg';
-// import { ReactComponent as SearchMinusSolid } from '../../assets/icons/search-minus-solid.svg';
-// import { ReactComponent as SearchPlusSolid } from '../../assets/icons/search-plus-solid.svg';
+//import { T } from '../../Helpers';
+import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left-solid.svg';
+import { ReactComponent as ArrowRightIcon } from '../../assets/icons/arrow-right-solid.svg';
+import { ReactComponent as Arrows } from '../../assets/icons/arrows-alt-solid.svg';
+import { ReactComponent as Add } from '../../assets/icons/plus-circle-solid.svg';
+import { ReactComponent as SearchMinusSolid } from '../../assets/icons/search-minus-solid.svg';
+import { ReactComponent as SearchPlusSolid } from '../../assets/icons/search-plus-solid.svg';
 import {
 	ArrowLeft,
 	ArrowLeftIconStyled,
@@ -33,6 +32,8 @@ import {
 import AddTextDialog from '../dialogs/AddTextDialog';
 import { useDialogManager } from '../dialogs/Dialogs';
 import ErrorDialog from '../dialogs/ErrorDialog';
+// import ImagesGalleryDialog from '../dialogs/ImagesGalleryDialog';
+// import ItemImage, { EditImageItem } from '../widgets/ItemImage';
 import ItemText, { EditTextItem } from '../widgets/ItemText';
 import {
 	Center,
@@ -44,10 +45,10 @@ import {
 	ZakekeDesignerContainer,
 	ZoomInIcon,
 	ZoomOutIcon
-} from './LayoutStyles';
+} from '../../components/Layout/LayoutStyles';
 
 export type PropChangeHandler = (
-	item: EditTextItem,
+	item: EditTextItem, // | EditImageItem,
 	prop: string,
 	value: string | boolean | File
 ) => void;
@@ -106,7 +107,7 @@ const Area = styled.div<{ selected?: boolean }>`
 	border-bottom: 5px solid transparent;
 	cursor: pointer;
 	padding: 0px 5px;
-    text-align: center;
+	text-align: center;
 
 	&:hover {
 		border-bottom: 5px solid #c4c4c4;
@@ -199,7 +200,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		areas: currentTemplate?.areas
 	};
 	let translatedAreas = filteredAreas.map((area) => {
-		return { id: area.id, name: area.name};
+		return { id: area.id, name: area.name };
 	});
 
 	filteredAreas.length > 0 &&
@@ -232,10 +233,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	let itemsFiltered = items.filter((item) => item.areaId === actualAreaId);
 	const allStaticElements = !itemsFiltered.some((item) => {
 		return (
-			!item.constraints ||
-			item.constraints.canMove ||
-			item.constraints.canRotate ||
-			item.constraints.canResize
+			!item.constraints || item.constraints.canMove || item.constraints.canRotate || item.constraints.canResize
 		);
 	});
 	const showAddTextButton = !currentTemplateArea || currentTemplateArea.canAddText;
@@ -252,8 +250,11 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	const slidesToShow = window.innerWidth <= 1600 ? 3 : 4;
 
+	const setTemplateByID = async (templateID: number) => await setTemplate(templateID);
+
 	useEffect(() => {
-		if (templates.length > 0 && !currentTemplate) setTemplate(templates[0].id);
+		if (templates.length > 0 && !currentTemplate) setTemplateByID(templates[0].id);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [templates]);
 
@@ -314,6 +315,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 
 	const handleAddTextClick = () => {
+		console.log(showDialog,'show dialog desginer');
+		
 		showDialog(
 			'add-text',
 			<AddTextDialog
@@ -326,7 +329,18 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		);
 	};
 
-	
+	// const handleAddImageFromGalleryClick = async () => {
+	// 	showDialog(
+	// 		'add-image',
+	// 		<ImagesGalleryDialog
+	// 			onClose={() => closeDialog('add-image')}
+	// 			onImageSelected={(image: { imageID: number }) => {
+	// 				addItemImage(image.imageID, actualAreaId);
+	// 				closeDialog('add-image');
+	// 			}}
+	// 		/>
+	// 	);
+	// };
 
 	const handleUploadImageClick = async (
 		addItemImage: (guid: any, imageId: number) => Promise<void>,
@@ -350,7 +364,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 						showDialog(
 							'error',
 							<ErrorDialog
-								error={'Failed uploading image.'}
+								error='Failed uploading image.'
 								onCloseClick={() => closeDialog('error')}
 							/>
 						);
@@ -368,8 +382,39 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		removeItem(guid);
 	};
 
+	// const handleItemImageChange = async (item: EditImageItem, file: File) => {
+	// 	try {
+	// 		setIsLoading(true);
+	// 		await setItemImageFromFile(item.guid, file);
+	// 	} catch (ex) {
+	// 		console.error(ex);
+	// 	} finally {
+	// 		setIsLoading(false);
+	// 	}
+	// };
+
+	// const handleItemImageGallery = async (item: EditImageItem) => {
+	// 	showDialog(
+	// 		'add-image',
+	// 		<ImagesGalleryDialog
+	// 			onClose={() => closeDialog('add-image')}
+	// 			onImageSelected={async (image) => {
+	// 				closeDialog('add-image');
+	// 				try {
+	// 					setIsLoading(true);
+	// 					await setItemImage(item.guid, image.imageID);
+	// 				} catch (ex) {
+	// 					console.error(ex);
+	// 				} finally {
+	// 					setIsLoading(false);
+	// 				}
+	// 			}}
+	// 		/>
+	// 	);
+	// };
 
 	const handleItemPropChange = (item: EditTextItem, prop: string, value: string | boolean | File) => {
+		console.log('handleItempropChange', prop, item);
 		switch (prop) {
 			case 'remove':
 				handleItemRemoved(item.guid);
@@ -404,8 +449,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		return <SingleValueContainer {...props}>{<span>{props.data.name}</span>}</SingleValueContainer>;
 	};
 
-	return (
-		<>
+	return ( 
+	 	<>
 			{!moveElements && (
 				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}
@@ -415,8 +460,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 								<Template
 									key={template.id}
 									selected={currentTemplate === template}
-									onClick={() => {
-										setTemplate(template.id);
+									onClick={async () => {
+										await setTemplate(template.id);
 									}}
 								>
 									{template.name}
@@ -490,7 +535,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									SingleValue: SelectSingleValue
 								}}
 								value={translatedTemplates!.find((x) => x.id === translatedCurrentTemplate.id)}
-								onChange={(template: any) => setTemplate(template.id)}
+								onChange={async (template: any) => await setTemplate(template.id)}
 							/>
 						</SelectContainer>
 					)}
@@ -530,6 +575,21 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									item={item as TextItem}
 								/>
 							);
+						// else if (item.type === 1 && isItemEditable(item, currentTemplateArea))
+						// 	return (
+						// 		<ItemImage
+						// 			uploadImgDisabled={
+						// 				copyrightMessage && copyrightMessage.additionalData.enabled
+						// 					? !copyrightMandatoryCheckbox
+						// 					: false
+						// 			}
+						// 			key={item.guid}
+						// 			handleItemPropChange={handleItemPropChange}
+						// 			item={item as ImageItem}
+						// 			currentTemplateArea={currentTemplateArea!}
+						// 		/>
+						// 	);
+
 						return null;
 					})}
 
@@ -544,7 +604,16 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 								</Button>
 							)}
 
-							{showUploadButton && (
+							{/* {showGalleryButton && (
+								<Button isFullWidth onClick={handleAddImageFromGalleryClick}>
+									<Icon>
+										<Add />
+									</Icon>
+									<span>{T._('Add clipart', 'Composer')}</span>
+								</Button>
+							)} */}
+
+							{/* {showUploadButton && (
 								<>
 									<Button
 										disabled={
@@ -564,15 +633,15 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 													(item) =>
 														item.type === 1 && isItemEditable(item, currentTemplateArea)
 												)
-													? 'Upload another image'
-													: 'Upload Images'}{' '}
+													? T._('Upload another image', 'Composer')
+													: T._('Upload Images', 'Composer')}{' '}
 											</span>
 										</span>
 									</Button>
 								</>
 							)}
 							<SupportedFormatsList>
-								{'Supported file formats:' + ' ' + supportedFileFormats}
+								{T._('Supported file formats:', 'Composer') + ' ' + supportedFileFormats}
 							</SupportedFormatsList>
 
 							{copyrightMessage && copyrightMessage.visible && (
@@ -597,8 +666,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 									)}
 								</CopyrightMessage>
 							)}
+							*/}
 						</UploadButtons>
-					)}
+					)} 
 					{itemsFiltered.length > 0 && !allStaticElements && (
 						<MoveElementButton isFullWidth outline onClick={() => setMoveElements(true)}>
 							<Icon>
@@ -607,7 +677,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							<span>{'Move elements'} </span>
 						</MoveElementButton>
 					)}
-					{isMobile && <CloseEditorButton onClick={onCloseClick}>{'OK'}</CloseEditorButton>}
+					{isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>}
 				</DesignerContainer>
 			)}
 			{moveElements && (
@@ -622,7 +692,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 						</ZoomIconOut>
 					</IconsAndDesignerContainer>
 					<Button isFullWidth onClick={() => setMoveElements(false)}>
-						<span>{'OK'} </span>
+						<span>OK</span>
 					</Button>
 				</ZakekeDesignerContainer>
 			)}
