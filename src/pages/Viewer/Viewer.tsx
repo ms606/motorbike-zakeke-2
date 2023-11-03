@@ -54,9 +54,9 @@ const Viewer: FunctionComponent<{}> = () => {
       <>
       <div className="ff_root">
         <div className="ff_viewer">
-          <div className="ff_viewer_left_actions">
+          {/* <div className="ff_viewer_left_actions"> */}
             {/* <Cameras cameras={groups} onSelect={onSelectCamera}/> */}
-          </div>
+          {/* </div> */}
           <div className="ff_viewer_right_actions">
           </div>
           <div className="ff_viewer_zakeke" ref={viewElement}>

@@ -61,8 +61,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
     defaultColor,
     removeItem
   } = useZakeke();
-
-
+ 
   const idsToRemove = [10483, -1];
 
   const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
@@ -87,7 +86,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
     const item = {
       guid: '',
-      name: 'Dummy',
+      name: 'Dummy`',
       text: "Text",
       fillColor: defaultColor,
       fontFamily: 'Rubik',
@@ -185,6 +184,8 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
 
+   
+      
       if (selectedCameraID) setCamera(selectedCameraID);
       
       // setCamera(selectedStep?.attributes[0].cameraLocationId);

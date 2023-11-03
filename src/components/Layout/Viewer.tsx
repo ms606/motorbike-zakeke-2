@@ -214,11 +214,16 @@ const Viewer = () => {
   // 	else if (actualRedoStep.type === 'option') return redo();
   // };
 
+  console.log(document.fullscreenElement,'full screen check');
+  
   return (
     <ViewerContainer ref={ref}>
       {!isSceneLoading && <ZakekeViewer backgroundColor="#ffffff" />}
 
       {/* {!isInfoPointContentVisible && ( */}
+     
+     
+      {!document.fullscreenElement &&  
       <>
         <div style={{ position: "absolute", left: "10px", top: "1%" }}>
           <Cameras
@@ -330,7 +335,8 @@ const Viewer = () => {
 
               <div className="bubble_button_text">Full Screen</div>
             </div>
-          </div>
+          </div> 
+
 
           {/* {hasExplodedMode() && product && !isSceneLoading && (
             <>
@@ -389,6 +395,7 @@ const Viewer = () => {
 						<RecapPanel key={'recapPanel'} onClose={() => setRecapPanelOpened(false)} />
 					)}{' '} */}
       </>
+      }
       {/* )} */}
 
       {/* Notifications */}

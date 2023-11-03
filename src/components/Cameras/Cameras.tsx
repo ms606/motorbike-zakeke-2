@@ -1,5 +1,6 @@
 import React from "react";
 import './Camera.css'
+import { useZakeke } from "zakeke-configurator-react";
 
 export interface CameraInterface {
   attributes: any[];
@@ -24,6 +25,12 @@ export type CamerasProps = {
 };
 
 const Cameras: React.FC<CamerasProps> = React.memo(props => {
+  
+  const {
+    setExplodedMode,
+    hasExplodedMode,
+  } = useZakeke();
+ 
 
   let cameraViews = 
   props.cameras.filter(x => {
@@ -36,12 +43,17 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
 
   cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
 
+  console.log(cameraViews,'cameraViews');
   
   return !!props.cameras.length ? (
     <div className="camera_root">
       {cameraViews.map(camera => (
         <div
-          onClick={(e) => props.onSelect(camera.cameraLocationId)}
+          onClick={(e) => {
+              props.onSelect(camera.cameraLocationId)
+              {camera.name.toLowerCase() === 'pant' ? setExplodedMode(true) : setExplodedMode(false)}
+              
+            }}
           key={camera.id}
           data-testid="camera"
           className="cameras_camera"
