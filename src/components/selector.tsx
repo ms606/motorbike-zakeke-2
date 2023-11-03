@@ -168,23 +168,21 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   }, [selectedGroup, groups1]);
 
   // Select attribute first time
-  // useEffect(() => {
-  //   if (!selectedAttribute && attributes.length > 0) selectAttribute(attributes[0]?.id);
+  useEffect(() => {
+    if (!selectedAttribute && attributes.length > 0) selectAttribute(attributes[0]?.id);
 
-  //   setSelectedAttributeOptionName(
-  //     selectedAttribute && selectedAttribute.options
-  //       ? selectedAttribute.options.find(x => x.selected === true)?.name || null
-  //       : null
-  //   );
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedAttribute, attributes]);
+    setSelectedAttributeOptionName(
+      selectedAttribute && selectedAttribute.options
+        ? selectedAttribute.options.find(x => x.selected === true)?.name || null
+        : null
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedAttribute, attributes]);
 
   useEffect(() => {
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
-
-   
       
       if (selectedCameraID) setCamera(selectedCameraID);
       
