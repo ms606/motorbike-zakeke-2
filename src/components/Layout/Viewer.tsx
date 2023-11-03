@@ -240,40 +240,66 @@ const Viewer = () => {
 					)}
 					{!isSceneLoading && hasVTryOnEnabled && <TryOnsButton settings={getTryOnSettings()} />} */}
         <BottomRightIcons>
-          <div className="bubble_button">
-            <div className="bubble_button_button">
-              <ExplodeIcon
-                hoverable
-                onClick={() => {
-					
-			
-					
-					// (ref.current!).requestFullscreen()
-					// (ref.current!).exitFullscreen()
-                  {
-					(ref.current!).requestFullscreen()
-                    selectedExplodedState == true
-                      ? setSelectedExplodedStatese(false)
-                      : setSelectedExplodedStatese(true);
-                  }
-                  {
-					if (document.fullscreenElement) {
-						if (document.exitFullscreen) {
-						  document.exitFullscreen();
-						}
-					}
-                    selectedExplodedState == true
-                      ? setExplodedMode(true)
-                      : setExplodedMode(false);
-                  }
-                }}
-              >
-                <ExplodeSolid />
-              </ExplodeIcon>
+          <div style={{display: 'flex', flexDirection: 'column', 
+                       height: '100vw', position: 'absolute',
+                       bottom: '87px', width: '85px',
+                       justifyContent: 'space-between'}}>
+            <div className="bubble_button">
+              <div className="bubble_button_button">
+                <ExplodeIcon
+                  hoverable
+                  onClick={() => {
+                    // (ref.current!).requestFullscreen()
+                    // (ref.current!).exitFullscreen()
+                    {
+                      ref.current!.requestFullscreen();
+                      selectedExplodedState == true
+                        ? setSelectedExplodedStatese(false)
+                        : setSelectedExplodedStatese(true);
+                    }
+                    {
+                      if (document.fullscreenElement) {
+                        if (document.exitFullscreen) {
+                          document.exitFullscreen();
+                        }
+                      }
+                      selectedExplodedState == true
+                        ? setExplodedMode(true)
+                        : setExplodedMode(false);
+                    }
+                  }}
+                >
+                  <ExplodeSolid />
+                </ExplodeIcon>
+              </div>
+
+              <div className="bubble_button_text">
+                {!selectedExplodedState ? "Close" : "Open"}
+              </div>
             </div>
 
-            <div className="bubble_button_text">
-              {!selectedExplodedState ? "Close" : "Open"}
+            <div
+              className="bubble_button_fullScreen"
+              onClick={() => {
+                ref.current?.requestFullscreen();
+              }}
+            >
+              <div className="bubble_button_button">
+                <ExplodeIcon>
+                  <svg
+                    viewBox="0 0 32 32"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 2H2v6h2V4h4V2zM24 2h6v6h-2V4h-4V2zM8 30H2v-6h2v4h4v2zM24 30h6v-6h-2v4h-4v2zM24 24H8a2.002 2.002 0 01-2-2V10a2.002 2.002 0 012-2h16a2.002 2.002 0 012 2v12a2.002 2.002 0 01-2 2zM8 10v12h16V10H8z"
+                      fill="#838383"
+                    ></path>
+                  </svg>
+                </ExplodeIcon>
+              </div>
+
+              <div className="bubble_button_text">Full Screen</div>
             </div>
           </div>
 

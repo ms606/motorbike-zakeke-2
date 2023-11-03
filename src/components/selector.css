@@ -139,11 +139,11 @@
 }
 
 @media screen and (max-width: 786px) {
-    .bubble_button_button, .bubble_button_text{
+    .bubble_button, .bubble_button_button, .bubble_button_text, .bubble_button_fullScreen{
         position: relative;
-        top: 0%;
+        top: 0;
         right: 99%;
-        bottom: 50px;
+        /* /bottom: 50px; */
         /* left: 0%; */
     }
 }

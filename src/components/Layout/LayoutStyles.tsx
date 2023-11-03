@@ -225,7 +225,7 @@ export const ZoomInIcon = styled(Icon)<{ isMobile?: boolean }>`
 	${(props) =>
 		props.isMobile
 			? `
-		top: calc(10%);
+		top: calc(80%);
 		`
 			: `top: calc(30%);`}
 	@media (max-height: 550px) {
@@ -242,7 +242,7 @@ export const ZoomOutIcon = styled(Icon)<{ isMobile?: boolean }>`
 	${(props) =>
 		props.isMobile
 			? `
-		top: calc(10% + 50px);
+		top: calc(80% + 50px);
 		`
 			: `top: calc(30% + 50px);`};
 	@media (max-height: 550px) {

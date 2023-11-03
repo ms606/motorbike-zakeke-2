@@ -87,7 +87,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
     const item = {
       guid: '',
-      name: 'Ammu my darling',
+      name: 'Dummy',
       text: "Text",
       fillColor: defaultColor,
       fontFamily: 'Rubik',
