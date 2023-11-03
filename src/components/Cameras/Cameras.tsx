@@ -38,7 +38,7 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
 
   
   return !!props.cameras.length ? (
-    <div style={{position: "absolute", right: "93%"}}>
+    <div className="camera_root">
       {cameraViews.map(camera => (
         <div
           onClick={(e) => props.onSelect(camera.cameraLocationId)}

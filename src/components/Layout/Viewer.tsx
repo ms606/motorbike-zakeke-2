@@ -27,6 +27,9 @@ import { Dialog, useDialogManager } from "../dialogs/Dialogs";
 import styled from "styled-components";
 import { Icon } from "../Atomic";
 
+import Cameras from "../Cameras/Cameras";
+import Preview from "../Preview/Preview";
+
 // import Notifications from '../widgets/Notifications';
 import {
   AiIcon,
@@ -70,6 +73,7 @@ const Viewer = () => {
     product,
     hasExplodedMode,
     setExplodedMode,
+    setCamera,
     // hasVTryOnEnabled,
     // getTryOnSettings,
     // isInfoPointContentVisible
@@ -81,6 +85,7 @@ const Viewer = () => {
 
   const { showDialog, closeDialog } = useDialogManager();
   const { setIsLoading, notifications, removeNotification } = useStore();
+  const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
 
   const [selectedExplodedState, setSelectedExplodedStatese] = useState<
     boolean | null
@@ -92,6 +97,14 @@ const Viewer = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellerSettings]);
+
+  useEffect(
+    () => {
+      if (selectedCameraID) setCamera(selectedCameraID);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedCameraID]
+  );
 
   // const switchFullscreen = () => {
   // 	if (
@@ -207,6 +220,15 @@ const Viewer = () => {
 
       {/* {!isInfoPointContentVisible && ( */}
       <>
+        <div style={{ position: "absolute", left: "10px", top: "1%" }}>
+          <Cameras
+            cameras={actualGroups}
+            onSelect={setSelectedCameraID}
+            //onSelect={setSelectedCameraID}
+          />
+          {/* {previewImage?.image && <Preview PreviewImage={previewImage} />} */}
+        </div>
+
         <ZoomInIcon
           isMobile={isMobile}
           key={"zoomin"}
@@ -240,10 +262,17 @@ const Viewer = () => {
 					)}
 					{!isSceneLoading && hasVTryOnEnabled && <TryOnsButton settings={getTryOnSettings()} />} */}
         <BottomRightIcons>
-          <div style={{display: 'flex', flexDirection: 'column', 
-                       height: '100vw', position: 'absolute',
-                       bottom: '87px', width: '85px',
-                       justifyContent: 'space-between'}}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100vw",
+              position: "absolute",
+              bottom: "87px",
+              width: "85px",
+              justifyContent: "space-between",
+            }}
+          >
             <div className="bubble_button">
               <div className="bubble_button_button">
                 <ExplodeIcon
@@ -252,7 +281,7 @@ const Viewer = () => {
                     // (ref.current!).requestFullscreen()
                     // (ref.current!).exitFullscreen()
                     {
-                      ref.current!.requestFullscreen();
+                      //ref.current!.requestFullscreen();
                       selectedExplodedState == true
                         ? setSelectedExplodedStatese(false)
                         : setSelectedExplodedStatese(true);

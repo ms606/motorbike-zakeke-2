@@ -1,3 +1,8 @@
+.camera_root {
+    position: "absolute"; 
+    right: "93%";
+}
+
 .cameras_camera {
     width: 52px;
     height: 68px;
@@ -16,4 +21,11 @@ img {
     height: 68px;
     max-height: 99%;
     border-radius: 8px;
+}
+
+@media screen and (max-width: 786px) {
+    .camera_root{
+        position: relative;
+        right: 0%;
+    }
 }

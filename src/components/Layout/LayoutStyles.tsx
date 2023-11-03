@@ -213,6 +213,7 @@ export const ViewerContainer = styled.div`
 
 	@media (max-width: 1024px) {
 		height: 100%;
+		background-color: white;
 	}
 `;
 
