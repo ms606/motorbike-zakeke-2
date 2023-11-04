@@ -154,6 +154,7 @@ const CopyrightCheckbox = styled.input`
 const CopyrightMandatoryMessage = styled.div``;
 
 const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
+	
 	const { showDialog, closeDialog } = useDialogManager();
 	const [forceUpdate, setForceUpdate] = useState(false);
 	const { setIsLoading, isMobile } = useStore();
@@ -183,6 +184,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		setCopyrightMessageAccepted,
 		getCopyrightMessageAccepted
 	} = useZakeke();
+
+	console.log(items,'Item Item');
 	const customizerRef = useRef<any | null>(null);
 	const [selectedCarouselSlide, setSelectedCarouselSlide] = useState<number>(0);
 
@@ -316,6 +319,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	const handleAddTextClick = () => {
 		console.log(showDialog,'show dialog desginer');
+		console.log(items,'items');
 		
 		showDialog(
 			'add-text',

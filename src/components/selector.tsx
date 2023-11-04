@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { useZakeke, Option } from "zakeke-configurator-react";
+import { useZakeke, Group } from "zakeke-configurator-react";
 import { List, ListItem, ListItemImage } from "./list";
 import "./selector.css";
 import "./Menu/menu.css";
@@ -16,6 +16,10 @@ import SelectionIcon from "../icons/SelectionIcon";
 import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 // '../../../../components/Loader/Loader';
 import { Icon } from "./Atomic";
+
+import Designer from "./Layout/Designer";
+
+const dialogsPortal = document.getElementById('dialogs-portal')!;
 
 const Container = styled.div`
   height: 100%;
@@ -40,7 +44,7 @@ interface SelectorProps {
 
 const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
-  console.log(refViewer);
+  //console.log(refViewer);
   const {
     isSceneLoading,
     isAddToCartLoading,
@@ -59,13 +63,32 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
     items,
     fonts,
     defaultColor,
-    removeItem
+    removeItem,
   } = useZakeke();
  
   const idsToRemove = [10483, -1];
 
   const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
 
+  // const groupsCustom: Group[];
+
+  const customizeGroup: Group = {
+		id: -2,
+		guid: '0000-0000-0000-0000',
+		name: 'LINING TEXT',
+		enabled: true,
+		attributes: [],
+		steps: [],
+		cameraLocationId: '',
+		displayOrder: groups.length - 1,
+		direction: 0,
+		attributesAlwaysOpened: false,
+		imageUrl: '',
+		templateGroups: [],
+	};
+
+  // groups1.push(customizeGroup);
+   
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
   const [selectedStepId, selectStep] = useState<number | null>(null);
@@ -327,7 +350,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                     setExplodedMode(false)
                   }
                   
-                  if(group.name.toLowerCase() === 'blazer view'){
+                  if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
                     selectOption(1363645); // Open jacket comm                    
                   }
                   else {
@@ -533,6 +556,14 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
             })}
           </div>
         )}
+
+
+        {selectedGroup?.id === -2 && 
+        <div>
+            <h1>Enter the text</h1>
+            <Designer />
+          </div>
+        }
 
         <div className="menu_footer">
           <div className="menu_price">

@@ -6,6 +6,7 @@ import useStore from '../../Store';
 import CloseIcon  from '../../assets/icons/times-solid.svg';
 
 const dialogsPortal = document.getElementById('dialogs-portal')!;
+
 export const dialogContext = React.createContext({ dialogId: '' });
 
 export function useDialogManager() {
@@ -14,6 +15,8 @@ export function useDialogManager() {
 	const { addDialog, removeDialog } = useStore();
 	const { dialogId } = useContext(dialogContext);
 
+	console.log(addDialog, 'addDialog');
+	
 	const showDialog = (key: string, dialog: ReactElement) => addDialog(key, dialog);
 	const closeDialog = (key: string) => removeDialog(key);
 	
@@ -215,8 +218,9 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref)
 
 export const DialogsRenderer: FunctionComponent<{}> = (props) => {
 	const { dialogs } = useStore();
-	console.log(dialogs);
-	
+	console.log(dialogs, 'DialogsRendererDialogsRendererDialogsRenderer');
+	console.log(dialogsPortal,'dialogsPortal      22222');
+	 
 	return (
 		<>
 			{createPortal(
