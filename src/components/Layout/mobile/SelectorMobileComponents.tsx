@@ -117,7 +117,7 @@ export const MobileItemsContainer: FC<MenuItemsContainerProps> = ({ children, is
         handleScroll();
 
         const actualRef = ref.current;
-        console.log(actualRef,'actualRef');
+        // console.log(actualRef,'actualRef');
         
         actualRef?.addEventListener('scroll', handleScroll);
         return () => actualRef?.removeEventListener('scroll', handleScroll);

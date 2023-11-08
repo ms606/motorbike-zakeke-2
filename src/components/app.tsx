@@ -38,7 +38,7 @@ const App: FunctionComponent<{}> = () => {
             {/* <Viewer /> */}
             {/* <Selector /> */}
         {/* </Layout> */}
-		{/* <DialogsRenderer /> */}
+		<DialogsRenderer />
     </ZakekeProvider>;
 }
 

@@ -4,11 +4,13 @@
     position: relative;
     max-height: calc(100% - 3px);
     height: calc(100vh - 72px);
+    color: var(--template-primary--600);
 }
 
 .menu_group {
     height: 58px;
     white-space: nowrap;
+    font-family: "Avenir",sans-serif;
     top: 30px;
     font-weight: 500;
 }

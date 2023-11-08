@@ -1,4 +1,4 @@
-import { Option, Step, ThemeTemplateGroup, useZakeke } from 'zakeke-configurator-react';
+import { Option, Step, ThemeTemplateGroup, useZakeke, Group } from 'zakeke-configurator-react';
 //import { T, useActualGroups, useUndoRedoActions, useUndoRegister } from '../../../Helpers';
 import { useActualGroups } from '../../../Helpers';
 import { Map } from 'immutable';
@@ -57,11 +57,26 @@ const SelectorMobile = () => {
 
 	let actualGroups = useActualGroups() ?? [];
 
-	const idsToRemove = [10483, -1];
+	const idsToRemove = [10483, 10482, -1];
 
     actualGroups = actualGroups.filter(obj => !idsToRemove.includes(obj.id));
 
-	// console.log(actualGroups,'actualGroups');
+	const customizeGroup: Group = {
+		id: -2,
+		guid: '0000-0000-0000-0000',
+		name: 'LINING TEXT',
+		enabled: true,
+		attributes: [],
+		steps: [],
+		cameraLocationId: '4f500be3-14f3-4226-cfd6-e1bbf4e390d4',
+		displayOrder: actualGroups.length - 1,
+		direction: 0,
+		attributesAlwaysOpened: false,
+		imageUrl: 'https://media.cdn.zakeke.com/cdn/images/customize_button/119348/cea408a2ebe144cdab67ac6140cbf38e.png',
+		templateGroups: [],
+	};
+  
+	if(!isSceneLoading) actualGroups.push(customizeGroup);
 	
 	const selectedGroup = selectedGroupId ? actualGroups.find((group) => group.id === selectedGroupId) : null;
 	const selectedStep = selectedGroupId
@@ -128,6 +143,8 @@ const SelectorMobile = () => {
 		// }
 
 		setSelectedGroupId(groupId);
+		// console.log(selecte);
+		
 	};
 
 	const handleStepSelection = (stepId: number | null) => {
@@ -301,7 +318,15 @@ const SelectorMobile = () => {
 										group.id === -3 ? savedCompositionsIcon : group.imageUrl ? group.imageUrl : star
 									}
 									label={group.name ? group.name : 'Customize'}
-									onClick={() => handleGroupSelection(group.id)}
+									onClick={() => {
+										handleGroupSelection(group.id)
+										if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+											selectOption(1363645); // Open jacket comm                    
+										  }
+										else {
+										selectOption(1363646);
+										}  
+									}}
 								></MenuItem>
 							);
 						else return null;

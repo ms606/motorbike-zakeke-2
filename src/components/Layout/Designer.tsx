@@ -17,8 +17,8 @@ import { ReactComponent as ArrowLeftIcon } from '../../assets/icons/arrow-left-s
 import { ReactComponent as ArrowRightIcon } from '../../assets/icons/arrow-right-solid.svg';
 import { ReactComponent as Arrows } from '../../assets/icons/arrows-alt-solid.svg';
 import { ReactComponent as Add } from '../../assets/icons/plus-circle-solid.svg';
-import { ReactComponent as SearchMinusSolid } from '../../assets/icons/search-minus-solid.svg';
-import { ReactComponent as SearchPlusSolid } from '../../assets/icons/search-plus-solid.svg';
+// import { ReactComponent as SearchMinusSolid } from '../../assets/icons/search-minus-solid.svg';
+// import { ReactComponent as SearchPlusSolid } from '../../assets/icons/search-plus-solid.svg';
 import {
 	ArrowLeft,
 	ArrowLeftIconStyled,
@@ -39,7 +39,7 @@ import {
 	Center,
 	IconsAndDesignerContainer,
 	SelectContainer,
-	SupportedFormatsList,
+	// SupportedFormatsList,
 	Template,
 	TemplatesContainer,
 	ZakekeDesignerContainer,
@@ -76,6 +76,10 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
 	user-select: none;
 	width: 100%;
 	padding: 30px 30px 70px 30px;
+	background-color:#ffffff;
+	position: relative;
+    bottom: 2em;
+	border-radius: 50px;
 	${(props) =>
 		props.isMobile &&
 		`
@@ -159,6 +163,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [forceUpdate, setForceUpdate] = useState(false);
 	const { setIsLoading, isMobile } = useStore();
 
+	console.log(isMobile, 'isMobile');
+	
 	const {
 		currentTemplate,
 		items,
@@ -185,13 +191,15 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		getCopyrightMessageAccepted
 	} = useZakeke();
 
-	console.log(items,'Item Item');
+	// console.log(items,'Item Item');
 	const customizerRef = useRef<any | null>(null);
 	const [selectedCarouselSlide, setSelectedCarouselSlide] = useState<number>(0);
 
 	const filteredAreas = product?.areas.filter((area) => isAreaVisible(area.id)) ?? [];
 	let finalVisibleAreas: ProductArea[] = [];
 
+	console.log(items,product,filteredAreas, 'filteredAreas');
+	
 	const [moveElements, setMoveElements] = useState(false);
 
 	let translatedTemplates = templates.map((template) => {
@@ -210,6 +218,9 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		filteredAreas.forEach((filteredArea) => {
 			let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === filteredArea.id);
 			let itemsOfTheArea = items.filter((item) => item.areaId === filteredArea.id);
+			// const areaId = itemsOfTheArea.find(({areaId}) => areaId === 385515);
+			// if(areaId) removeItem(areaId?.guid);
+			
 			const areAllItemsStatic = !itemsOfTheArea.some((item) => {
 				return (
 					!item.constraints ||
@@ -318,8 +329,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 
 	const handleAddTextClick = () => {
-		console.log(showDialog,'show dialog desginer');
-		console.log(items,'items');
+		console.log(actualAreaId,'acccccc');
 		
 		showDialog(
 			'add-text',
@@ -418,7 +428,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	// };
 
 	const handleItemPropChange = (item: EditTextItem, prop: string, value: string | boolean | File) => {
-		console.log('handleItempropChange', prop, item);
 		switch (prop) {
 			case 'remove':
 				handleItemRemoved(item.guid);
@@ -455,6 +464,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	return ( 
 	 	<>
+		<div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket</div>
 			{!moveElements && (
 				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}
@@ -688,12 +698,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 				<ZakekeDesignerContainer isMobile={isMobile} className='zakeke-container'>
 					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
 					<IconsAndDesignerContainer>
-						<ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
+						{/* <ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
 							<SearchPlusSolid />
 						</ZoomIconIn>
 						<ZoomIconOut hoverable onClick={() => customizerRef.current.zoomOut()}>
 							<SearchMinusSolid />
-						</ZoomIconOut>
+						</ZoomIconOut> */}
 					</IconsAndDesignerContainer>
 					<Button isFullWidth onClick={() => setMoveElements(false)}>
 						<span>OK</span>

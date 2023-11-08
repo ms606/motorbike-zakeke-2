@@ -10,17 +10,15 @@ const dialogsPortal = document.getElementById('dialogs-portal')!;
 export const dialogContext = React.createContext({ dialogId: '' });
 
 export function useDialogManager() {
-	console.log('in dialog manager');
+	// console.log('in dialog manager');
 	
 	const { addDialog, removeDialog } = useStore();
 	const { dialogId } = useContext(dialogContext);
 
-	console.log(addDialog, 'addDialog');
-	
 	const showDialog = (key: string, dialog: ReactElement) => addDialog(key, dialog);
 	const closeDialog = (key: string) => removeDialog(key);
 	
-	console.log('return', showDialog, dialogId);
+	// console.log('return', showDialog, dialogId);
 
 	return {
 		currentDialogId: dialogId,
@@ -218,8 +216,8 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref)
 
 export const DialogsRenderer: FunctionComponent<{}> = (props) => {
 	const { dialogs } = useStore();
-	console.log(dialogs, 'DialogsRendererDialogsRendererDialogsRenderer');
-	console.log(dialogsPortal,'dialogsPortal      22222');
+	// console.log(dialogs, 'DialogsRendererDialogsRendererDialogsRenderer');
+	// console.log(dialogsPortal,'dialogsPortal      22222');
 	 
 	return (
 		<>

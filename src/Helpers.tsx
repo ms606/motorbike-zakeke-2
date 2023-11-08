@@ -46,20 +46,20 @@ export const useDefinitiveGroups = (
 	const { isEditorMode, isViewerMode, isDraftEditor } = useStore();
 	const definitiveGroups: Group[] = [];
 
-	const customizeGroup: Group = {
-		id: -2,
-		guid: '0000-0000-0000-0000',
-		name: sellerSettings?.customizeButtonLabel ?? 'Customize',
-		enabled: hasCustomizeEnabled,
-		attributes: [],
-		steps: [],
-		cameraLocationId: '',
-		displayOrder: groups.length - 1,
-		direction: 0,
-		attributesAlwaysOpened: false,
-		imageUrl: sellerSettings?.customizeButtonIconUrl ?? '',
-		templateGroups: [],
-	};
+	// const customizeGroup: Group = {
+	// 	id: -2,
+	// 	guid: '0000-0000-0000-0000',
+	// 	name: sellerSettings?.customizeButtonLabel ?? 'Customize',
+	// 	enabled: hasCustomizeEnabled,
+	// 	attributes: [],
+	// 	steps: [],
+	// 	cameraLocationId: '',
+	// 	displayOrder: groups.length - 1,
+	// 	direction: 0,
+	// 	attributesAlwaysOpened: false,
+	// 	imageUrl: sellerSettings?.customizeButtonIconUrl ?? '',
+	// 	templateGroups: [],
+	// };
 
 	const savedConfigurationsGroup: Group = {
 		id: -3,
@@ -121,9 +121,9 @@ export const useDefinitiveGroups = (
 		}
 	}
 
-	if (hasCustomizeEnabled) {
-		definitiveGroups.push(customizeGroup);
-	}
+	// if (hasCustomizeEnabled) {
+	// 	definitiveGroups.push(customizeGroup);
+	//	}
 	if (hasDesignsSaved && !isEditorMode && !isViewerMode && !isDraftEditor) {
 		definitiveGroups.push(savedConfigurationsGroup);
 	}

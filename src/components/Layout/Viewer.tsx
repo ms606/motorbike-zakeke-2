@@ -214,7 +214,7 @@ const Viewer = () => {
   // 	else if (actualRedoStep.type === 'option') return redo();
   // };
 
-  console.log(document.fullscreenElement,'full screen check');
+  // console.log(document.fullscreenElement,'full screen check');
   
   return (
     <ViewerContainer ref={ref}>
@@ -223,7 +223,7 @@ const Viewer = () => {
       {/* {!isInfoPointContentVisible && ( */}
      
      
-      {!document.fullscreenElement &&  
+      {/* {!document.fullscreenElement &&   */}
       <>
         <div style={{ position: "absolute", left: "10px", top: "1%" }}>
           <Cameras
@@ -292,11 +292,11 @@ const Viewer = () => {
                         : setSelectedExplodedStatese(true);
                     }
                     {
-                      if (document.fullscreenElement) {
-                        if (document.exitFullscreen) {
-                          document.exitFullscreen();
-                        }
-                      }
+                      // if (document.fullscreenElement) {
+                      //   if (document.exitFullscreen) {
+                      //     document.exitFullscreen();
+                      //   }
+                      // }
                       selectedExplodedState == true
                         ? setExplodedMode(true)
                         : setExplodedMode(false);
@@ -312,6 +312,7 @@ const Viewer = () => {
               </div>
             </div>
 
+            {!document.fullscreenElement && (
             <div
               className="bubble_button_fullScreen"
               onClick={() => {
@@ -334,10 +335,11 @@ const Viewer = () => {
               </div>
 
               <div className="bubble_button_text">Full Screen</div>
+            </div>)
+            }
             </div>
-          </div> 
-
-
+            
+            
           {/* {hasExplodedMode() && product && !isSceneLoading && (
             <>
               <CollapseIcon hoverable onClick={() => setExplodedMode(false)}>
@@ -395,7 +397,7 @@ const Viewer = () => {
 						<RecapPanel key={'recapPanel'} onClose={() => setRecapPanelOpened(false)} />
 					)}{' '} */}
       </>
-      }
+      {/* } */}
       {/* )} */}
 
       {/* Notifications */}

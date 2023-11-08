@@ -34,9 +34,9 @@ export const TextArea = styled.textarea`
 	padding: 10px 20px;
 	color: #414042;
 	font-size: 14px;
-	border: 1px #f4f4f4 solid;
+	border: 1px var(--template-primary--400) solid;
 	width: 100%;
-	min-height: 100px;
+	min-height: 35px;
 	font-family: 'Montserrat', sans-serif;
 	outline: none;
 	resize: none;

@@ -66,7 +66,10 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
     removeItem,
   } = useZakeke();
  
-  const idsToRemove = [10483, -1];
+  
+  // removeItem('4218fc40-22fa-484e-8a74-e0dc11c4a127');
+
+  const idsToRemove = [10483, 10482, -1];
 
   const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
 
@@ -79,16 +82,19 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 		enabled: true,
 		attributes: [],
 		steps: [],
-		cameraLocationId: '',
+		cameraLocationId: '4f500be3-14f3-4226-cfd6-e1bbf4e390d4',
 		displayOrder: groups.length - 1,
 		direction: 0,
 		attributesAlwaysOpened: false,
 		imageUrl: '',
 		templateGroups: [],
 	};
-
-  // groups1.push(customizeGroup);
+  
+  
+  groups1.push(customizeGroup);
    
+//  console.log(groups,'groups');
+  
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
   const [selectedStepId, selectStep] = useState<number | null>(null);
@@ -138,7 +144,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   // }
 
   
-  const selectedGroup = groups1.find((group) => group.id === selectedGroupId);
+  const selectedGroup = groups1.find((group) =>group.id === selectedGroupId);
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
@@ -179,8 +185,9 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    if (!selectedGroup && groups1.length > 0) {
-
+   
+    if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {  
+      
       selectGroup(groups1[0].id);
 
       if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
@@ -204,19 +211,31 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
   useEffect(() => {
     if (selectedGroup) {
+      
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
       
       if (selectedCameraID) setCamera(selectedCameraID);
-      
-      // setCamera(selectedStep?.attributes[0].cameraLocationId);
 
-      //console.log(setCamera,selectedStep?.attributes[0]);
-      
-      // if (selectedStepId) setCamera(selectedStep?.attributes[0].cameraLocationID)
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedCameraID, selectedStepId]);
+
+
+  // Camera for attributes
+	useEffect(() => {
+
+    console.log(groups,'inside camera attributes');
+
+		if (!isSceneLoading && selectedAttribute && selectedAttribute.cameraLocationId) {
+			setCamera(selectedAttribute.cameraLocationId);
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedAttribute, !isSceneLoading]);
+
+
 
   // useEffect(() => {
 
@@ -377,7 +396,11 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                   key={step.id}
                   onClick={() => {
                     selectStep(step.id)
-                    setCamera(step?.attributes[0].cameraLocationId || '')                    
+                    setCamera(step?.cameraLocationID || '')       
+                    // setCamera("032464dd-2bf4-42ec-8cf2-42a0dcc7a75f")             
+                    console.log(step?.cameraLocationID || '');
+                    
+                    // setCamera("f1e09acb-28a1-4a65-d965-ff64333d950a")
                   }}
                   //selected={selectedStep === step}
                 >
@@ -559,12 +582,15 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
 
         {selectedGroup?.id === -2 && 
-        <div>
-            <h1>Enter the text</h1>
+        <div style={{ overflowX: "hidden", height: "100%"}}>
+            {/* <div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket</div> */}
             <Designer />
           </div>
         }
 
+        <br />
+        <br />
+        <br />
         <div className="menu_footer">
           <div className="menu_price">
             <div className="price_text">Price: </div>

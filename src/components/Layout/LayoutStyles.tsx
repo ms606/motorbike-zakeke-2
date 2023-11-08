@@ -419,16 +419,20 @@ export const SupportedFormatsList = styled.span`
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
-	height: 100%;
+	z-index: 3;
+	height: 90%;
 	width: 100%;
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: #ffffff;
+	background: var(--template-primary--400);
+	// background: #ffffff;
 	${(props) =>
 		props.isMobile &&
 		`
-       position:fixed;
+		background: var(--template-primary--400);
+		height: 100vh !important;
+        position:fixed;
         inset:0;
         z-index:13;
     `}
@@ -543,6 +547,8 @@ export const SelectorMobileContainer = styled.div`
 	width: 100%;
 	position: relative;
 	overflow: auto;
+	// height: 100vh;
+    // z-index: 11;
 `;
 
 export const StepsMobileContainer = styled.div`

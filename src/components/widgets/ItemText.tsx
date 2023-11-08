@@ -204,7 +204,7 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
                         onChange={(font: any) => handleItemPropChange(item, 'font-family', font.name)}
                     />
                 </FormControl>}
-                <TextButtonsContainer>
+                {/* <TextButtonsContainer>
                     {(!constraints || constraints.canChangeFontWeight) && <FormControl label={"Style"}>
                         <Columns columns={2}>
                             <Button
@@ -229,7 +229,7 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
                             <Icon><CurveIcon /></Icon>
                         </Button>
                     </FormControl>}
-                </TextButtonsContainer>
+                </TextButtonsContainer> */}
             </TextToolsContainer>
 
             {/* {(!disableTextColors || !(disableTextColors && textColors.length === 1)) && <FormControl label={T._("Color", "Composer")}>
