@@ -30,6 +30,8 @@ import { Icon } from "../Atomic";
 import Cameras from "../Cameras/Cameras";
 import Preview from "../Preview/Preview";
 
+import Loader from "../Loader/Loader";
+
 // import Notifications from '../widgets/Notifications';
 import {
   AiIcon,
@@ -216,9 +218,14 @@ const Viewer = () => {
 
   // console.log(document.fullscreenElement,'full screen check');
   
+  if (isSceneLoading)
+  return <Loader visible={isSceneLoading} />;
+
   return (
     <ViewerContainer ref={ref}>
       {!isSceneLoading && <ZakekeViewer backgroundColor="#ffffff" />}
+
+     
 
       {/* {!isInfoPointContentVisible && ( */}
      
@@ -339,7 +346,7 @@ const Viewer = () => {
             }
             </div>
             
-            
+
           {/* {hasExplodedMode() && product && !isSceneLoading && (
             <>
               <CollapseIcon hoverable onClick={() => setExplodedMode(false)}>
