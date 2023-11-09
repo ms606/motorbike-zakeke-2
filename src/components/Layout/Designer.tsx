@@ -696,6 +696,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			)}
 			{moveElements && (
 				<ZakekeDesignerContainer isMobile={isMobile} className='zakeke-container'>
+					<div style={{width: "100%", height: "95%"}}>
 					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
 					<IconsAndDesignerContainer>
 						{/* <ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>
@@ -708,6 +709,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<Button isFullWidth onClick={() => setMoveElements(false)}>
 						<span>OK</span>
 					</Button>
+					</div>
 				</ZakekeDesignerContainer>
 			)}
 		</>
