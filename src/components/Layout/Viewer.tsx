@@ -285,25 +285,18 @@ const Viewer = () => {
               justifyContent: "space-between",
             }}
           >
+           {product?.name === 'FlexFabrix™ By DA Suit' && ( 
             <div className="bubble_button">
               <div className="bubble_button_button">
                 <ExplodeIcon
                   hoverable
                   onClick={() => {
-                    // (ref.current!).requestFullscreen()
-                    // (ref.current!).exitFullscreen()
                     {
-                      //ref.current!.requestFullscreen();
                       selectedExplodedState == true
                         ? setSelectedExplodedStatese(false)
                         : setSelectedExplodedStatese(true);
                     }
                     {
-                      // if (document.fullscreenElement) {
-                      //   if (document.exitFullscreen) {
-                      //     document.exitFullscreen();
-                      //   }
-                      // }
                       selectedExplodedState == true
                         ? setExplodedMode(true)
                         : setExplodedMode(false);
@@ -317,7 +310,8 @@ const Viewer = () => {
               <div className="bubble_button_text">
                 {!selectedExplodedState ? "Close" : "Open"}
               </div>
-            </div>
+            </div>)
+          }
 
             {!document.fullscreenElement && (
             <div

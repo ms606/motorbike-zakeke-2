@@ -64,12 +64,14 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
     fonts,
     defaultColor,
     removeItem,
+    product
   } = useZakeke();
  
   
   // removeItem('4218fc40-22fa-484e-8a74-e0dc11c4a127');
-
   const idsToRemove = [10483, 10482, -1];
+
+  idsToRemove.push (10640) // id to remove on only blazer product 
 
   const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
 
@@ -226,7 +228,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   // Camera for attributes
 	useEffect(() => {
 
-    console.log(groups,'inside camera attributes');
+ //   console.log(groups,'inside camera attributes');
 
 		if (!isSceneLoading && selectedAttribute && selectedAttribute.cameraLocationId) {
 			setCamera(selectedAttribute.cameraLocationId);
@@ -234,7 +236,6 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedAttribute, !isSceneLoading]);
-
 
 
   // useEffect(() => {
@@ -278,6 +279,8 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   //        // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [ selectedAttributeId, previewImage]);
 
+  // console.log(product);
+
   if (isSceneLoading || !groups1 || groups1.length === 0)
     return <Loader visible={isSceneLoading} />;
 
@@ -290,31 +293,37 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   
   return (
     <Container>
-      <div className="bubble_button">
-        <div className="bubble_button_button">
-          <ExplodeIcon
-            hoverable
-            onClick={() => {
-              {
-                selectedExplodedState == true
-                  ? setSelectedExplodedStatese(false)
-                  : setSelectedExplodedStatese(true);
-              }
-              {
-                selectedExplodedState == true
-                  ? setExplodedMode(true)
-                  : setExplodedMode(false);
-              }
-            }}
-          >
-            <ExplodeSolid />
-          </ExplodeIcon>
-        </div>
-
-        <div className="bubble_button_text">
-          {!selectedExplodedState ? "Close" : "Open"}
-        </div>
+    {product?.name === 'FlexFabrix™ By DA Suit' && (
+     
+     <div className="bubble_button">
+      <div className="bubble_button_button">
+        <ExplodeIcon
+          hoverable
+          onClick={() => {
+            {
+              selectedExplodedState == true
+                ? setSelectedExplodedStatese(false)
+                : setSelectedExplodedStatese(true);
+            }
+            {
+              selectedExplodedState == true
+                ? setExplodedMode(true)
+                : setExplodedMode(false);
+            }
+          }}
+        >
+          <ExplodeSolid />
+        </ExplodeIcon>
       </div>
+
+      <div className="bubble_button_text">
+        {!selectedExplodedState ? "Close" : "Open"}
+      </div>
+    </div>
+    )
+    
+    }
+      
 
 
       <div className="bubble_button_fullScreen" onClick={() => {refViewer.current?.requestFullscreen()}}>
@@ -369,12 +378,24 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                     setExplodedMode(false)
                   }
                   
-                  if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
-                    selectOption(1363645); // Open jacket comm                    
+                  if (product?.name === 'FlexFabrix™ By DA Suit') {
+                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+                      selectOption(1363645); // Open jacket comm                    
+                    }
+                    else {
+                      selectOption(1363646);
+                    }  
                   }
-                  else {
-                    selectOption(1363646);
-                  }  
+
+                  if (product?.name === 'FlexFabrix™ By DA Blazer'){
+                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+                      selectOption(1382103); // Open jacket comm                    
+                    }
+                    else {
+                      selectOption(1382104);
+                    }  
+                  }
+                  
                   
                 }}
                 

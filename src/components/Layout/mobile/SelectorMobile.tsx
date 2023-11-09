@@ -29,7 +29,9 @@ const SelectorMobile = () => {
 		setTemplate,
 		sellerSettings,
 		selectOption,
-		draftCompositions
+		draftCompositions,
+		setExplodedMode,
+		product
 	} = useZakeke();
 	const {
 		selectedGroupId,
@@ -58,6 +60,8 @@ const SelectorMobile = () => {
 	let actualGroups = useActualGroups() ?? [];
 
 	const idsToRemove = [10483, 10482, -1];
+
+	idsToRemove.push (10640) // id to remove on only blazer product 
 
     actualGroups = actualGroups.filter(obj => !idsToRemove.includes(obj.id));
 
@@ -320,12 +324,31 @@ const SelectorMobile = () => {
 									label={group.name ? group.name : 'Customize'}
 									onClick={() => {
 										handleGroupSelection(group.id)
-										if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
-											selectOption(1363645); // Open jacket comm                    
+
+										if(group.name.toLowerCase() === 'pant'){
+											setExplodedMode(true)
+										  }else {
+											setExplodedMode(false)
 										  }
-										else {
-										selectOption(1363646);
-										}  
+
+										  if (product?.name === 'FlexFabrix™ By DA Suit') {
+											if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+											  selectOption(1363645); // Open jacket comm                    
+											}
+											else {
+											  selectOption(1363646);
+											}  
+										  }
+						
+										  if (product?.name === 'FlexFabrix™ By DA Blazer'){
+											if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+											  selectOption(1382103); // Open jacket comm                    
+											}
+											else {
+											  selectOption(1382104);
+											}  
+										  }
+										
 									}}
 								></MenuItem>
 							);

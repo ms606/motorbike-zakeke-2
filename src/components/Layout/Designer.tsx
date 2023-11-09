@@ -197,8 +197,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	const filteredAreas = product?.areas.filter((area) => isAreaVisible(area.id)) ?? [];
 	let finalVisibleAreas: ProductArea[] = [];
-
-	console.log(items,product,filteredAreas, 'filteredAreas');
 	
 	const [moveElements, setMoveElements] = useState(false);
 
@@ -329,8 +327,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	};
 
 	const handleAddTextClick = () => {
-		console.log(actualAreaId,'acccccc');
-		
 		showDialog(
 			'add-text',
 			<AddTextDialog
