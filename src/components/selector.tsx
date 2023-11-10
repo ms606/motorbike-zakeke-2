@@ -67,6 +67,20 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
     product
   } = useZakeke();
  
+
+  
+  
+  const hash = new WeakMap();
+  
+  let res;
+
+  hash.set(groups,res);
+  console.log(Object(groups),hash, hash.get(groups),res,'groups');
+  hash.set(groups, res)
+  for (const val in groups[0]) {
+    console.log(val,'key');
+    // res[key] = 
+  }
   
   // removeItem('4218fc40-22fa-484e-8a74-e0dc11c4a127');
   const idsToRemove = [10483, 10482, -1];
@@ -76,6 +90,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
 
   // const groupsCustom: Group[];
+
 
   const customizeGroup: Group = {
 		id: -2,
@@ -92,10 +107,9 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 		templateGroups: [],
 	};
   
-  
-  groups1.push(customizeGroup);
+  if (product?.name != 'FlexFabrix™ By DA Dress Pants') groups1.push(customizeGroup);
    
-//  console.log(groups,'groups');
+ //console.log(groups,'groups');
   
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
@@ -320,11 +334,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
         {!selectedExplodedState ? "Close" : "Open"}
       </div>
     </div>
-    )
-    
-    }
-      
-
+    )}
 
       <div className="bubble_button_fullScreen" onClick={() => {refViewer.current?.requestFullscreen()}}>
         <div className="bubble_button_button">
@@ -376,27 +386,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                     setExplodedMode(true)
                   }else {
                     setExplodedMode(false)
-                  }
-                  
-                  if (product?.name === 'FlexFabrix™ By DA Suit') {
-                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
-                      selectOption(1363645); // Open jacket comm                    
-                    }
-                    else {
-                      selectOption(1363646);
-                    }  
-                  }
-
-                  if (product?.name === 'FlexFabrix™ By DA Blazer'){
-                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
-                      selectOption(1382103); // Open jacket comm                    
-                    }
-                    else {
-                      selectOption(1382104);
-                    }  
-                  }
-                  
-                  
+                  } 
                 }}
                 
               >
@@ -418,10 +408,9 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                   onClick={() => {
                     selectStep(step.id)
                     setCamera(step?.cameraLocationID || '')       
-                    // setCamera("032464dd-2bf4-42ec-8cf2-42a0dcc7a75f")             
-                    console.log(step?.cameraLocationID || '');
+                    // console.log(step?.cameraLocationID,'camera location id');
                     
-                    // setCamera("f1e09acb-28a1-4a65-d965-ff64333d950a")
+                    // setCamera("032464dd-2bf4-42ec-8cf2-42a0dcc7a75f")             
                   }}
                   //selected={selectedStep === step}
                 >

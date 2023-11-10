@@ -80,7 +80,11 @@ const SelectorMobile = () => {
 		templateGroups: [],
 	};
   
-	if(!isSceneLoading) actualGroups.push(customizeGroup);
+
+	if(!isSceneLoading){
+		if (product?.name != 'FlexFabrix™ By DA Dress Pants') actualGroups.push(customizeGroup);
+		// actualGroups.push(customizeGroup);
+		}
 	
 	const selectedGroup = selectedGroupId ? actualGroups.find((group) => group.id === selectedGroupId) : null;
 	const selectedStep = selectedGroupId
@@ -111,6 +115,8 @@ const SelectorMobile = () => {
 
 	const [lastSelectedSteps, setLastSelectedSteps] = useState(Map<number, number>());
 
+	// console.log(options,'options');
+	
 	const handleNextGroup = () => {
 		if (selectedGroup) {
 			if (groupIndex < actualGroups.length - 1) {

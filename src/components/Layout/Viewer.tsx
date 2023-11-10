@@ -278,9 +278,9 @@ const Viewer = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              height: "100vw",
+              height: "100vh",
               position: "absolute",
-              bottom: "87px",
+              // bottom: "87px",
               width: "85px",
               justifyContent: "space-between",
             }}

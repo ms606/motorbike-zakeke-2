@@ -123,13 +123,13 @@ export const Steps: FC<{
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [steps, currentStep]);
 
-        console.log(actualStepIndex, (actualStepIndex === 0),!(actualStepIndex === 0),hasPreviousGroup);
+        // console.log(steps, hasNextGroup, actualStepIndex, hasPreviousGroup, isMobile);
         
         return <StepsContainer>
             {((actualStepIndex > 0) || hasPreviousGroup) && !isMobile && <ArrowIcons onClick={handlePreviousClick}><LeftArrow /></ArrowIcons>}
 
             <StepsIcons isMobile={isMobile}>
-                {((actualStepIndex > 0) || hasPreviousGroup) && isMobile && <Icon onClick={handlePreviousClick}><LeftArrow /></Icon>}
+                {((actualStepIndex > 0) ) && isMobile && <Icon onClick={handlePreviousClick}><LeftArrow /></Icon>}
                 {steps && (steps.length < maxItems ? steps : rangeOfSteps).map((step, index) => {
                     return <React.Fragment key={step.id}>
 
@@ -142,10 +142,10 @@ export const Steps: FC<{
                             <span>{(steps.indexOf(step) + 1)}</span>
                         </StepItem>
                         {currentStep && step.id === currentStep?.id && isMobile && <ActualStepName isMobile={isMobile}>{currentStep.name}</ActualStepName>}
-                    </React.Fragment>
+                    </React.Fragment>   
                 })
                 }
-                {(!(actualStepIndex === steps!.length - 1) || hasNextGroup) && isMobile && <Icon onClick={handleNextClick}><RightArrow /></Icon>}
+                {(!(actualStepIndex === steps!.length - 1)) && isMobile && <Icon onClick={handleNextClick}><RightArrow /></Icon>}
             </StepsIcons>
 
             {(!(actualStepIndex === steps!.length - 1) || hasNextGroup) && !isMobile && <ArrowIcons isRight onClick={handleNextClick}><RightArrow /></ArrowIcons>}
