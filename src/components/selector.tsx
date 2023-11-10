@@ -74,13 +74,11 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   
   let res;
 
-  hash.set(groups,res);
-  console.log(Object(groups),hash, hash.get(groups),res,'groups');
-  hash.set(groups, res)
-  for (const val in groups[0]) {
-    console.log(val,'key');
-    // res[key] = 
-  }
+  hash.set(groups[0], "groups 1")
+  hash.set(groups[1], "groups 2")
+  hash.set(groups[1], "groups 2")
+
+  // console.log(hash);
   
   // removeItem('4218fc40-22fa-484e-8a74-e0dc11c4a127');
   const idsToRemove = [10483, 10482, -1];

@@ -131,7 +131,7 @@ const Menu: React.FC<MenuProps> = props => {
   // }
 
   useEffect(() => {
-    console.log(props.groups, 'pro[s.');
+    // console.log(props.groups, 'pro[s.');
     setSelectedGroup(
       props.groups?.find(grp => grp.id === props.selectedGroupId) || null
     );

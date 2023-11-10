@@ -43,14 +43,12 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
 
   cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
 
-
-  
   return !!props.cameras.length ? (
     <div className="camera_root">
       {cameraViews.map(camera => (
         <div
           onClick={(e) => {
-             console.log(camera);
+            //  console.log(camera);
               if (camera.name.toLowerCase() === 'blazer'){
                 props.onSelect(camera.steps[camera.steps.length -1].cameraLocationID);
               }
