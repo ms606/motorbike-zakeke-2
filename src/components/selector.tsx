@@ -70,13 +70,13 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
   
   
-  const hash = new WeakMap();
+  // const hash = new WeakMap();
   
-  let res;
+  // let res;
 
-  hash.set(groups[0], "groups 1")
-  hash.set(groups[1], "groups 2")
-  hash.set(groups[1], "groups 2")
+  // hash.set(groups[0], "groups 1")
+  // hash.set(groups[1], "groups 2")
+  // hash.set(groups[1], "groups 2")
 
   // console.log(hash);
   
