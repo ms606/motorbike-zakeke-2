@@ -350,7 +350,7 @@ export const TopRightIcons = styled.div`
 `;
 
 export const BottomRightIcons = styled.div`
-	position: absolute;
+	// position: absolute;
 	right: 10px;
 	bottom: 40px;
 	display: flex;

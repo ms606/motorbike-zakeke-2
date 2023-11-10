@@ -230,8 +230,6 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
       if (camera) setCamera(camera);
       
       if (selectedCameraID) setCamera(selectedCameraID);
-
-
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedCameraID, selectedStepId]);
@@ -385,6 +383,25 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                   }else {
                     setExplodedMode(false)
                   } 
+
+                  if (product?.name === 'FlexFabrix™ By DA Suit') {
+                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+                      selectOption(1363645); // Open jacket comm                    
+                    }
+                    else {
+                      selectOption(1363646);
+                    }  
+                  }
+
+                  if (product?.name === 'FlexFabrix™ By DA Blazer'){
+                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
+                      selectOption(1382103); // Open jacket comm                    
+                    }
+                    else {
+                      selectOption(1382104);
+                    }  
+                  }
+                  
                 }}
                 
               >
@@ -553,6 +570,25 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                                           onClick={() => {
                                             selectOptionName(option.name);
                                             selectOption(option.id);
+
+                                            // if (product?.name === 'FlexFabrix™ By DA Suit') {
+                                            //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
+                                            //     selectOption(1363645); // Open jacket comm                    
+                                            //   }
+                                            //   else {
+                                            //     selectOption(1363646);
+                                            //   }  
+                                            //   }
+                                    
+                                            //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
+                                            //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
+                                            //     selectOption(1382103); // Open jacket comm                    
+                                            //   }
+                                            //   else {
+                                            //     selectOption(1382104);
+                                            //   }  
+                                            //   }
+                                              
                                           }}
                                           selected={option.selected}
                                           className="menu_choice_option"
