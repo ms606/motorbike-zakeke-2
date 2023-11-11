@@ -92,3 +92,20 @@
     margin-top: 8px;
     color: var(--template-primary--600);
 }
+
+
+@media screen and (max-width: 786px){
+    .menu_choice_steps{
+        position: relative;
+        /* bottom: 27%; */
+    } 
+
+    .menu_choice_option_image_container {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .menu_choice_option_description {
+        font-size: 14px;
+    }
+}

@@ -27,13 +27,19 @@ export const ListItem = styled.div<{ selected?: boolean }>`
     
 `;
 
-export const ListItemImage = styled.img`
-    height: 68px;
-    width: 67px;
-    //width: 100%;
-    // padding-top: 100%;
-    background-size: contain;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    position: relative;
-`
+    export const ListItemImage = styled.img`
+        height: 68px;
+        width: 67px;
+        //width: 100%;
+        // padding-top: 100%;
+        background-size: contain;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        position: relative;
+
+        @media screen and (max-width: 568px) {
+            width: 53px;
+            height: 57px;
+            margin: 0px 4px;
+
+    `

@@ -19,7 +19,7 @@ import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
 
-const dialogsPortal = document.getElementById('dialogs-portal')!;
+const dialogsPortal = document.getElementById("dialogs-portal")!;
 
 const Container = styled.div`
   height: 100%;
@@ -41,9 +41,10 @@ interface SelectorProps {
   fullScreen: any;
 }
 
-
-const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
-
+const Selector: FunctionComponent<SelectorProps> = ({
+  refViewer,
+  fullScreen,
+}) => {
   //console.log(refViewer);
   const {
     isSceneLoading,
@@ -56,22 +57,20 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
     setTemplate,
     setCamera,
     setExplodedMode,
-    hasExplodedMode,
     zoomIn,
     zoomOut,
-    addItemText,
-    items,
-    fonts,
     defaultColor,
-    removeItem,
-    product
+    product,
   } = useZakeke();
- 
 
+
+  console.log(useZakeke());
   
-  
+
+
+
   // const hash = new WeakMap();
-  
+
   // let res;
 
   // hash.set(groups[0], "groups 1")
@@ -79,36 +78,36 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   // hash.set(groups[1], "groups 2")
 
   // console.log(hash);
-  
+
   // removeItem('4218fc40-22fa-484e-8a74-e0dc11c4a127');
   const idsToRemove = [10483, 10482, -1];
 
-  idsToRemove.push (10640) // id to remove on only blazer product 
+  idsToRemove.push(10640); // id to remove on only blazer product
 
-  const groups1 = groups.filter(obj => !idsToRemove.includes(obj.id));
+  const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
 
   // const groupsCustom: Group[];
 
-
   const customizeGroup: Group = {
-		id: -2,
-		guid: '0000-0000-0000-0000',
-		name: 'LINING TEXT',
-		enabled: true,
-		attributes: [],
-		steps: [],
-		cameraLocationId: '4f500be3-14f3-4226-cfd6-e1bbf4e390d4',
-		displayOrder: groups.length - 1,
-		direction: 0,
-		attributesAlwaysOpened: false,
-		imageUrl: '',
-		templateGroups: [],
-	};
-  
-  if (product?.name != 'FlexFabrix™ By DA Dress Pants') groups1.push(customizeGroup);
-   
- //console.log(groups,'groups');
-  
+    id: -2,
+    guid: "0000-0000-0000-0000",
+    name: "LINING TEXT",
+    enabled: true,
+    attributes: [],
+    steps: [],
+    cameraLocationId: "4f500be3-14f3-4226-cfd6-e1bbf4e390d4",
+    displayOrder: groups.length - 1,
+    direction: 0,
+    attributesAlwaysOpened: false,
+    imageUrl: "",
+    templateGroups: [],
+  };
+
+  if (product?.name != "FlexFabrix™ By DA Dress Pants")
+    groups1.push(customizeGroup);
+
+  //console.log(groups,'groups');
+
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
   const [selectedStepId, selectStep] = useState<number | null>(null);
@@ -124,31 +123,31 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
+  const [selectedCollapse, selectCollapse] = useState<boolean | null>(null);
 
   useEffect(() => {
-
     const item = {
-      guid: '',
-      name: 'Dummy`',
+      guid: "",
+      name: "Dummy`",
       text: "Text",
       fillColor: defaultColor,
-      fontFamily: 'Rubik',
+      fontFamily: "Rubik",
       fontSize: 58,
-      fontWeight: 'bold bold',
+      fontWeight: "bold bold",
       isTextOnPath: false,
       constraints: null,
-  }
-  // removeItem('cf38ec2c-91ea-433f-a491-fb849998daf7')
-  // removeItem('c1c008ca-7bb2-460f-e288-74efbe9afbd3')
-  // removeItem('e7c7bf12-c701-4792-875b-c62cfee0a363')
-  // addItemText(item, 385515)
+    };
+    // removeItem('cf38ec2c-91ea-433f-a491-fb849998daf7')
+    // removeItem('c1c008ca-7bb2-460f-e288-74efbe9afbd3')
+    // removeItem('e7c7bf12-c701-4792-875b-c62cfee0a363')
+    // addItemText(item, 385515)
 
-      // console.log(groups,items,templates,'inside effec');
-      const fullBlazerGroup = groups.filter(obj => obj.id === 10483); 
-      
-    // console.log(fullBlazerGroup,'1'); 
-  },[groups])
-  
+    // console.log(groups,items,templates,'inside effec');
+    const fullBlazerGroup = groups.filter((obj) => obj.id === 10483);
+
+    // console.log(fullBlazerGroup,'1');
+  }, [groups]);
+
   // const idsToRemove = [10483, -1];
 
   // for (let i = groups1.length - 1; i >= 0; i--) {
@@ -157,8 +156,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   //   }
   // }
 
-  
-  const selectedGroup = groups1.find((group) =>group.id === selectedGroupId);
+  const selectedGroup = groups1.find((group) => group.id === selectedGroupId);
   const selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
@@ -199,9 +197,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-   
-    if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {  
-      
+    if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
       selectGroup(groups1[0].id);
 
       if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
@@ -213,11 +209,13 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
   // Select attribute first time
   useEffect(() => {
-    if (!selectedAttribute && attributes.length > 0) selectAttribute(attributes[0]?.id);
+    if (!selectedAttribute && attributes.length > 0)
+      selectAttribute(attributes[0]?.id);
 
     setSelectedAttributeOptionName(
       selectedAttribute && selectedAttribute.options
-        ? selectedAttribute.options.find(x => x.selected === true)?.name || null
+        ? selectedAttribute.options.find((x) => x.selected === true)?.name ||
+            null
         : null
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -225,28 +223,28 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
 
   useEffect(() => {
     if (selectedGroup) {
-      
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
-      
+
       if (selectedCameraID) setCamera(selectedCameraID);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedCameraID, selectedStepId]);
 
-
   // Camera for attributes
-	useEffect(() => {
+  useEffect(() => {
+    //   console.log(groups,'inside camera attributes');
 
- //   console.log(groups,'inside camera attributes');
+    if (
+      !isSceneLoading &&
+      selectedAttribute &&
+      selectedAttribute.cameraLocationId
+    ) {
+      setCamera(selectedAttribute.cameraLocationId);
+    }
 
-		if (!isSceneLoading && selectedAttribute && selectedAttribute.cameraLocationId) {
-			setCamera(selectedAttribute.cameraLocationId);
-		}
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedAttribute, !isSceneLoading]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedAttribute, !isSceneLoading]);
 
   // useEffect(() => {
 
@@ -300,55 +298,70 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
   // -- steps
   // -- -- attributes
   // -- -- -- options
-  
+
   return (
     <Container>
-    {product?.name === 'FlexFabrix™ By DA Suit' && (
-     
-     <div className="bubble_button">
-      <div className="bubble_button_button">
-        <ExplodeIcon
-          hoverable
-          onClick={() => {
-            {
-              selectedExplodedState == true
-                ? setSelectedExplodedStatese(false)
-                : setSelectedExplodedStatese(true);
-            }
-            {
-              selectedExplodedState == true
-                ? setExplodedMode(true)
-                : setExplodedMode(false);
-            }
-          }}
-        >
-          <ExplodeSolid />
-        </ExplodeIcon>
-      </div>
+      {product?.name === "FlexFabrix™ By DA Suit" && (
+        <div className="bubble_button">
+          <div className="bubble_button_button">
+            <ExplodeIcon
+              hoverable
+              onClick={() => {
+                {
+                  selectedExplodedState == true
+                    ? setSelectedExplodedStatese(false)
+                    : setSelectedExplodedStatese(true);
+                }
+                {
+                  selectedExplodedState == true
+                    ? setExplodedMode(true)
+                    : setExplodedMode(false);
+                }
+              }}
+            >
+              <ExplodeSolid />
+            </ExplodeIcon>
+          </div>
 
-      <div className="bubble_button_text">
-        {!selectedExplodedState ? "Close" : "Open"}
-      </div>
-    </div>
-    )}
+          <div className="bubble_button_text">
+            {!selectedExplodedState ? "Close" : "Open"}
+          </div>
+        </div>
+      )}
 
-      <div className="bubble_button_fullScreen" onClick={() => {refViewer.current?.requestFullscreen()}}>
+      <div
+        className="bubble_button_fullScreen"
+        onClick={() => {
+          refViewer.current?.requestFullscreen();
+        }}
+      >
         <div className="bubble_button_button">
-        <ExplodeIcon>
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2H2v6h2V4h4V2zM24 2h6v6h-2V4h-4V2zM8 30H2v-6h2v4h4v2zM24 30h6v-6h-2v4h-4v2zM24 24H8a2.002 2.002 0 01-2-2V10a2.002 2.002 0 012-2h16a2.002 2.002 0 012 2v12a2.002 2.002 0 01-2 2zM8 10v12h16V10H8z" fill="#838383"></path></svg>
-        </ExplodeIcon>
+          <ExplodeIcon>
+            <svg
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 2H2v6h2V4h4V2zM24 2h6v6h-2V4h-4V2zM8 30H2v-6h2v4h4v2zM24 30h6v-6h-2v4h-4v2zM24 24H8a2.002 2.002 0 01-2-2V10a2.002 2.002 0 012-2h16a2.002 2.002 0 012 2v12a2.002 2.002 0 01-2 2zM8 10v12h16V10H8z"
+                fill="#838383"
+              ></path>
+            </svg>
+          </ExplodeIcon>
         </div>
 
-        <div className="bubble_button_text">
-          Full Screen
-        </div>
+        <div className="bubble_button_text">Full Screen</div>
       </div>
 
       <div>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
-        <div className="viewer_zoom" >
-          <div className="ff_zoom_in" onClick={() => zoomIn()} style={{cursor: 'pointer'}}>
+        <div className="viewer_zoom">
+          <div
+            className="ff_zoom_in"
+            onClick={() => zoomIn()}
+            style={{ cursor: "pointer" }}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
               <path d="M24 15h-7V8h-2v7H8v2h7v7h2v-7h7z"></path>
@@ -357,7 +370,11 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
           </div>
 
           <div className="ff_zoom_description">ZOOM</div>
-          <div className="ff_zoom_out" onClick={() => zoomOut()} style={{cursor: 'pointer'}}>
+          <div
+            className="ff_zoom_out"
+            onClick={() => zoomOut()}
+            style={{ cursor: "pointer" }}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
               <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
               <path d="M8 15h16v2H8z"></path>
@@ -377,33 +394,36 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                 key={group.id}
                 onClick={() => {
                   selectGroup(group.id);
+                  selectOptionName("");
                   // console.log(group);
-                  if(group.name.toLowerCase() === 'pant'){
-                    setExplodedMode(true)
-                  }else {
-                    setExplodedMode(false)
-                  } 
+                  if (group.name.toLowerCase() === "pant") {
+                    setExplodedMode(true);
+                  } else {
+                    setExplodedMode(false);
+                  }
 
-                  if (product?.name === 'FlexFabrix™ By DA Suit') {
-                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
-                      selectOption(1363645); // Open jacket comm                    
-                    }
-                    else {
+                  if (product?.name === "FlexFabrix™ By DA Suit") {
+                    if (
+                      group.name.toLowerCase() === "blazer view" ||
+                      group.name.toLowerCase() === "lining text"
+                    ) {
+                      selectOption(1363645); // Open jacket comm
+                    } else {
                       selectOption(1363646);
-                    }  
+                    }
                   }
 
-                  if (product?.name === 'FlexFabrix™ By DA Blazer'){
-                    if(group.name.toLowerCase() === 'blazer view' || group.name.toLowerCase() === 'lining text'){
-                      selectOption(1382103); // Open jacket comm                    
-                    }
-                    else {
+                  if (product?.name === "FlexFabrix™ By DA Blazer") {
+                    if (
+                      group.name.toLowerCase() === "blazer view" ||
+                      group.name.toLowerCase() === "lining text"
+                    ) {
+                      selectOption(1382103); // Open jacket comm
+                    } else {
                       selectOption(1382104);
-                    }  
+                    }
                   }
-                  
                 }}
-                
               >
                 {group.id === -1 ? "Other" : group.name}
               </div>
@@ -421,11 +441,16 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                   className="menu_choice_step_step"
                   key={step.id}
                   onClick={() => {
-                    selectStep(step.id)
-                    setCamera(step?.cameraLocationID || '')       
-                    // console.log(step?.cameraLocationID,'camera location id');
+                    // selectOptionName("");
+                    // selectCollapse(!selectedCollapse);
                     
-                    // setCamera("032464dd-2bf4-42ec-8cf2-42a0dcc7a75f")             
+                    selectStep(step.id);
+                    setCamera(step?.cameraLocationID || "");
+                    // console.log(step?.cameraLocationID,'camera location id');
+                    if (selectedStepId != step.id) {
+                      selectOptionName("");
+                    }
+                    // setCamera("032464dd-2bf4-42ec-8cf2-42a0dcc7a75f")
                   }}
                   //selected={selectedStep === step}
                 >
@@ -438,6 +463,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                           ? "1px solid var(--template-primary--400)"
                           : "",
                     }}
+                    // onClick={()=> {selectCollapse(!selectedCollapse)}}
                   >
                     <div
                       className="menu_choice_step_description"
@@ -454,6 +480,15 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                         fontSize: "12px",
                         lineHeight: "16px",
                         textTransform: "uppercase",
+                      }}
+                      onClick={() => {
+                        selectCollapse(true);
+                        console.log("toggle",selectedCollapse);
+                        selectCollapse(true);
+                        selectCollapse(true);
+                        // selectGroup(-1);  
+                        // selectStep(-1);
+                        // selectAttribute(-1);
                       }}
                     >
                       {selectedStepId != step.id ? "Customize" : "Close"}
@@ -481,6 +516,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
                               } else {
+                                selectOptionName("");
                                 selectAttribute(attribute.id);
                               }
                             }}
@@ -543,6 +579,7 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                               </div>
                             </div>
                           </div>
+                          
                           <div
                             style={{
                               marginTop: "10px",
@@ -552,6 +589,8 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                             }}
                           >
                             {attribute.options.map((option) => {
+                              console.log(selectedCollapse,'selectedCollapse');
+                              
                               //  console.log(option,'attribute option detail');
                               return (
                                 <div
@@ -568,33 +607,32 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
                                         <ListItem
                                           key={option.id}
                                           onClick={() => {
-                                            selectOptionName(option.name);
                                             selectOption(option.id);
-
+                                            selectCollapse(!selectedCollapse)
                                             // if (product?.name === 'FlexFabrix™ By DA Suit') {
                                             //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                            //     selectOption(1363645); // Open jacket comm                    
+                                            //     selectOption(1363645); // Open jacket comm
                                             //   }
                                             //   else {
                                             //     selectOption(1363646);
-                                            //   }  
                                             //   }
-                                    
+                                            //   }
+
                                             //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
                                             //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                            //     selectOption(1382103); // Open jacket comm                    
+                                            //     selectOption(1382103); // Open jacket comm
                                             //   }
                                             //   else {
                                             //     selectOption(1382104);
-                                            //   }  
                                             //   }
-                                              
+                                            //   }
                                           }}
                                           selected={option.selected}
                                           className="menu_choice_option"
                                         >
-                                          <div className="menu_choice_option_image_container" 
-                                          // style={}
+                                          <div
+                                            className="menu_choice_option_image_container"
+                                            // style={}
                                           >
                                             {option.imageUrl && (
                                               <ListItemImage
@@ -624,13 +662,15 @@ const Selector: FunctionComponent<SelectorProps> = ({refViewer,fullScreen}) => {
           </div>
         )}
 
-
-        {selectedGroup?.id === -2 && 
-        <div style={{ overflowX: "hidden", height: "100%"}}>
+        {selectedGroup?.id === -2 && (
+          <div
+            className="textEditor"
+            style={{ overflowX: "hidden", height: "100%" }}
+          >
             {/* <div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket</div> */}
             <Designer />
           </div>
-        }
+        )}
 
         <br />
         <br />
