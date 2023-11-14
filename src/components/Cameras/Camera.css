@@ -25,7 +25,8 @@ img {
 
 @media screen and (max-width: 786px) {
     .camera_root{
-        position: relative;
-        right: 0%;
+      position: absolute;
+      left: 0%;
+      top: 0%;
     }
 }

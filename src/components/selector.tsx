@@ -61,11 +61,42 @@ const Selector: FunctionComponent<SelectorProps> = ({
     zoomOut,
     defaultColor,
     product,
+    cameras,
   } = useZakeke();
 
+  // console.log(cameras);
 
-  console.log(useZakeke());
+  const cam = ['zoom full view', 'apple', 'full View1', 'jeans View', 'blazer button']
   
+  function sortArray(cameraSortName: any) {
+    let currentTemp = [];
+
+    for (var i = 0; i <= cameraSortName.length - 1; i++) {
+      for (var j = 0; j <= cameraSortName.length - 1 - 1; j++) {
+        
+        var a = cameraSortName[j];
+        var b = cameraSortName[j+1]
+        
+        console.log(a,',',b,',',a < b, j, cameraSortName.length)
+        if (a.localeCompare(b) > 0) {
+          // console.log('swapping', cameraSortName[j],cameraSortName[j+1]);
+          const temp = cameraSortName[j];
+          cameraSortName[j] = cameraSortName[j+1];
+          cameraSortName[j+1] = temp
+        }
+
+        currentTemp[j] = a;
+        currentTemp[j+1] = b; 
+        console.log(currentTemp,'in process ', j );
+      }
+    }
+    console.log(currentTemp, "new array1");
+    // return currentTemp;
+  }
+
+  sortArray(cam);
+
+
 
 
 
@@ -123,7 +154,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
-  const [selectedCollapse, selectCollapse] = useState<boolean | null>(null);
+  const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
 
   useEffect(() => {
     const item = {
@@ -443,7 +474,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   onClick={() => {
                     // selectOptionName("");
                     // selectCollapse(!selectedCollapse);
-                    
+
                     selectStep(step.id);
                     setCamera(step?.cameraLocationID || "");
                     // console.log(step?.cameraLocationID,'camera location id');
@@ -482,11 +513,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         textTransform: "uppercase",
                       }}
                       onClick={() => {
-                        selectCollapse(true);
-                        console.log("toggle",selectedCollapse);
-                        selectCollapse(true);
-                        selectCollapse(true);
-                        // selectGroup(-1);  
+                        // selectCollapse(true);
+                        //   console.log("toggle", selectedCollapse);
+                        // selectGroup(-1);
                         // selectStep(-1);
                         // selectAttribute(-1);
                       }}
@@ -512,7 +541,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   ? "1px solid var(--template-primary--400)"
                                   : "",
                             }}
-                            onClick={() => {
+                            onClick={(e) => {
+                              // e.stopPropagation();
+
+                              selectCollapse(!selectedCollapse);
+
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
                               } else {
@@ -566,7 +599,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               <div
                                 style={{
                                   transform:
-                                    attribute.id === selectedAttributeId
+                                    attribute.id === selectedAttributeId &&
+                                    !selectedCollapse
                                       ? "rotate(-180deg)"
                                       : "",
                                   fill:
@@ -579,7 +613,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               </div>
                             </div>
                           </div>
-                          
+
                           <div
                             style={{
                               marginTop: "10px",
@@ -587,10 +621,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               flexDirection: "row",
                               flexWrap: "wrap",
                             }}
+                            onClick={(e) => {
+                              console.log("Div3 clicked");
+                              // Prevent the event from reaching div2 or div1
+                              //   e.stopPropagation();
+                            }}
                           >
                             {attribute.options.map((option) => {
-                              console.log(selectedCollapse,'selectedCollapse');
-                              
+                              //  console.log(selectedCollapse, "selectedCollapse");
+
                               //  console.log(option,'attribute option detail');
                               return (
                                 <div
@@ -601,14 +640,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   }}
                                 >
                                   <div>
-                                    {selectedAttributeId ===
-                                      option.attribute.id &&
+                                    {!selectedCollapse &&
+                                      selectedAttributeId ===
+                                        option.attribute.id &&
                                       option.imageUrl && (
                                         <ListItem
                                           key={option.id}
                                           onClick={() => {
                                             selectOption(option.id);
-                                            selectCollapse(!selectedCollapse)
+
                                             // if (product?.name === 'FlexFabrix™ By DA Suit') {
                                             //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
                                             //     selectOption(1363645); // Open jacket comm

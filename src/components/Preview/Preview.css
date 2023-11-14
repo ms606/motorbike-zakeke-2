@@ -1,5 +1,19 @@
+.ff_preview {
+    position: absolute; 
+    right: 93%; 
+    top: 38%;
+}
+
 .preview_preview {
     width: 52px;
     height: 68px;
     box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);
+}
+
+@media screen and (max-width: 786px) {
+    .ff_preview {
+        position: absolute;
+        right: 86%;
+        top: 40%;
+    }    
 }

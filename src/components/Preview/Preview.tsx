@@ -1,4 +1,5 @@
 import React from "react";
+import './Preview.css'
 //import { useTranslation } from "react-i18next";
 // import classnames from "classnames";
 //import styles from "./Preview.module.scss";
@@ -46,8 +47,7 @@ const Preview: React.FC<PreviewProps> = React.memo(props => {
    }
 
   return !!props.PreviewImage?.image ? (
-    <div //className={styles.ff_preview} 
-        style={{position: "absolute", right: "93%", top: "38%"}}
+    <div className='ff_preview'
          data-testid="preview">
     <div
         className="preview_preview"

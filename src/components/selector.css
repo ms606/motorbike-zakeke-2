@@ -164,10 +164,16 @@
 
     .bubble_button {
         top: 10%;
+        left: 90% !important;
     }
 
     .bubble_button_fullScreen {
         top: 35%;
+        left: 90% !important;
+    }
+
+    .viewer_zoom {
+        display: none;
     }
 }
 
