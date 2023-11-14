@@ -66,51 +66,39 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // console.log(cameras);
 
-  const cam = ['zoom full view', 'apple', 'full View1', 'jeans View', 'blazer button']
+  // const cam = ['zoom full view', 'apple', 'full View1', 'jeans View', 'blazer button']
   
-  function sortArray(cameraSortName: any) {
-    let currentTemp = [];
+  // function sortArray(cameraSortName: any) {
+  //   let currentTemp = [];
 
-    for (var i = 0; i <= cameraSortName.length - 1; i++) {
-      for (var j = 0; j <= cameraSortName.length - 1 - 1; j++) {
+  //   for (var i = 0; i <= cameraSortName.length - 1; i++) {
+  //     for (var j = 0; j <= cameraSortName.length - 1 - 1; j++) {
         
-        var a = cameraSortName[j];
-        var b = cameraSortName[j+1]
+  //       var a = cameraSortName[j];
+  //       var b = cameraSortName[j+1]
         
-        console.log(a,',',b,',',a < b, j, cameraSortName.length)
-        if (a.localeCompare(b) > 0) {
-          // console.log('swapping', cameraSortName[j],cameraSortName[j+1]);
-          const temp = cameraSortName[j];
-          cameraSortName[j] = cameraSortName[j+1];
-          cameraSortName[j+1] = temp
-        }
+  //       console.log(a,',',b,',',a < b, j, cameraSortName.length)
 
-        currentTemp[j] = a;
-        currentTemp[j+1] = b; 
-        console.log(currentTemp,'in process ', j );
-      }
-    }
-    console.log(currentTemp, "new array1");
-    // return currentTemp;
-  }
+  //       if (a.localeCompare(b) > 0) {
+  //         // console.log('swapping', cameraSortName[j],cameraSortName[j+1]);
+  //         const temp = cameraSortName[j];
+  //         cameraSortName[j] = cameraSortName[j+1];
+  //         cameraSortName[j+1] = temp
+  //       }
 
-  sortArray(cam);
+  //       currentTemp[j] = a;
+  //       currentTemp[j+1] = b; 
+  //       console.log(currentTemp,'in process ', j );
+  //     }
+  //   }
+  //   console.log(currentTemp, "new array1");
+  //   // return currentTemp;
+  // }
 
-
-
+  // sortArray(cam);
 
 
-  // const hash = new WeakMap();
 
-  // let res;
-
-  // hash.set(groups[0], "groups 1")
-  // hash.set(groups[1], "groups 2")
-  // hash.set(groups[1], "groups 2")
-
-  // console.log(hash);
-
-  // removeItem('4218fc40-22fa-484e-8a74-e0dc11c4a127');
   const idsToRemove = [10483, 10482, -1];
 
   idsToRemove.push(10640); // id to remove on only blazer product
