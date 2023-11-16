@@ -175,7 +175,9 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
         return <ItemTextContainer>
             <FormControl
                 label={item.name || "Text"}
-                rightComponent={!hideRemoveButton && item.constraints!.canDelete && <Icon onClick={() => removeItem(item.guid)}><CloseIcon /></Icon>}>
+                // rightComponent={!hideRemoveButton && item.constraints!.canDelete 
+                // && <Icon onClick={() => removeItem(item.guid)}><CloseIcon /></Icon>}
+            >
 
                 <TextArea
                     value={isUpperCase ? item.text.toUpperCase() : item.text}

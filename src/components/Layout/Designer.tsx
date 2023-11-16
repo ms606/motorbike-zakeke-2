@@ -684,7 +684,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							<Icon>
 								<Arrows />
 							</Icon>
-							<span>{'Move elements'} </span>
+							<span>{'Scale Your Name'} </span>
 						</MoveElementButton>
 					)}
 					{isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>}

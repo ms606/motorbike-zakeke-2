@@ -13,6 +13,7 @@
 @media screen and (max-width: 786px) {
     .ff_preview {
         position: absolute;
+        left: 2%;
         right: 86%;
         top: 40%;
     }    

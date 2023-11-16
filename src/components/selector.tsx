@@ -18,6 +18,7 @@ import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
+import { reduceRight } from "lodash";
 
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
@@ -63,40 +64,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
     product,
     cameras,
   } = useZakeke();
-
-  // console.log(cameras);
-
-  // const cam = ['zoom full view', 'apple', 'full View1', 'jeans View', 'blazer button']
-  
-  // function sortArray(cameraSortName: any) {
-  //   let currentTemp = [];
-
-  //   for (var i = 0; i <= cameraSortName.length - 1; i++) {
-  //     for (var j = 0; j <= cameraSortName.length - 1 - 1; j++) {
-        
-  //       var a = cameraSortName[j];
-  //       var b = cameraSortName[j+1]
-        
-  //       console.log(a,',',b,',',a < b, j, cameraSortName.length)
-
-  //       if (a.localeCompare(b) > 0) {
-  //         // console.log('swapping', cameraSortName[j],cameraSortName[j+1]);
-  //         const temp = cameraSortName[j];
-  //         cameraSortName[j] = cameraSortName[j+1];
-  //         cameraSortName[j+1] = temp
-  //       }
-
-  //       currentTemp[j] = a;
-  //       currentTemp[j+1] = b; 
-  //       console.log(currentTemp,'in process ', j );
-  //     }
-  //   }
-  //   console.log(currentTemp, "new array1");
-  //   // return currentTemp;
-  // }
-
-  // sortArray(cam);
-
 
 
   const idsToRemove = [10483, 10482, -1];
