@@ -9,6 +9,8 @@
 .ff_root {
     position: relative;
     background-color: var(--template-background-color);
+    /* user-select: none;
+    overflow: auto;  */
 }
 
 .ff_viewer_left_actions {
