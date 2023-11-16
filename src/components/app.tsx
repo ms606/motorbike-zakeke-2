@@ -33,7 +33,7 @@ const App: FunctionComponent<{}> = () => {
 	} = useStore();
 
     return <ZakekeProvider environment={zakekeEnvironment}>
-		<LayoutMobile />
+		<Viewer />
         {/* {isMobile ? <LayoutMobile /> : <Viewer /> } */}
         {/* <Layout> */}
             {/* <Viewer /> */}
