@@ -426,15 +426,14 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	display: flex;
 	flex-direction: column;
 	background: var(--template-primary--400);
-	// background: #ffffff;
-
-	@media screen and (max-width: 568px) {
+	// background: #ffffff
+	@media (max-width: 1024px) {
 		background: var(--template-primary--400);
-		height: 93vh !important;
-        position:fixed;
-        inset:0;
-        z-index:13;
-    }		
+		height: 83vh !important;
+		position:fixed;
+		inset:0;
+		z-index:13;
+	}
 
 	${(props) =>
 		props.isMobile &&
