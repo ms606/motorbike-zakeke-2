@@ -65,6 +65,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     cameras,
   } = useZakeke();
 
+  //console.log(groups);
 
   const idsToRemove = [10483, 10482, -1];
 
@@ -498,15 +499,16 @@ const Selector: FunctionComponent<SelectorProps> = ({
                             }}
                             onClick={(e) => {
                               // e.stopPropagation();
-
-                              selectCollapse(!selectedCollapse);
-
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
                               } else {
                                 selectOptionName("");
                                 selectAttribute(attribute.id);
                               }
+
+                              //if sele
+                               selectCollapse(!selectedCollapse);
+
                             }}
                           >
                             <br />
@@ -595,7 +597,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   }}
                                 >
                                   <div>
-                                    {!selectedCollapse &&
+                                    {!selectedCollapse && option.enabled == true &&
                                       selectedAttributeId ===
                                         option.attribute.id &&
                                       option.imageUrl && (
