@@ -433,18 +433,18 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 		position:fixed;
 		inset:0;
 		z-index:13;
-	}
+	}`;
+	// ${(props) =>
+	// 	props.isMobile &&
+	// 	`
+	// 	background: var(--template-primary--400);
+	// 	height: 93vh !important;
+    //     position:fixed;
+    //     inset:0;
+    //     z-index:13;
+    // `}
 
-	${(props) =>
-		props.isMobile &&
-		`
-		background: var(--template-primary--400);
-		height: 93vh !important;
-        position:fixed;
-        inset:0;
-        z-index:13;
-    `}
-`;
+
 
 export const IconsAndDesignerContainer = styled.div`
 	position: absolute;
