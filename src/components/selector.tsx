@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useState, useRef } from "react";
 import styled from "styled-components";
 import { useZakeke, Group } from "zakeke-configurator-react";
 import { List, ListItem, ListItemImage } from "./list";
@@ -14,11 +14,14 @@ import Viewer from "../pages/Viewer/Viewer";
 import Loader from "../components/Loader/Loader";
 import SelectionIcon from "../icons/SelectionIcon";
 import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
+
+import DownArrow from "../assets/icons/DownArrow.js";
+import UpArrow from "../assets/icons/UpArrow.js";
 // '../../../../components/Loader/Loader';
 import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
-import { reduceRight } from "lodash";
+  import { reduceRight } from "lodash";
 
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
@@ -111,6 +114,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
+ 
+  const viewFooter = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const item = {
@@ -341,7 +346,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
       </div>
 
       <div>
-        <Cameras cameras={groups} onSelect={setSelectedCameraID} />
+
+
+      <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
         <div className="viewer_zoom">
           <div
@@ -368,8 +375,19 @@ const Selector: FunctionComponent<SelectorProps> = ({
               <path fill="none" d="M0 0h32v32H0z"></path>
             </svg>
           </div>
+          
+          
           {/* <img src={previewImage?.image}/> */}
         </div>
+
+        <div className="scroll" style={{position: "relative", left: "3%"}} onClick={() => refViewer.current?.scrollIntoView({ behavior: 'smooth' })}>
+          <UpArrow />
+            {/* Down */}
+         </div>
+        <div className="scroll"  style={{position: "relative", left: "3%"}} onClick={() => viewFooter.current?.scrollIntoView({ behavior: 'smooth' })}>
+          <DownArrow />
+            {/* Down */}
+         </div>
       </div>
 
       <div className="menu">
@@ -498,9 +516,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   : "",
                             }}
                             onClick={(e) => {
-                              console.log(step.id, step, selectedStepId, selectedAttributeId, attribute.id);
-                              
-
                               // e.stopPropagation();
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
@@ -676,7 +691,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
         <br />
         <br />
-        <div className="menu_footer">
+        <div className="menu_footer" ref={viewFooter}>
           <div className="menu_price">
             <div className="price_text">Price: </div>
             <div className="price_value">{price}</div>

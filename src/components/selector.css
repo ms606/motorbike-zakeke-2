@@ -147,6 +147,10 @@
     height: 16px;
 }
 
+.scroll {
+    display: none;
+} 
+
 @media (min-width: 61.25em) {
     .menu_btn_cart{
         width: 216px;
@@ -174,6 +178,10 @@
 
     .viewer_zoom {
         display: none;
+    }
+
+    .scroll {
+        display: block;
     }
 }
 
