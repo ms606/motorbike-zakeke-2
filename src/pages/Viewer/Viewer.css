@@ -36,8 +36,11 @@
     }
     
     .ff_root {
-        width: 24em;
-        min-height: 660px;
+        /* width: 24em;
+        min-height: 660px; */
+        width: 18em;
+        min-height: 500px;
+        left: 14%;
     }
 
     .textEditor {
