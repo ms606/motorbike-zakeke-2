@@ -80,17 +80,32 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
 	position: relative;
     bottom: 2em;
 	border-radius: 50px;
-	${(props) =>
-		props.isMobile &&
-		`
-        position:fixed;
-        top:0;
+
+	@media screen and (max-width: 568px) {
+		position:absolute;
+        top:60px;
         left:0;
         width:100%;
-        height:100%;
+        height:67%;
         z-index:11;
         background-color:#ffffff;
         overflow-y:scroll;
+		border-radius: 40px;
+    }		
+
+
+	${(props) =>
+		props.isMobile &&
+		`
+        position:absolute;
+        top:60px;
+        left:0;
+        width:100%;
+        height:87%;
+        z-index:11;
+        background-color:#ffffff;
+        overflow-y:scroll;
+		border-radius: 40px;
     `}
 `;
 
@@ -689,7 +704,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							<span>{'Scale Your Name'} </span>
 						</MoveElementButton>
 					)}
-					{isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>}
+					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}
 			{moveElements && (

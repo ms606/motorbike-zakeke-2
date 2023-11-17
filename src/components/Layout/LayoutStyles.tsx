@@ -420,13 +420,22 @@ export const SupportedFormatsList = styled.span`
 
 export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	z-index: 3;
-	height: 90%;
+	height: 100%;
 	width: 100%;
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	background: var(--template-primary--400);
 	// background: #ffffff;
+
+	@media screen and (max-width: 568px) {
+		background: var(--template-primary--400);
+		height: 93vh !important;
+        position:fixed;
+        inset:0;
+        z-index:13;
+    }		
+
 	${(props) =>
 		props.isMobile &&
 		`
