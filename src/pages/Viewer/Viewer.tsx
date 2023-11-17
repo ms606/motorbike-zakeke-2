@@ -60,12 +60,12 @@ const Viewer: FunctionComponent<{}> = () => {
           <div className="ff_viewer_right_actions">
           </div>
           <div className="ff_viewer_zakeke" ref={viewElement}>
-            <ZakekeViewer />
+          {!isSceneLoading && <ZakekeViewer />}
           </div>
         </div>
       </div>
       </>
-      <Selector refViewer={viewElement} fullScreen={fullScreen} />
+      <Selector refViewer={viewElement} fullScreen={() =>fullScreen()} />
       </div>
       
     </ZakekeProvider>
