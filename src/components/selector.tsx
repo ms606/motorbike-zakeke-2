@@ -498,6 +498,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   : "",
                             }}
                             onClick={(e) => {
+                              console.log(step.id, step, selectedStepId, selectedAttributeId, attribute.id);
+                              
+
                               // e.stopPropagation();
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
@@ -507,7 +510,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               }
 
                               //if sele
-                               selectCollapse(!selectedCollapse);
+                              if (selectedAttributeId === attribute.id) selectCollapse(!selectedCollapse);
 
                             }}
                           >
@@ -589,15 +592,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
                               //  console.log(option,'attribute option detail');
                               return (
-                                <div
+                                <>
+                                {option.enabled == true && <div
                                   style={{
                                     //marginRight: "10px",
                                     marginLeft: "5px",
                                     width: "23%",
-                                  }}
-                                >
+                                  }}>
                                   <div>
-                                    {!selectedCollapse && option.enabled == true &&
+                                    {!selectedCollapse && 
                                       selectedAttributeId ===
                                         option.attribute.id &&
                                       option.imageUrl && (
@@ -644,7 +647,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                         </ListItem>
                                       )}
                                   </div>
-                                </div>
+                                </div>}
+                                </>
                               );
                             })}
                             {/* </div>

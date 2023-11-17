@@ -605,14 +605,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 					{(showAddTextButton || showUploadButton || showGalleryButton) && (
 						<UploadButtons>
-							{showAddTextButton && (
+							{/* {showAddTextButton && (
 								<Button isFullWidth onClick={handleAddTextClick}>
 									<Icon>
 										<Add />
 									</Icon>
 									<span>{'Add text'}</span>
 								</Button>
-							)}
+							)} */}
 
 							{/* {showGalleryButton && (
 								<Button isFullWidth onClick={handleAddImageFromGalleryClick}>
