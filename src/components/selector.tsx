@@ -23,7 +23,7 @@ import { reduceRight } from "lodash";
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
 const Container = styled.div`
-  height: 100%;
+  height: 300%;
   overflow: auto;
   font-family: "Avenir Next", sans-serif;
   font-style: normal;
