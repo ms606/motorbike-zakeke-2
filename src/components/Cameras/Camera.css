@@ -12,11 +12,10 @@
     opacity: .5;
     display: flex;
     flex-flow: row;
-    box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);
-    
+    box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);    
 }
 
-img {
+.camereImage {
     width: 52px;
     height: 68px;
     max-height: 99%;
@@ -26,7 +25,16 @@ img {
 @media screen and (max-width: 786px) {
     .camera_root{
       position: absolute;
-      left: 1%;
+      left: 3%;
       top: 0%;
+    }
+    .cameras_camera {
+        width: 44px;
+        height: 57px;
+    }
+
+    .camereImage{
+      display: flex;
+      height: 58px;
     }
 }

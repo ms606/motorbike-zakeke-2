@@ -24,19 +24,21 @@ export const ListItem = styled.div<{ selected?: boolean }>`
     // border: 1px solid transparent;
      cursor: pointer;
      border: ${props => props.selected ? '1px solid var(--template-primary--900)' : ''};
+       @media screen and (max-width: 568px) {
+         font-size: 24px;
+       }
     
 `;
 
     export const ListItemImage = styled.img`
-        height: 68px;
-        width: 67px;
-        //width: 100%;
-        // padding-top: 100%;
-        background-size: contain;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        position: relative;
-
+      height: 68px;
+      width: 67px;
+      //width: 100%;
+      // padding-top: 100%;
+      background-size: contain;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      position: relative;
         @media screen and (max-width: 568px) {
             width: 53px;
             height: 57px;

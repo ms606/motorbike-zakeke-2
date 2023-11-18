@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useMemo, useState, useRef } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+} from "react";
 import styled from "styled-components";
 import { useZakeke, Group } from "zakeke-configurator-react";
 import { List, ListItem, ListItemImage } from "./list";
@@ -21,7 +27,7 @@ import UpArrow from "../assets/icons/UpArrow.js";
 import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
-  import { reduceRight } from "lodash";
+import { reduceRight } from "lodash";
 
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
@@ -114,7 +120,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
- 
+
   const viewFooter = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -346,9 +352,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
       </div>
 
       <div>
-
-
-      <Cameras cameras={groups} onSelect={setSelectedCameraID} />
+        <Cameras cameras={groups} onSelect={setSelectedCameraID} />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
         <div className="viewer_zoom">
           <div
@@ -375,19 +379,31 @@ const Selector: FunctionComponent<SelectorProps> = ({
               <path fill="none" d="M0 0h32v32H0z"></path>
             </svg>
           </div>
-          
-          
+
           {/* <img src={previewImage?.image}/> */}
         </div>
-
-        <div className="scroll" style={{position: "relative", left: "3%"}} onClick={() => refViewer.current?.scrollIntoView({ behavior: 'smooth' })}>
-          <UpArrow />
+        <div className="scrollPosition">
+          <div
+            className="scroll"
+            style={{ position: "relative", left: "3%" }}
+            onClick={() =>
+              refViewer.current?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <UpArrow />
             {/* Down */}
-         </div>
-        <div className="scroll"  style={{position: "relative", left: "3%"}} onClick={() => viewFooter.current?.scrollIntoView({ behavior: 'smooth' })}>
-          <DownArrow />
+          </div>
+          <div
+            className="scroll"
+            style={{ position: "relative", left: "3%" }}
+            onClick={() =>
+              viewFooter.current?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <DownArrow />
             {/* Down */}
-         </div>
+          </div>
+        </div>
       </div>
 
       <div className="menu">
@@ -525,8 +541,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               }
 
                               //if sele
-                              if (selectedAttributeId === attribute.id) selectCollapse(!selectedCollapse);
-
+                              if (selectedAttributeId === attribute.id)
+                                selectCollapse(!selectedCollapse);
                             }}
                           >
                             <br />
@@ -562,10 +578,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 alignItems: "center",
                                 marginRight: "1em",
                               }}
+                              className="menu_choice_attribute_selected_option"
                             >
                               {selectedAttributeId === attribute.id
                                 ? selectedOptionName
                                 : ""}
+                                {/* {selectedOptionName} */}
                             </div>
                             <div
                               className="menu_choice_attribute_state_icon"
@@ -608,61 +626,64 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               //  console.log(option,'attribute option detail');
                               return (
                                 <>
-                                {option.enabled == true && <div
-                                  style={{
-                                    //marginRight: "10px",
-                                    marginLeft: "5px",
-                                    width: "23%",
-                                  }}>
-                                  <div>
-                                    {!selectedCollapse && 
-                                      selectedAttributeId ===
-                                        option.attribute.id &&
-                                      option.imageUrl && (
-                                        <ListItem
-                                          key={option.id}
-                                          onClick={() => {
-                                            selectOption(option.id);
+                                  {option.enabled == true && (
+                                    <div
+                                      style={{
+                                        //marginRight: "10px",
+                                        marginLeft: "5px",
+                                        width: "23%",
+                                      }}
+                                    >
+                                      <div>
+                                        {!selectedCollapse &&
+                                          selectedAttributeId ===
+                                            option.attribute.id &&
+                                          option.imageUrl && (
+                                            <ListItem
+                                              key={option.id}
+                                              onClick={() => {
+                                                selectOption(option.id);
+                                                selectOptionName(option.name)
+                                                // if (product?.name === 'FlexFabrix™ By DA Suit') {
+                                                //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
+                                                //     selectOption(1363645); // Open jacket comm
+                                                //   }
+                                                //   else {
+                                                //     selectOption(1363646);
+                                                //   }
+                                                //   }
 
-                                            // if (product?.name === 'FlexFabrix™ By DA Suit') {
-                                            //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                            //     selectOption(1363645); // Open jacket comm
-                                            //   }
-                                            //   else {
-                                            //     selectOption(1363646);
-                                            //   }
-                                            //   }
+                                                //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
+                                                //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
+                                                //     selectOption(1382103); // Open jacket comm
+                                                //   }
+                                                //   else {
+                                                //     selectOption(1382104);
+                                                //   }
+                                                //   }
+                                              }}
+                                              selected={option.selected}
+                                              className="menu_choice_option"
+                                            >
+                                              <div
+                                                className="menu_choice_option_image_container"
+                                                // style={}
+                                              >
+                                                {option.imageUrl && (
+                                                  <ListItemImage
+                                                    src={option.imageUrl}
+                                                  />
+                                                )}
+                                              </div>
 
-                                            //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
-                                            //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                            //     selectOption(1382103); // Open jacket comm
-                                            //   }
-                                            //   else {
-                                            //     selectOption(1382104);
-                                            //   }
-                                            //   }
-                                          }}
-                                          selected={option.selected}
-                                          className="menu_choice_option"
-                                        >
-                                          <div
-                                            className="menu_choice_option_image_container"
-                                            // style={}
-                                          >
-                                            {option.imageUrl && (
-                                              <ListItemImage
-                                                src={option.imageUrl}
-                                              />
-                                            )}
-                                          </div>
-
-                                          <div className="menu_choice_option_description">
-                                            {option.name}
-                                          </div>
-                                        </ListItem>
-                                      )}
-                                  </div>
-                                </div>}
+                                              <div className="menu_choice_option_description">
+                                                {option.name}
+                                              </div>
+                                            </ListItem>
+                                          )}
+                                      </div>
+                                    </div>
+                                  )}
                                 </>
                               );
                             })}

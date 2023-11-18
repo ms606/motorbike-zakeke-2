@@ -11,10 +11,27 @@
 }
 
 @media screen and (max-width: 786px) {
+    .preview_preview {
+        position: relative;
+        left: 7%;
+        margin-top: 10px;
+        width: 39px;
+        height: 59px;
+        border-radius: 8px;
+        display: flex;
+        flex-flow: row;
+        /* box-shadow: 0 4px 12px */
+    }
+
     .ff_preview {
         position: absolute;
-        left: 2%;
+        left: 3%;
         right: 86%;
-        top: 40%;
+        top: 31%;
     }    
+
+    img{
+      max-height: 70%;
+      margin: auto;
+    }
 }
