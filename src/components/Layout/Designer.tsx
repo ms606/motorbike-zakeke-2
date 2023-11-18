@@ -709,7 +709,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			)}
 			{moveElements && (
 				<ZakekeDesignerContainer isMobile={isMobile} className='zakeke-container'>
-					<div style={{width: "100%", height: "95%"}}>
+					<div style={{width: "100%", height: "96%"}}>
 					<ZakekeDesigner ref={customizerRef} areaId={actualAreaId} />
 					<IconsAndDesignerContainer>
 						{/* <ZoomIconIn hoverable onClick={() => customizerRef.current.zoomIn()}>

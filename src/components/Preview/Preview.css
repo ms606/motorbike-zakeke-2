@@ -5,6 +5,8 @@
 }
 
 .preview_preview {
+    display: flex;
+    overflow: hidden;
     width: 52px;
     height: 68px;
     box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);

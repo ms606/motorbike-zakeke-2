@@ -15,7 +15,11 @@
     box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);    
 }
 
-.camereImage {
+.camereImage{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
     width: 52px;
     height: 68px;
     max-height: 99%;
