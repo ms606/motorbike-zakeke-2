@@ -182,12 +182,11 @@
 
     .scrollPosition {
         position: absolute;
-        top: 39%;
+        top: 42%;
         left: 4%;
     }
 
     .scroll {
-
         margin-top: 10px;
         width: 36px;
         height: 48px;
