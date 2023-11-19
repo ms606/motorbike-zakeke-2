@@ -31,7 +31,6 @@ import { Icon } from "./Atomic";
 import Designer from "./Layout/Designer";
 import { reduceRight } from "lodash";
 
-
 import {
 	AiIcon,
 	ArIcon,
@@ -139,6 +138,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
+  const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
+
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
 
@@ -488,6 +489,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 className="menu_item"
                 key={group.id}
                 onClick={() => {
+                  
+                  if(checkOnce){
+                    setCheckOnce(false)
+                    window.scrollTo({
+                      top: window.scrollY + 150,
+                      behavior: 'smooth'
+                  });
+                  }
+                  
+
+
                   selectGroup(group.id);
                   selectOptionName("");
                   // console.log(group);
