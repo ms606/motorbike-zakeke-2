@@ -11,14 +11,19 @@
   --template-primary--800: #4f4f4f;
   --template-primary--900: #292929;
   --template-background-color: #f4f4f4;
-  --template-default-box-shadow-color: rgba(0,0,0,0.1);
-  --template-loader-overlay: hsla(0,0%,95.7%,0.4);
-  --template-camera-box-shadow-color: rgba(0,0,0,0.25);
+  --template-default-box-shadow-color: rgba(0, 0, 0, 0.1);
+  --template-loader-overlay: hsla(0, 0%, 95.7%, 0.4);
+  --template-camera-box-shadow-color: rgba(0, 0, 0, 0.25);
 }
 
-html,body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   background-color: #f4f4f4;
+}
+
+html {
+  overflow-x: hidden;
 }

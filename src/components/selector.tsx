@@ -138,6 +138,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
+  const [isLoading, setIsLoading] = useState<boolean | null>(false);
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
 
@@ -188,10 +189,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
 	const handleArClick = async (arOnFlyUrl: string) => {
 		if (IS_ANDROID || IS_IOS) {
-			// setIsLoading(true);
+			setIsLoading(true);
 			const link = new URL(arOnFlyUrl, window.location.href);
 			const url = await getMobileArUrl(link.href);
-			// setIsLoading(false);
+			setIsLoading(false);
 			if (url)
 				if (IS_IOS) {
 					openArMobile(url as string);
@@ -338,7 +339,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // console.log(product);
 
-  if (isSceneLoading || !groups1 || groups1.length === 0)
+  if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
+    return <Loader visible={isSceneLoading} />;
+
+    if (isLoading)
     return <Loader visible={isSceneLoading} />;
 
   // groups1
@@ -613,13 +617,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               if (selectedAttributeId === attribute.id)
                                 selectCollapse(!selectedCollapse);
 
-
-                              console.log(attribute.name,'step name');
-                                
                               if (attribute.name === 'Stretch'){
-                                showDialog('error', <ErrorDialog error={"Lining style will add $50 to the total cost"} onCloseClick={() => closeDialog('error')} />);
+                                showDialog('error', <ErrorDialog error={"Stretch Lining style will add $50 to the total cost"} onCloseClick={() => closeDialog('error')} />);
                               }
-
 
                               }}
                           >
