@@ -490,7 +490,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 key={group.id}
                 onClick={() => {
                   
-                  if(checkOnce){
+                  if(checkOnce && window.innerWidth < 500){
                     setCheckOnce(false)
                     window.scrollTo({
                       top: window.scrollY + 150,
