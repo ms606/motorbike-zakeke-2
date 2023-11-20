@@ -4,6 +4,7 @@ import { Button } from '../../components/Atomic';
 import styled from 'styled-components';
 import useStore from '../../Store';
 import CloseIcon  from '../../assets/icons/times-solid.svg';
+import TimeSolid  from '../../assets/icons/TimeSolid';
 
 const dialogsPortal = document.getElementById('dialogs-portal')!;
 
@@ -56,8 +57,8 @@ const DialogWindowContainer = styled.div`
 	position: relative;
 	min-width: 0;
 `;
-
-const DialogWindowClose = styled.div` //styled(CloseIcon)
+//styled(TimeSolid)`
+const DialogWindowClose = styled.div` 
 	position: absolute;
 	right: 10px;
 	top: 10px;
@@ -80,7 +81,7 @@ export const DialogWindow: FunctionComponent<{
 }> = ({ children, className, showCloseButton = true, onClose }) => {
 	return (
 		<DialogWindowContainer className={className}>
-			{showCloseButton && <DialogWindowClose onClick={onClose} />}
+			{showCloseButton && <DialogWindowClose onClick={onClose}> <TimeSolid />	</DialogWindowClose>}
 			{children}
 		</DialogWindowContainer>
 	);

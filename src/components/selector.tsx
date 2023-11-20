@@ -40,7 +40,7 @@ import {
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
 const Container = styled.div`
-  height: 1000px;
+  height: 839px;
   overflow: auto;
   font-family: "Avenir Next", sans-serif;
   font-style: normal;
@@ -87,10 +87,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
     isSceneArEnabled
     // isArEnable,
     // onArIconClick
-
-
   } = useZakeke();
 
+  console.log(useZakeke(), 'groups');
+  
   const { showDialog, closeDialog } = useDialogManager();
 
   const idsToRemove = [10483, 10482, -1];
@@ -187,7 +187,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   );
 
 
-
 	const handleArClick = async (arOnFlyUrl: string) => {
 		if (IS_ANDROID || IS_IOS) {
 			setIsLoading(true);
@@ -277,10 +276,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
 
-      if (selectedCameraID) setCamera(selectedCameraID);
+      // if (selectedCameraID) setCamera(selectedCameraID);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroupId, selectedCameraID, selectedStepId]);
+  // }, [selectedGroupId, selectedCameraID, selectedStepId]);
+
+  }, [selectedGroupId]);
 
   // Camera for attributes
   useEffect(() => {
@@ -486,10 +487,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
           {groups1.map((group) => {
             return (
               <div
-                className="menu_item"
+                // className="menu_item"
+                className= {`menu_item ${group.id === selectedGroupId ? "selected":""}`}
+                //  {group.id === selectedGroupId ? "menu_item"}
                 key={group.id}
                 onClick={() => {
-                  
                   if(checkOnce && window.innerWidth < 500){
                     setCheckOnce(false)
                     window.scrollTo({
@@ -497,9 +499,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       behavior: 'smooth'
                   });
                   }
-                  
-
-
                   selectGroup(group.id);
                   selectOptionName("");
                   // console.log(group);
@@ -515,7 +514,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       group.name.toLowerCase() === "lining text"
                     ) {
                       selectOption(1363645); // Open jacket comm
-                    } else {
+                    } 
+                    else {
                       selectOption(1363646);
                     }
                   }
