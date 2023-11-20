@@ -429,7 +429,7 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	// background: #ffffff
 	@media (max-width: 1024px) {
 		background: var(--template-primary--400);
-		height: 83vh !important;
+		height: 89vh !important;
 		position:fixed;
 		inset:0;
 		z-index:13;

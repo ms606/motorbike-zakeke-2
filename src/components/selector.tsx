@@ -1,10 +1,18 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, {
+  FunctionComponent,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+} from "react";
 import styled from "styled-components";
 import { useZakeke, Group } from "zakeke-configurator-react";
 import { List, ListItem, ListItemImage } from "./list";
 import "./selector.css";
 import "./Menu/menu.css";
-
+import { Dialog, useDialogManager } from '../components/dialogs/Dialogs';
+import ErrorDialog from '../components/dialogs/ErrorDialog';
+import ArDeviceSelectionDialog from '../components/dialogs/ArDeviceSelectionDialog';
 import Cameras from "./Cameras/Cameras";
 import Preview from "./Preview/Preview";
 //import Menu from "./Menu/Menu";
@@ -14,16 +22,25 @@ import Viewer from "../pages/Viewer/Viewer";
 import Loader from "../components/Loader/Loader";
 import SelectionIcon from "../icons/SelectionIcon";
 import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
+
+import DownArrow from "../assets/icons/DownArrow.js";
+import UpArrow from "../assets/icons/UpArrow.js";
 // '../../../../components/Loader/Loader';
 import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
 import { reduceRight } from "lodash";
 
+import {
+	AiIcon,
+	ArIcon,
+} from '../components/Layout/LayoutStyles';
+
+
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
 const Container = styled.div`
-  height: 1000px;
+  height: 839px;
   overflow: auto;
   font-family: "Avenir Next", sans-serif;
   font-style: normal;
@@ -63,9 +80,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
     defaultColor,
     product,
     cameras,
+    IS_IOS,
+		IS_ANDROID,
+		getMobileArUrl,
+		openArMobile,
+    isSceneArEnabled
+    // isArEnable,
+    // onArIconClick
   } = useZakeke();
 
-  //console.log(groups);
+  console.log(useZakeke(), 'groups');
+  
+  const { showDialog, closeDialog } = useDialogManager();
 
   const idsToRemove = [10483, 10482, -1];
 
@@ -111,6 +137,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
+  const [isLoading, setIsLoading] = useState<boolean | null>(false);
+  const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
+
+
+  const viewFooter = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const item = {
@@ -154,6 +185,38 @@ const Selector: FunctionComponent<SelectorProps> = ({
     () => (selectedStep || selectedGroup)?.attributes ?? [],
     [selectedGroup, selectedStep]
   );
+
+
+	const handleArClick = async (arOnFlyUrl: string) => {
+		if (IS_ANDROID || IS_IOS) {
+			setIsLoading(true);
+			const link = new URL(arOnFlyUrl, window.location.href);
+			const url = await getMobileArUrl(link.href);
+			setIsLoading(false);
+			if (url)
+				if (IS_IOS) {
+					openArMobile(url as string);
+				} else if (IS_ANDROID) {
+					showDialog(
+						'open-ar',
+						<Dialog>
+							<button
+								style={{ display: 'block', width: '100%' }}
+								onClick={() => {
+									closeDialog('open-ar');
+									openArMobile(url as string);
+								}}
+							>
+								See your product in AR
+							</button>
+						</Dialog>
+					);
+				}
+		} else {
+			showDialog('select-ar', <ArDeviceSelectionDialog />);
+		}
+	};
+
 
   useEffect(() => {
     //console.log(attributes,'attri ')
@@ -213,10 +276,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
 
-      if (selectedCameraID) setCamera(selectedCameraID);
+      // if (selectedCameraID) setCamera(selectedCameraID);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroupId, selectedCameraID, selectedStepId]);
+  // }, [selectedGroupId, selectedCameraID, selectedStepId]);
+
+  }, [selectedGroupId]);
 
   // Camera for attributes
   useEffect(() => {
@@ -276,7 +341,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // console.log(product);
 
-  if (isSceneLoading || !groups1 || groups1.length === 0)
+  if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
+    return <Loader visible={isSceneLoading} />;
+
+    if (isLoading)
     return <Loader visible={isSceneLoading} />;
 
   // groups1
@@ -288,6 +356,25 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   return (
     <Container>
+      {/* {isArEnable() && (
+       <div onClick={onArIconClick}>AR</div> 
+        // <BubbleButton label={t('AR')} onClick={onArIconClick}>
+        //   <ViewerIcon>
+        //     <ArIcon />
+        //   </ViewerIcon>
+        // </BubbleButton>
+      )} */}
+
+      {isSceneArEnabled() && (
+       <div className="bubble_button_ar">
+          <ArIcon hoverable onClick={() => handleArClick('ar.html')}>
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.74 6.86v18.27c0 .76.61 1.37 1.36 1.37h8.28v2H7.1c-1.85 0-3.36-1.51-3.36-3.36V6.86A3.36 3.36 0 017.1 3.5h9.28c.337 0 .663.05.97.143l-.734 1.878a1.364 1.364 0 00-.236-.021h-1.22c-.23.86-1.01 1.5-1.94 1.5h-2.96c-.93 0-1.71-.64-1.95-1.5H7.1c-.75 0-1.36.61-1.36 1.36z" fill="#838383"></path><path d="M12.53 16.31v7.59l7.86 4.78 7.86-4.78v-7.57l-7.64-5.02-8.08 5zm12.79.47l-4.94 2.69-4.86-2.66 5.07-3.14 4.73 3.11zm-10.79 1.77l4.84 2.65v4.5l-4.84-2.94v-4.21zm6.84 7.19v-4.53l4.89-2.66v4.22l-4.89 2.97zM19.158 8.172l.552-1.76h.016l.512 1.76h-1.08zm-2.408 2.04h1.768l.256-.816h1.816l.24.816h1.824L20.574 4.5h-1.72l-2.104 5.712zM23.044 10.212h1.76V8.22h.936c.696 0 .744.568.792 1.112.023.296.055.592.143.88h1.76c-.16-.264-.168-.944-.191-1.224-.064-.712-.36-1.24-.84-1.424.584-.216.855-.84.855-1.432 0-1.08-.864-1.632-1.864-1.632h-3.351v5.712zm1.76-4.352h.824c.671 0 .872.208.872.568 0 .512-.448.568-.776.568h-.92V5.86z" fill="#838383"></path></svg>
+          </ArIcon> 
+         <div className='bubble_button_text' style={{fontSize: "13px"}}>AR</div>
+       </div>
+        
+			)}
+
       {product?.name === "FlexFabrix™ By DA Suit" && (
         <div className="bubble_button">
           <div className="bubble_button_button">
@@ -368,7 +455,30 @@ const Selector: FunctionComponent<SelectorProps> = ({
               <path fill="none" d="M0 0h32v32H0z"></path>
             </svg>
           </div>
+
           {/* <img src={previewImage?.image}/> */}
+        </div>
+        <div className="scrollPosition">
+          <div
+            className="scroll"
+            style={{ position: "relative", left: "3%" }}
+            onClick={() =>
+              refViewer.current?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <UpArrow />
+            {/* Down */}
+          </div>
+          <div
+            className="scroll"
+            style={{ position: "relative", left: "3%" }}
+            onClick={() =>
+              viewFooter.current?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            <DownArrow />
+            {/* Down */}
+          </div>
         </div>
       </div>
 
@@ -377,9 +487,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
           {groups1.map((group) => {
             return (
               <div
-                className="menu_item"
+                // className="menu_item"
+                className= {`menu_item ${group.id === selectedGroupId ? "selected":""}`}
+                //  {group.id === selectedGroupId ? "menu_item"}
                 key={group.id}
                 onClick={() => {
+                  if(checkOnce && window.innerWidth < 500){
+                    setCheckOnce(false)
+                    window.scrollTo({
+                      top: window.scrollY + 150,
+                      behavior: 'smooth'
+                  });
+                  }
                   selectGroup(group.id);
                   selectOptionName("");
                   // console.log(group);
@@ -395,7 +514,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       group.name.toLowerCase() === "lining text"
                     ) {
                       selectOption(1363645); // Open jacket comm
-                    } else {
+                    } 
+                    else {
                       selectOption(1363646);
                     }
                   }
@@ -417,7 +537,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
             );
           })}
         </div>
-
         <br />
         {selectedGroup && selectedGroup.steps.length > 0 && (
           <div className="menu_choice_steps">
@@ -498,9 +617,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   : "",
                             }}
                             onClick={(e) => {
-                              console.log(step.id, step, selectedStepId, selectedAttributeId, attribute.id);
-                              
-
                               // e.stopPropagation();
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
@@ -510,9 +626,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               }
 
                               //if sele
-                              if (selectedAttributeId === attribute.id) selectCollapse(!selectedCollapse);
+                              if (selectedAttributeId === attribute.id)
+                                selectCollapse(!selectedCollapse);
 
-                            }}
+                              if (attribute.name === 'Stretch'){
+                                showDialog('error', <ErrorDialog error={"Stretch Lining style will add $50 to the total cost"} onCloseClick={() => closeDialog('error')} />);
+                              }
+
+                              }}
                           >
                             <br />
                             <div
@@ -547,10 +668,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 alignItems: "center",
                                 marginRight: "1em",
                               }}
+                              className="menu_choice_attribute_selected_option"
                             >
                               {selectedAttributeId === attribute.id
                                 ? selectedOptionName
                                 : ""}
+                                {/* {selectedOptionName} */}
                             </div>
                             <div
                               className="menu_choice_attribute_state_icon"
@@ -593,61 +716,64 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               //  console.log(option,'attribute option detail');
                               return (
                                 <>
-                                {option.enabled == true && <div
-                                  style={{
-                                    //marginRight: "10px",
-                                    marginLeft: "5px",
-                                    width: "23%",
-                                  }}>
-                                  <div>
-                                    {!selectedCollapse && 
-                                      selectedAttributeId ===
-                                        option.attribute.id &&
-                                      option.imageUrl && (
-                                        <ListItem
-                                          key={option.id}
-                                          onClick={() => {
-                                            selectOption(option.id);
+                                  {option.enabled == true && (
+                                    <div
+                                      style={{
+                                        //marginRight: "10px",
+                                        marginLeft: "5px",
+                                        width: "23%",
+                                      }}
+                                    >
+                                      <div>
+                                        {!selectedCollapse &&
+                                          selectedAttributeId ===
+                                            option.attribute.id &&
+                                          option.imageUrl && (
+                                            <ListItem
+                                              key={option.id}
+                                              onClick={() => {
+                                                selectOption(option.id);
+                                                selectOptionName(option.name)
+                                                // if (product?.name === 'FlexFabrix™ By DA Suit') {
+                                                //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
+                                                //     selectOption(1363645); // Open jacket comm
+                                                //   }
+                                                //   else {
+                                                //     selectOption(1363646);
+                                                //   }
+                                                //   }
 
-                                            // if (product?.name === 'FlexFabrix™ By DA Suit') {
-                                            //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                            //     selectOption(1363645); // Open jacket comm
-                                            //   }
-                                            //   else {
-                                            //     selectOption(1363646);
-                                            //   }
-                                            //   }
+                                                //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
+                                                //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
+                                                //     selectOption(1382103); // Open jacket comm
+                                                //   }
+                                                //   else {
+                                                //     selectOption(1382104);
+                                                //   }
+                                                //   }
+                                              }}
+                                              selected={option.selected}
+                                              className="menu_choice_option"
+                                            >
+                                              <div
+                                                className="menu_choice_option_image_container"
+                                                // style={}
+                                              >
+                                                {option.imageUrl && (
+                                                  <ListItemImage
+                                                    src={option.imageUrl}
+                                                  />
+                                                )}
+                                              </div>
 
-                                            //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
-                                            //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                            //     selectOption(1382103); // Open jacket comm
-                                            //   }
-                                            //   else {
-                                            //     selectOption(1382104);
-                                            //   }
-                                            //   }
-                                          }}
-                                          selected={option.selected}
-                                          className="menu_choice_option"
-                                        >
-                                          <div
-                                            className="menu_choice_option_image_container"
-                                            // style={}
-                                          >
-                                            {option.imageUrl && (
-                                              <ListItemImage
-                                                src={option.imageUrl}
-                                              />
-                                            )}
-                                          </div>
-
-                                          <div className="menu_choice_option_description">
-                                            {option.name}
-                                          </div>
-                                        </ListItem>
-                                      )}
-                                  </div>
-                                </div>}
+                                              <div className="menu_choice_option_description">
+                                                {option.name}
+                                              </div>
+                                            </ListItem>
+                                          )}
+                                      </div>
+                                    </div>
+                                  )}
                                 </>
                               );
                             })}
@@ -676,7 +802,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
         <br />
         <br />
-        <div className="menu_footer">
+        <div className="menu_footer" ref={viewFooter}>
           <div className="menu_price">
             <div className="price_text">Price: </div>
             <div className="price_value">{price}</div>

@@ -63,10 +63,12 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
           className="cameras_camera"
           style={{filter: "grayscale(1)", cursor: 'pointer'}}
         >
+          <div className="camereImage">
           <img
             src={camera.imageUrl || `imgs/camera.png`}
             alt={"CAMERA_ALT"}
           />
+        </div>
         </div>
       ))}
     </div>

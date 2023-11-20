@@ -30,16 +30,7 @@ const ExplodeIcon = styled(Icon)`
 
 const Viewer: FunctionComponent<{}> = () => {
   const {
-    isSceneLoading,
-    isAddToCartLoading,
-    price,
-    groups,
-    selectOption,
-    addToCart,
-    templates,
-    setTemplate,
-    setCamera,
-    setExplodedMode,
+    isSceneLoading
   } = useZakeke();
 
   const viewElement = useRef<HTMLDivElement | null>(null);

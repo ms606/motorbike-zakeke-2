@@ -1,3 +1,13 @@
+div {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .viewer_zoom {
     display: flex;
     flex-direction: column;
@@ -52,6 +62,17 @@
 .btn.btn-primary {
     color: var(--template-primary--200);
     background-color: var(--template-primary--900);
+}
+
+.bubble_button_ar {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 50.5%;
+    top: 16%;
+    width: 32px;
+    height: 32px;
 }
 
 .bubble_button {
@@ -115,7 +136,7 @@
 }
 
 .menu_help_customization_help {
-    z-index: 1;
+    z-index: 12;
     position: relative;
     top: 16px;
     left: 30px;
@@ -147,6 +168,10 @@
     height: 16px;
 }
 
+.scroll {
+    display: none;
+} 
+
 @media (min-width: 61.25em) {
     .menu_btn_cart{
         width: 216px;
@@ -162,18 +187,49 @@
         left: 0%;
     }
 
+    .bubble_button_ar{
+        position: absolute; 
+        top: 2%; 
+        right: 4%; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        left: 85%;
+        width: 32px;
+        height: 32px;
+
+
+    }
+
     .bubble_button {
-        top: 10%;
+        top: 25%;
         left: 90% !important;
     }
 
     .bubble_button_fullScreen {
-        top: 35%;
+        top: 50%;
         left: 90% !important;
     }
 
     .viewer_zoom {
         display: none;
+    }
+
+    .scrollPosition {
+        position: absolute;
+        top: 42%;
+        left: 4%;
+    }
+
+    .scroll {
+        margin-top: 10px;
+        width: 36px;
+        height: 48px;
+        border-radius: 8px;
+        display: flex;
+        flex-flow: row;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);;
+        padding: 0px;
     }
 }
 
