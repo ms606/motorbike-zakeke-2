@@ -274,7 +274,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   useEffect(() => {
     console.log('camera activation 1');
-    
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
@@ -347,8 +346,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
   if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
     return <Loader visible={isSceneLoading} />;
 
-    if (isLoading)
-    return <Loader visible={isSceneLoading} />;
+    // if (isLoading)
+    // return <Loader visible={isSceneLoading} />;
 
   // groups1
   // -- attributes
