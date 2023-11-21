@@ -89,7 +89,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // onArIconClick
   } = useZakeke();
 
-  console.log(useZakeke(), 'groups');
+  // console.log(useZakeke(), 'groups');
   
   const { showDialog, closeDialog } = useDialogManager();
 
@@ -245,6 +245,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     (attribute) => attribute.id === selectedAttributeId
   );
 
+
   // Open the first group and the first step when loaded
   useEffect(() => {
     if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
@@ -272,6 +273,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
+    console.log('camera activation 1');
+    
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
@@ -286,7 +289,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // Camera for attributes
   useEffect(() => {
     //   console.log(groups,'inside camera attributes');
-
+    console.log('camera activation 2');
     if (
       !isSceneLoading &&
       selectedAttribute &&
@@ -549,7 +552,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   onClick={() => {
                     // selectOptionName("");
                     // selectCollapse(!selectedCollapse);
-
+                    console.log('camera activation 3');
                     selectStep(step.id);
                     setCamera(step?.cameraLocationID || "");
                     // console.log(step?.cameraLocationID,'camera location id');
