@@ -245,6 +245,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     (attribute) => attribute.id === selectedAttributeId
   );
 
+
   // Open the first group and the first step when loaded
   useEffect(() => {
     if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
