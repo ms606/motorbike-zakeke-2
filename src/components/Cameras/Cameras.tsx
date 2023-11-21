@@ -39,9 +39,12 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
     }
   })
 
-  const idsToRemove = ['full view', 'blazer', 'pant'];
+  console.log(cameraViews);
 
+  const idsToRemove = ['full view', 'blazer', 'pant'];
+  
   cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
+
 
   return !!props.cameras.length ? (
     <div className="camera_root">

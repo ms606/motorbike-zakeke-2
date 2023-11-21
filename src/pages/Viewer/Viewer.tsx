@@ -51,7 +51,7 @@ const Viewer: FunctionComponent<{}> = () => {
           <div className="ff_viewer_right_actions">
           </div>
           <div className="ff_viewer_zakeke" ref={viewElement}>
-            {!isSceneLoading && <ZakekeViewer />}
+            <ZakekeViewer />
           </div>
         </div>
       </div>

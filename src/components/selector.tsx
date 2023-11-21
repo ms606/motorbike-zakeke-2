@@ -89,7 +89,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // onArIconClick
   } = useZakeke();
 
-  console.log(useZakeke(), 'groups');
+  // console.log(useZakeke(), 'groups');
   
   const { showDialog, closeDialog } = useDialogManager();
 
