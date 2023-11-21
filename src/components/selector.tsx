@@ -508,28 +508,28 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     setExplodedMode(false);
                   }
 
-                  if (product?.name === "FlexFabrix™ By DA Suit") {
-                    if (
-                      group.name.toLowerCase() === "blazer view" ||
-                      group.name.toLowerCase() === "lining text"
-                    ) {
-                      selectOption(1363645); // Open jacket comm
-                    } 
-                    else {
-                      selectOption(1363646);
-                    }
-                  }
+                  // if (product?.name === "FlexFabrix™ By DA Suit") {
+                  //   if (
+                  //     group.name.toLowerCase() === "blazer view" ||
+                  //     group.name.toLowerCase() === "lining text"
+                  //   ) {
+                  //     selectOption(1363645); // Open jacket comm
+                  //   } 
+                  //   else {
+                  //     selectOption(1363646);
+                  //   }
+                  // }
 
-                  if (product?.name === "FlexFabrix™ By DA Blazer") {
-                    if (
-                      group.name.toLowerCase() === "blazer view" ||
-                      group.name.toLowerCase() === "lining text"
-                    ) {
-                      selectOption(1382103); // Open jacket comm
-                    } else {
-                      selectOption(1382104);
-                    }
-                  }
+                  // if (product?.name === "FlexFabrix™ By DA Blazer") {
+                  //   if (
+                  //     group.name.toLowerCase() === "blazer view" ||
+                  //     group.name.toLowerCase() === "lining text"
+                  //   ) {
+                  //     selectOption(1382103); // Open jacket comm
+                  //   } else {
+                  //     selectOption(1382104);
+                  //   }
+                  // }
                 }}
               >
                 {group.id === -1 ? "Other" : group.name}
