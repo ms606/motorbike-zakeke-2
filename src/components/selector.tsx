@@ -272,6 +272,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
+    console.log('camera activation 1');
+    
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
@@ -286,7 +288,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // Camera for attributes
   useEffect(() => {
     //   console.log(groups,'inside camera attributes');
-
+    console.log('camera activation 2');
     if (
       !isSceneLoading &&
       selectedAttribute &&
@@ -508,28 +510,28 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     setExplodedMode(false);
                   }
 
-                  // if (product?.name === "FlexFabrix™ By DA Suit") {
-                  //   if (
-                  //     group.name.toLowerCase() === "blazer view" ||
-                  //     group.name.toLowerCase() === "lining text"
-                  //   ) {
-                  //     selectOption(1363645); // Open jacket comm
-                  //   } 
-                  //   else {
-                  //     selectOption(1363646);
-                  //   }
-                  // }
+                  if (product?.name === "FlexFabrix™ By DA Suit") {
+                    if (
+                      group.name.toLowerCase() === "blazer view" ||
+                      group.name.toLowerCase() === "lining text"
+                    ) {
+                      selectOption(1363645); // Open jacket comm
+                    } 
+                    else {
+                      selectOption(1363646);
+                    }
+                  }
 
-                  // if (product?.name === "FlexFabrix™ By DA Blazer") {
-                  //   if (
-                  //     group.name.toLowerCase() === "blazer view" ||
-                  //     group.name.toLowerCase() === "lining text"
-                  //   ) {
-                  //     selectOption(1382103); // Open jacket comm
-                  //   } else {
-                  //     selectOption(1382104);
-                  //   }
-                  // }
+                  if (product?.name === "FlexFabrix™ By DA Blazer") {
+                    if (
+                      group.name.toLowerCase() === "blazer view" ||
+                      group.name.toLowerCase() === "lining text"
+                    ) {
+                      selectOption(1382103); // Open jacket comm
+                    } else {
+                      selectOption(1382104);
+                    }
+                  }
                 }}
               >
                 {group.id === -1 ? "Other" : group.name}
@@ -549,7 +551,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   onClick={() => {
                     // selectOptionName("");
                     // selectCollapse(!selectedCollapse);
-
+                    console.log('camera activation 3');
                     selectStep(step.id);
                     setCamera(step?.cameraLocationID || "");
                     // console.log(step?.cameraLocationID,'camera location id');
