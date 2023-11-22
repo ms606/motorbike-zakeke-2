@@ -35,6 +35,7 @@ import {
 	AiIcon,
 	ArIcon,
 } from '../components/Layout/LayoutStyles';
+import useStore from "../Store";
 
 
 const dialogsPortal = document.getElementById("dialogs-portal")!;
@@ -84,10 +85,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
 		IS_ANDROID,
 		getMobileArUrl,
 		openArMobile,
-    isSceneArEnabled
+    isSceneArEnabled,
+    
     // isArEnable,
     // onArIconClick
   } = useZakeke();
+
+  const {
+		priceFormatter,
+	} = useStore();
 
   // console.log(useZakeke(), 'groups');
   
@@ -807,7 +813,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <div className="menu_footer" ref={viewFooter}>
           <div className="menu_price">
             <div className="price_text">Price: </div>
-            <div className="price_value">{price}</div>
+            <div className="price_value">{priceFormatter.format(price)}</div>
           </div>
           <div className="menu_actions">
             {isAddToCartLoading ? (

@@ -40,7 +40,7 @@ const Viewer: FunctionComponent<{}> = () => {
   }
   
   return (
-    <ZakekeProvider environment={zakekeEnvironment}>
+    <>
       <div className="layout">
       <>
       <div className="ff_root">
@@ -59,7 +59,7 @@ const Viewer: FunctionComponent<{}> = () => {
       <Selector refViewer={viewElement} fullScreen={() =>fullScreen()} />
       </div>
       
-    </ZakekeProvider>
+    </>
   );
 };
 
