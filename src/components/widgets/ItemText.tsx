@@ -123,7 +123,7 @@ const OptionContainer = styled(components.Option)`
 `;
 
 const SingleValueContainer = styled(components.SingleValue)`
-    img {
+    
         max-width: 100%;
         height: 24px;
         object-fit: contain;

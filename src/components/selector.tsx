@@ -533,9 +533,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       group.name.toLowerCase() === "blazer view" ||
                       group.name.toLowerCase() === "lining text"
                     ) {
-                      selectOption(1382103); // Open jacket comm
+                      selectOption(1363645); // Open jacket comm
                     } else {
-                      selectOption(1382104);
+                      selectOption(1363646);
                     }
                   }
                 }}

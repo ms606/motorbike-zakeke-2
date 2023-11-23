@@ -223,7 +223,7 @@ const Viewer = () => {
 
   return (
     <ViewerContainer ref={ref}>
-      {!isSceneLoading && <ZakekeViewer backgroundColor="#ffffff" />}
+      {/* {!isSceneLoading && <ZakekeViewer backgroundColor="#ffffff" />} */}
 
      
 
