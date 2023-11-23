@@ -95,11 +95,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
 		priceFormatter,
 	} = useStore();
 
-  // console.log(useZakeke(), 'groups');
+  console.log(groups, 'groups');
   
   const { showDialog, closeDialog } = useDialogManager();
 
-  const idsToRemove = [10483, 10482, -1];
+  const idsToRemove = [10483, 10482, -1, 10852, 10856];
 
   idsToRemove.push(10640); // id to remove on only blazer product
 
@@ -282,9 +282,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // console.log('camera activation 1');
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
+      console.log(camera,'group camera');
+      
       if (camera) setCamera(camera);
 
-      // if (selectedCameraID) setCamera(selectedCameraID);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [selectedGroupId, selectedCameraID, selectedStepId]);
@@ -293,8 +294,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Camera for attributes
   useEffect(() => {
-    //   console.log(groups,'inside camera attributes');
-    // console.log('camera activation 2');
     if (
       !isSceneLoading &&
       selectedAttribute &&
@@ -533,9 +532,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       group.name.toLowerCase() === "blazer view" ||
                       group.name.toLowerCase() === "lining text"
                     ) {
-                      selectOption(1363645); // Open jacket comm
+                      selectOption(1382103); // Open jacket comm
                     } else {
-                      selectOption(1363646);
+                      selectOption(1382104);
                     }
                   }
                 }}
@@ -557,14 +556,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   onClick={() => {
                     // selectOptionName("");
                     // selectCollapse(!selectedCollapse);
-                    console.log('camera activation 3');
+               
                     selectStep(step.id);
-                    setCamera(step?.cameraLocationID || "");
+                     setCamera(step?.cameraLocationID || "");
                     // console.log(step?.cameraLocationID,'camera location id');
                     if (selectedStepId != step.id) {
                       selectOptionName("");
-                    }
-                    // setCamera("032464dd-2bf4-42ec-8cf2-42a0dcc7a75f")
+                    }               
                   }}
                   //selected={selectedStep === step}
                 >

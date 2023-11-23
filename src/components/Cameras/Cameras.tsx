@@ -29,6 +29,7 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
   const {
     setExplodedMode,
     hasExplodedMode,
+    setCamera
   } = useZakeke();
  
 
@@ -39,24 +40,26 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
     }
   })
 
-  console.log(cameraViews);
-
-  const idsToRemove = ['full view', 'blazer', 'pant'];
-  
+  const idsToRemove = ['full view', 'choose your lining style', 'pant'];
   cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
-
-
+//  console.log(cameraViews, 'cameraViews');
+ 
   return !!props.cameras.length ? (
     <div className="camera_root">
       {cameraViews.map(camera => (
         <div
-          onClick={(e) => {
-            //  console.log(camera);
-              if (camera.name.toLowerCase() === 'blazer'){
-                props.onSelect(camera.steps[camera.steps.length -1].cameraLocationID);
+          onClick={(e) => {            
+            // console.log(camera);  
+              // setCamera(camera?.cameraLocationId);           
+            //  props.onSelect(camera.attributes[0].cameraLocationId);
+             if (camera.name.toLowerCase() ==='choose your lining style'){
+                 console.log(camera,'camera');
+                 setExplodedMode(false);
+                props.onSelect("40f99229-c293-459b-ddd0-28cc96030ca5")
+                props.onSelect(camera.attributes[0].cameraLocationId);
               }
               else {
-                props.onSelect(camera.cameraLocationId)
+                props.onSelect(camera?.cameraLocationId)
               }
               {camera.name.toLowerCase() === 'pant' ? setExplodedMode(true) : setExplodedMode(false)}
               
