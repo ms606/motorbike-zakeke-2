@@ -10521,10 +10521,10 @@
   "resolved" "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   "version" "0.1.0"
 
-"zakeke-configurator-react@0.0.222":
-  "integrity" "sha512-udh5/JHN813jgCWFwzJ7WN6FKuN7B679hVJNGEQYCm09Nt47cpXuA/iyjvokE3unnqAb+NgmpJCduE4gjRW3xQ=="
-  "resolved" "https://registry.npmjs.org/zakeke-configurator-react/-/zakeke-configurator-react-0.0.222.tgz"
-  "version" "0.0.222"
+"zakeke-configurator-react@0.0.224":
+  "integrity" "sha512-c4/53+qfM67nRPfpCmT42Luiw0EVoVX7cYBLz6ZbqOdhgwt7wYjF3SNQ63vgDuyMbjEOSFNykqi7x7bKIjWmYw=="
+  "resolved" "https://registry.npmjs.org/zakeke-configurator-react/-/zakeke-configurator-react-0.0.224.tgz"
+  "version" "0.0.224"
   dependencies:
     "lodash" "^4.17.15"
     "querystring" "^0.2.0"

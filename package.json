@@ -24,7 +24,7 @@
     "react-select": "^5.7.7",
     "styled-components": "^5.3.10",
     "typescript": "^5.0.4",
-    "zakeke-configurator-react": "0.0.223",
+    "zakeke-configurator-react": "0.0.224",
     "zustand": "^4.4.3"
   },
   "scripts": {
