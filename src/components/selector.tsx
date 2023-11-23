@@ -279,7 +279,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
-    console.log('camera activation 1');
+    // console.log('camera activation 1');
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
       if (camera) setCamera(camera);
@@ -294,7 +294,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // Camera for attributes
   useEffect(() => {
     //   console.log(groups,'inside camera attributes');
-    console.log('camera activation 2');
+    // console.log('camera activation 2');
     if (
       !isSceneLoading &&
       selectedAttribute &&
