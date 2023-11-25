@@ -49,20 +49,24 @@ const Cameras: React.FC<CamerasProps> = React.memo(props => {
       {cameraViews.map(camera => (
         <div
           onClick={(e) => {            
-            // console.log(camera);  
+            //  console.log(camera.name);  
+              {camera.name.toLowerCase() === 'pant' ? setExplodedMode(true) : setExplodedMode(false)}
+
+             if (camera.name.toLowerCase() === "full view"){
+                props.onSelect(camera.cameraLocationId);
+             }
               // setCamera(camera?.cameraLocationId);           
             //  props.onSelect(camera.attributes[0].cameraLocationId);
              if (camera.name.toLowerCase() ==='choose your lining style'){
-                 console.log(camera,'camera');
                  setExplodedMode(false);
-                props.onSelect("40f99229-c293-459b-ddd0-28cc96030ca5")
                 props.onSelect(camera.attributes[0].cameraLocationId);
               }
-              else {
-                props.onSelect(camera?.cameraLocationId)
+           
+              if (camera.name.toLowerCase() ==='pant'){
+                setExplodedMode(true) 
+                props.onSelect(camera.steps[0].cameraLocationID)
               }
-              {camera.name.toLowerCase() === 'pant' ? setExplodedMode(true) : setExplodedMode(false)}
-              
+
             }}
           key={camera.id}
           data-testid="camera"

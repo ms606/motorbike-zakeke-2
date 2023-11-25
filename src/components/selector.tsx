@@ -95,7 +95,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 		priceFormatter,
 	} = useStore();
 
-  console.log(groups, 'groups');
+  //console.log(groups, 'groups');
   
   const { showDialog, closeDialog } = useDialogManager();
 
@@ -161,15 +161,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
       isTextOnPath: false,
       constraints: null,
     };
-    // removeItem('cf38ec2c-91ea-433f-a491-fb849998daf7')
-    // removeItem('c1c008ca-7bb2-460f-e288-74efbe9afbd3')
-    // removeItem('e7c7bf12-c701-4792-875b-c62cfee0a363')
-    // addItemText(item, 385515)
 
-    // console.log(groups,items,templates,'inside effec');
     const fullBlazerGroup = groups.filter((obj) => obj.id === 10483);
 
-    // console.log(fullBlazerGroup,'1');
   }, [groups]);
 
   // const idsToRemove = [10483, -1];
@@ -257,40 +251,47 @@ const Selector: FunctionComponent<SelectorProps> = ({
     if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
       selectGroup(groups1[0].id);
 
-      if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
+       if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
 
-      if (templates.length > 0) setTemplate(templates[0].id);
+      // if (templates.length > 0) setTemplate(templates[0].id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroup, groups1]);
 
   // Select attribute first time
-  useEffect(() => {
-    if (!selectedAttribute && attributes.length > 0)
-      selectAttribute(attributes[0]?.id);
+  // useEffect(() => {
+  //   if (!selectedAttribute && attributes.length > 0)
+  //     selectAttribute(attributes[0]?.id);
 
-    setSelectedAttributeOptionName(
-      selectedAttribute && selectedAttribute.options
-        ? selectedAttribute.options.find((x) => x.selected === true)?.name ||
-            null
-        : null
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAttribute, attributes]);
+  //   setSelectedAttributeOptionName(
+  //     selectedAttribute && selectedAttribute.options
+  //       ? selectedAttribute.options.find((x) => x.selected === true)?.name ||
+  //           null
+  //       : null
+  //   );
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedAttribute, attributes]);
 
   useEffect(() => {
-    // console.log('camera activation 1');
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
-      console.log(camera,'group camera');
       
-      if (camera) setCamera(camera);
+     if (camera) setCamera(camera);
 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [selectedGroupId, selectedCameraID, selectedStepId]);
 
   }, [selectedGroupId]);
+
+  // Camera for left icons 
+  useEffect(() => {
+    console.log(selectedCameraID,'selected icons');
+    
+    if (selectedCameraID) setCamera(selectedCameraID)
+     setSelectedCameraID('')
+  },[selectedCameraID])
+
 
   // Camera for attributes
   useEffect(() => {
@@ -558,8 +559,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     // selectCollapse(!selectedCollapse);
                
                     selectStep(step.id);
-                     setCamera(step?.cameraLocationID || "");
-                    // console.log(step?.cameraLocationID,'camera location id');
+                    setCamera(step?.cameraLocationID || "");
+                  
                     if (selectedStepId != step.id) {
                       selectOptionName("");
                     }               
