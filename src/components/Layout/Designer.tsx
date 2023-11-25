@@ -178,8 +178,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const [forceUpdate, setForceUpdate] = useState(false);
 	const { setIsLoading, isMobile } = useStore();
 
-	console.log(isMobile, 'isMobile');
-	
 	const {
 		currentTemplate,
 		items,
