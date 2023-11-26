@@ -51,9 +51,6 @@ const Preview: React.FC<PreviewProps> = React.memo(props => {
          data-testid="preview">
     <div
         className="preview_preview"
-        // className={classnames(styles.ff_preview__preview, {
-        // [styles.ff_preview__preview__selected]: false,
-        // })}
         data-testid="preview"
         onClick={onImageClick}
     >

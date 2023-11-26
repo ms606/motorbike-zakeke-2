@@ -232,14 +232,13 @@ const Viewer = () => {
      
       {/* {!document.fullscreenElement &&   */}
       <>
-        <div style={{ position: "absolute", left: "10px", top: "1%" }}>
+        {/* <div style={{ position: "absolute", left: "10px", top: "1%" }}>
           <Cameras
             cameras={actualGroups}
             onSelect={setSelectedCameraID}
-            //onSelect={setSelectedCameraID}
           />
-          {/* {previewImage?.image && <Preview PreviewImage={previewImage} />} */}
-        </div>
+     
+        </div> */}
 
         <ZoomInIcon
           isMobile={isMobile}

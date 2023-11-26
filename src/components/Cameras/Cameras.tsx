@@ -1,5 +1,5 @@
 import React from "react";
-import './Camera.css'
+import "./Camera.css";
 import { useZakeke } from "zakeke-configurator-react";
 
 export interface CameraInterface {
@@ -10,75 +10,83 @@ export interface CameraInterface {
   displayOrder: number;
   enabled: boolean;
   guid: string;
-  icon?: any | null ; // Assuming icon can be null or a string
+  icon?: any | null; // Assuming icon can be null or a string
   id: number;
   imageUrl?: string | null;
   name: string;
   steps: any[]; // You might want to specify a more specific type for steps
-  templateGroups?: any | null; 
-  }
+  templateGroups?: any | null;
+}
 
 export type CamerasProps = {
   cameras: CameraInterface[];
   onSelect: any;
-  // onSelect: (camera: CameraInterface) => void;
+  onCameraAngle: any;
+  selectedCameraAngle: string | null;
 };
 
-const Cameras: React.FC<CamerasProps> = React.memo(props => {
-  
-  const {
-    setExplodedMode,
-    hasExplodedMode,
-    setCamera
-  } = useZakeke();
- 
+const Cameras: React.FC<CamerasProps> = React.memo((props) => {
+  const { setExplodedMode } = useZakeke();
 
-  let cameraViews = 
-  props.cameras.filter(x => {
-    if(x.imageUrl != null){
-      return x      
+  let cameraViews = props.cameras.filter((x) => {
+    if (x.imageUrl != null) {
+      return x;
     }
-  })
+  });
 
-  const idsToRemove = ['full view', 'choose your lining style', 'pant'];
-  cameraViews = cameraViews.filter(obj => idsToRemove.includes(obj.name.toLowerCase()));
-//  console.log(cameraViews, 'cameraViews');
- 
+  
+  
+  let selectedCameraAngle = props.selectedCameraAngle
+  
+  if (selectedCameraAngle === 'blazer') { selectedCameraAngle = "choose your lining style"};
+
+  const idsToRemove = ["full view", "choose your lining style", "pant"];
+  cameraViews = cameraViews.filter((obj) =>
+    idsToRemove.includes(obj.name.toLowerCase())
+  );
+
   return !!props.cameras.length ? (
     <div className="camera_root">
-      {cameraViews.map(camera => (
+      {cameraViews.map((camera) => (
         <div
-          onClick={(e) => {            
-            //  console.log(camera.name);  
-              {camera.name.toLowerCase() === 'pant' ? setExplodedMode(true) : setExplodedMode(false)}
+          onClick={() => {
+            {
+              camera.name.toLowerCase() === "pant"
+                ? setExplodedMode(true)
+                : setExplodedMode(false);
+            }
 
-             if (camera.name.toLowerCase() === "full view"){
-                props.onSelect(camera.cameraLocationId);
-             }
-              // setCamera(camera?.cameraLocationId);           
-            //  props.onSelect(camera.attributes[0].cameraLocationId);
-             if (camera.name.toLowerCase() ==='choose your lining style'){
-                 setExplodedMode(false);
-                props.onSelect(camera.attributes[0].cameraLocationId);
-              }
-           
-              if (camera.name.toLowerCase() ==='pant'){
-                setExplodedMode(true) 
-                props.onSelect(camera.steps[0].cameraLocationID)
-              }
+            if (camera.name.toLowerCase() === "full view") {
+              props.onSelect(camera.cameraLocationId);
+              props.onCameraAngle("full view");
+            }
 
-            }}
+            if (camera.name.toLowerCase() === "choose your lining style") {
+              setExplodedMode(false);
+              props.onSelect(camera.attributes[0].cameraLocationId);
+              props.onCameraAngle("blazer");
+            }
+
+            if (camera.name.toLowerCase() === "pant") {
+              setExplodedMode(true);
+              props.onSelect(camera.steps[0].cameraLocationID);
+              props.onCameraAngle("pant");
+            }
+          }}
           key={camera.id}
-          data-testid="camera"
-          className="cameras_camera"
-          style={{filter: "grayscale(1)", cursor: 'pointer'}}
+          className={`cameras_camera ${
+            camera.name.toLowerCase() === selectedCameraAngle
+              ? "selected_camera"
+              : ""
+          }`}
+          style={{ filter: "grayscale(1)", cursor: "pointer" }}
         >
           <div className="camereImage">
-          <img
-            src={camera.imageUrl || `imgs/camera.png`}
-            alt={"CAMERA_ALT"}
-          />
-        </div>
+            <img
+              src={camera.imageUrl || `imgs/camera.png`}
+              alt={"CAMERA_ALT"}
+            />
+          </div>
         </div>
       ))}
     </div>
