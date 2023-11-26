@@ -368,7 +368,7 @@ export const ArIcon = styled(Icon)`
 	width: 48px;
 	height: 48px;
 	object-fit: contain;
-	background-color: #fafafa;
+	background-color: transparent;
 	border-radius: 48px;
 	padding: 10px;
 	box-shadow: 0px 0px 10px rgb(0 0 0 / 20%);

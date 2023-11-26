@@ -1,7 +1,7 @@
 .ff_preview {
     position: absolute; 
     right: 93%; 
-    top: 31%;
+    top: 32%;
 }
 
 .preview_preview {
@@ -10,6 +10,12 @@
     width: 52px;
     height: 68px;
     box-shadow: 0 4px 12px var(--template-camera-box-shadow-color);
+    border-radius: 8px;
+}
+
+.preview_preview img {
+    max-height: 70%;
+    margin: auto
 }
 
 @media screen and (max-width: 786px) {

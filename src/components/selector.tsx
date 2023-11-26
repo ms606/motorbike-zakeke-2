@@ -140,12 +140,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
   >(false);
 
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
+  const [selectedCameraAngle, setSelectedCameraAngle] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
   const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
 
+  const [closeAttribute, setCloseAttribute] = useState<boolean | null>(null);
+  
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
 
@@ -166,19 +169,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   }, [groups]);
 
-  // const idsToRemove = [10483, -1];
-
-  // for (let i = groups1.length - 1; i >= 0; i--) {
-  //   if (idsToRemove.includes(groups1[i].id)) {
-  //     groups1.splice(i, 1);
-  //   }
-  // }
-
-  const selectedGroup = groups1.find((group) => group.id === selectedGroupId);
-  const selectedStep = selectedGroup
+  
+  var selectedGroup = groups1.find((group) => group.id === selectedGroupId);
+  var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
-  //console.log(groups1, selectedGroup, "groups1");
+  
 
   // Attributes can be in both groups1 and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
@@ -244,19 +240,21 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
-
+  
 
   // Open the first group and the first step when loaded
   useEffect(() => {
+    
     if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
       selectGroup(groups1[0].id);
 
-       if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
+    if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
 
       // if (templates.length > 0) setTemplate(templates[0].id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroup, groups1]);
+  }, [selectedGroup, groups1]
+  );
 
   // Select attribute first time
   // useEffect(() => {
@@ -286,9 +284,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Camera for left icons 
   useEffect(() => {
-    console.log(selectedCameraID,'selected icons');
-    
     if (selectedCameraID) setCamera(selectedCameraID)
+    if (selectedCameraAngle === 'pant') {
+      setSelectedExplodedStatese(false)
+    } else {
+      setSelectedExplodedStatese(true)
+    }
+    
      setSelectedCameraID('')
   },[selectedCameraID])
 
@@ -436,7 +438,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
       </div>
 
       <div>
-        <Cameras cameras={groups} onSelect={setSelectedCameraID} />
+        <Cameras cameras={groups} onSelect={setSelectedCameraID} onCameraAngle={setSelectedCameraAngle} selectedCameraAngle={selectedCameraAngle}/>
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
         <div className="viewer_zoom">
           <div
@@ -501,6 +503,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 key={group.id}
                 onClick={() => {
                   if(checkOnce && window.innerWidth < 500){
+                 //   setCloseAttribute(true);
                     setCheckOnce(false)
                     window.scrollTo({
                       top: window.scrollY + 150,
@@ -547,7 +550,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div>
         <br />
         {selectedGroup && selectedGroup.steps.length > 0 && (
-          <div className="menu_choice_steps">
+          <div className="menu_choice_steps"
+            // onClick={() => {setCloseAttribute(true)}}
+          >
             {selectedGroup.steps.map((step) => {
               //       console.log(selectedStepId, step ,'selected step');
               return (
@@ -557,7 +562,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   onClick={() => {
                     // selectOptionName("");
                     // selectCollapse(!selectedCollapse);
-               
                     selectStep(step.id);
                     setCamera(step?.cameraLocationID || "");
                   
@@ -580,6 +584,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   >
                     <div
                       className="menu_choice_step_description"
+                      onClick={() => {
+                        setCloseAttribute(true)
+                        console.log(closeAttribute);
+                        
+                      }}
                       style={{
                         paddingBottom: "1em",
                         marginRight: "auto",
@@ -595,6 +604,15 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         textTransform: "uppercase",
                       }}
                       onClick={() => {
+
+                        setCloseAttribute(!closeAttribute);
+                        // if (selectedStepId != step.id ) {
+                        //   setCloseAttribute(closeAttribute)
+                        // } else {
+                        //   setCloseAttribute(true)
+                        // }
+ // selectedStepId = null;
+                      
                         // selectCollapse(true);
                         //   console.log("toggle", selectedCollapse);
                         // selectGroup(-1);
@@ -602,13 +620,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         // selectAttribute(-1);
                       }}
                     >
-                      {selectedStepId != step.id ? "Customize" : "Close"}
+                      {(selectedStepId != step.id) ? "Customize" : "Close"}
+                      
                     </div>
                   </div>
-
-                  {step.id === selectedStepId &&
+    
+                  {closeAttribute &&
+                  step.id === selectedStepId &&
                     step.attributes.map((attribute) => {
-                      //   console.log(attribute, 'selected step, selectedGroup');
                       return (
                         <>
                           <div
@@ -623,16 +642,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   ? "1px solid var(--template-primary--400)"
                                   : "",
                             }}
-                            onClick={(e) => {
-                              // e.stopPropagation();
+                            onClick={() => {
+                    //          setCloseAttribute(false);
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
                               } else {
                                 selectOptionName("");
                                 selectAttribute(attribute.id);
                               }
-
-                              //if sele
                               if (selectedAttributeId === attribute.id)
                                 selectCollapse(!selectedCollapse);
 
@@ -679,8 +696,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                             >
                               {selectedAttributeId === attribute.id
                                 ? selectedOptionName
-                                : ""}
-                                {/* {selectedOptionName} */}
+                                : ""}                             
                             </div>
                             <div
                               className="menu_choice_attribute_state_icon"
@@ -710,29 +726,21 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               display: "flex",
                               flexDirection: "row",
                               flexWrap: "wrap",
-                            }}
-                            onClick={(e) => {
-                              console.log("Div3 clicked");
-                              // Prevent the event from reaching div2 or div1
-                              //   e.stopPropagation();
-                            }}
+                            }}                          
                           >
                             {attribute.options.map((option) => {
-                              //  console.log(selectedCollapse, "selectedCollapse");
-
-                              //  console.log(option,'attribute option detail');
                               return (
                                 <>
                                   {option.enabled == true && (
                                     <div
                                       style={{
-                                        //marginRight: "10px",
                                         marginLeft: "5px",
                                         width: "23%",
                                       }}
                                     >
                                       <div>
-                                        {!selectedCollapse &&
+                                        {
+                                        //!selectedCollapse &&
                                           selectedAttributeId ===
                                             option.attribute.id &&
                                           option.imageUrl && (
@@ -741,23 +749,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                               onClick={() => {
                                                 selectOption(option.id);
                                                 selectOptionName(option.name)
-                                                // if (product?.name === 'FlexFabrix™ By DA Suit') {
-                                                //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                                //     selectOption(1363645); // Open jacket comm
-                                                //   }
-                                                //   else {
-                                                //     selectOption(1363646);
-                                                //   }
-                                                //   }
-
-                                                //   if (product?.name === 'FlexFabrix™ By DA Blazer'){
-                                                //   if(groups?.name.toLowerCase() === 'blazer view' || groups.name.toLowerCase() === 'lining text'){
-                                                //     selectOption(1382103); // Open jacket comm
-                                                //   }
-                                                //   else {
-                                                //     selectOption(1382104);
-                                                //   }
-                                                //   }
                                               }}
                                               selected={option.selected}
                                               className="menu_choice_option"
@@ -784,8 +775,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 </>
                               );
                             })}
-                            {/* </div>
-                            </div> */}
                           </div>
                         </>
                       );

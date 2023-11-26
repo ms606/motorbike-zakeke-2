@@ -71,7 +71,7 @@ div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    left: 50.5%;
+    left: 51%;
     top: 16%;
     width: 32px;
     height: 32px;
@@ -111,7 +111,7 @@ div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    left: 49.8%;
+    left: 50%;
     top: 45%;
 }
 
