@@ -515,8 +515,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   // console.log(group);
                   if (group.name.toLowerCase() === "pant") {
                     setExplodedMode(true);
+                    setSelectedExplodedStatese(false)
                   } else {
                     setExplodedMode(false);
+                    setSelectedExplodedStatese(true)
                   }
 
                   if (product?.name === "FlexFabrix™ By DA Suit") {
@@ -611,7 +613,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         // } else {
                         //   setCloseAttribute(true)
                         // }
- // selectedStepId = null;
+                        // selectedStepId = null;
                       
                         // selectCollapse(true);
                         //   console.log("toggle", selectedCollapse);
