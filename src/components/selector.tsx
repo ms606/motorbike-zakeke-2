@@ -382,7 +382,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </ArIcon> 
          <div className='bubble_button_text' style={{fontSize: "13px"}}>AR</div>
        </div>
-        
 			)}
 
       {product?.name === "FlexFabrix™ By DA Suit" && (
@@ -497,13 +496,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
           {groups1.map((group) => {
             return (
               <div
-                // className="menu_item"
                 className= {`menu_item ${group.id === selectedGroupId ? "selected":""}`}
-                //  {group.id === selectedGroupId ? "menu_item"}
                 key={group.id}
                 onClick={() => {
                   if(checkOnce && window.innerWidth < 500){
-                 //   setCloseAttribute(true);
                     setCheckOnce(false)
                     window.scrollTo({
                       top: window.scrollY + 150,
@@ -512,7 +508,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   }
                   selectGroup(group.id);
                   selectOptionName("");
-                  // console.log(group);
                   if (group.name.toLowerCase() === "pant") {
                     setExplodedMode(true);
                     setSelectedExplodedStatese(false)
@@ -556,7 +551,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
             // onClick={() => {setCloseAttribute(true)}}
           >
             {selectedGroup.steps.map((step) => {
-              //       console.log(selectedStepId, step ,'selected step');
+
+             console.log(selectedStepId, step.id);
+          
+
+            // console.log(selectedStepId, step ,'selected step');
               return (
                 <div
                   className="menu_choice_step_step"
@@ -571,25 +570,22 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       selectOptionName("");
                     }               
                   }}
-                  //selected={selectedStep === step}
-                >
+                  >
                   <div
                     className="menu_choice_step_title"
                     style={{
                       display: "flex",
                       borderBottom:
-                        selectedStepId != step.id
+                        selectedStepId != step.id || !closeAttribute
                           ? "1px solid var(--template-primary--400)"
                           : "",
                     }}
-                    // onClick={()=> {selectCollapse(!selectedCollapse)}}
                   >
                     <div
                       className="menu_choice_step_description"
                       onClick={() => {
                         setCloseAttribute(true)
-                        console.log(closeAttribute);
-                        
+                        // console.log(closeAttribute);
                       }}
                       style={{
                         paddingBottom: "1em",
@@ -606,7 +602,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         textTransform: "uppercase",
                       }}
                       onClick={() => {
-
                         setCloseAttribute(!closeAttribute);
                         // if (selectedStepId != step.id ) {
                         //   setCloseAttribute(closeAttribute)
@@ -622,7 +617,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         // selectAttribute(-1);
                       }}
                     >
-                      {(selectedStepId != step.id) ? "Customize" : "Close"}
+                      {(selectedStepId != step.id) || !closeAttribute ? "Customize" : "Close"}
                       
                     </div>
                   </div>
