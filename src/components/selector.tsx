@@ -143,7 +143,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [selectedCameraAngle, setSelectedCameraAngle] = useState<string | null>(null);
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
-  const [selectedCollapse, selectCollapse] = useState<boolean | null>(false);
+  const [selectedCollapse, selectCollapse] = useState<boolean | null>(null); // This is the small inner icons
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
   const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
 
@@ -257,18 +257,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
   );
 
   // Select attribute first time
-  // useEffect(() => {
-  //   if (!selectedAttribute && attributes.length > 0)
-  //     selectAttribute(attributes[0]?.id);
+  useEffect(() => {
+    if (!selectedAttribute && attributes.length === 1)
+      selectAttribute(attributes[0]?.id);
 
-  //   setSelectedAttributeOptionName(
-  //     selectedAttribute && selectedAttribute.options
-  //       ? selectedAttribute.options.find((x) => x.selected === true)?.name ||
-  //           null
-  //       : null
-  //   );
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedAttribute, attributes]);
+    setSelectedAttributeOptionName(
+      selectedAttribute && selectedAttribute.options
+        ? selectedAttribute.options.find((x) => x.selected === true)?.name ||
+            null
+        : null
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedAttribute, attributes]);
 
   useEffect(() => {
     if (selectedGroup) {
@@ -382,7 +382,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </ArIcon> 
          <div className='bubble_button_text' style={{fontSize: "13px"}}>AR</div>
        </div>
-        
 			)}
 
       {product?.name === "FlexFabrix™ By DA Suit" && (
@@ -497,13 +496,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
           {groups1.map((group) => {
             return (
               <div
-                // className="menu_item"
                 className= {`menu_item ${group.id === selectedGroupId ? "selected":""}`}
-                //  {group.id === selectedGroupId ? "menu_item"}
                 key={group.id}
                 onClick={() => {
                   if(checkOnce && window.innerWidth < 500){
-                 //   setCloseAttribute(true);
                     setCheckOnce(false)
                     window.scrollTo({
                       top: window.scrollY + 150,
@@ -512,11 +508,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   }
                   selectGroup(group.id);
                   selectOptionName("");
-                  // console.log(group);
                   if (group.name.toLowerCase() === "pant") {
                     setExplodedMode(true);
+                    setSelectedExplodedStatese(false)
                   } else {
                     setExplodedMode(false);
+                    setSelectedExplodedStatese(true)
                   }
 
                   if (product?.name === "FlexFabrix™ By DA Suit") {
@@ -554,40 +551,39 @@ const Selector: FunctionComponent<SelectorProps> = ({
             // onClick={() => {setCloseAttribute(true)}}
           >
             {selectedGroup.steps.map((step) => {
-              //       console.log(selectedStepId, step ,'selected step');
+
               return (
                 <div
                   className="menu_choice_step_step"
                   key={step.id}
-                  onClick={() => {
-                    // selectOptionName("");
-                    // selectCollapse(!selectedCollapse);
+                  onClick={() => {    
                     selectStep(step.id);
                     setCamera(step?.cameraLocationID || "");
-                  
                     if (selectedStepId != step.id) {
                       selectOptionName("");
                     }               
+                    if(step.name === 'LINING TYPE') selectCollapse(false);
                   }}
-                  //selected={selectedStep === step}
-                >
+
+
+                  >
                   <div
                     className="menu_choice_step_title"
                     style={{
                       display: "flex",
                       borderBottom:
-                        selectedStepId != step.id
+                        selectedStepId != step.id || !closeAttribute
                           ? "1px solid var(--template-primary--400)"
                           : "",
                     }}
-                    // onClick={()=> {selectCollapse(!selectedCollapse)}}
                   >
                     <div
                       className="menu_choice_step_description"
                       onClick={() => {
                         setCloseAttribute(true)
-                        console.log(closeAttribute);
-                        
+
+                        // selectCollapse(false);
+                        // console.log(closeAttribute);
                       }}
                       style={{
                         paddingBottom: "1em",
@@ -604,14 +600,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         textTransform: "uppercase",
                       }}
                       onClick={() => {
-
                         setCloseAttribute(!closeAttribute);
                         // if (selectedStepId != step.id ) {
                         //   setCloseAttribute(closeAttribute)
                         // } else {
                         //   setCloseAttribute(true)
                         // }
- // selectedStepId = null;
+                        // selectedStepId = null;
                       
                         // selectCollapse(true);
                         //   console.log("toggle", selectedCollapse);
@@ -620,7 +615,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         // selectAttribute(-1);
                       }}
                     >
-                      {(selectedStepId != step.id) ? "Customize" : "Close"}
+                      {(selectedStepId != step.id) || !closeAttribute ? "Customize" : "Close"}
                       
                     </div>
                   </div>
@@ -643,15 +638,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   : "",
                             }}
                             onClick={() => {
-                    //          setCloseAttribute(false);
+                    //        setCloseAttribute(false);
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
                               } else {
-                                selectOptionName("");
                                 selectAttribute(attribute.id);
+                                selectOptionName("");
+                                
                               }
-                              if (selectedAttributeId === attribute.id)
-                                selectCollapse(!selectedCollapse);
+                          //    console.log(selectedCollapse, selectedAttributeId, attribute, 'selectedCollapse');
+                              
+                              //if (selectedAttributeId === attribute.id) 
+                              selectCollapse(!selectedCollapse);
 
                               if (attribute.name === 'Stretch'){
                                 showDialog('error', <ErrorDialog error={"Stretch Lining style will add $50 to the total cost"} onCloseClick={() => closeDialog('error')} />);
@@ -728,7 +726,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               flexWrap: "wrap",
                             }}                          
                           >
-                            {attribute.options.map((option) => {
+                            {!selectedCollapse &&
+                             attribute.options.map((option) => {
                               return (
                                 <>
                                   {option.enabled == true && (
@@ -739,9 +738,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                       }}
                                     >
                                       <div>
-                                        {
-                                        //!selectedCollapse &&
-                                          selectedAttributeId ===
+                                        {selectedAttributeId ===
                                             option.attribute.id &&
                                           option.imageUrl && (
                                             <ListItem
