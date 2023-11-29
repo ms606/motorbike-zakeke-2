@@ -34,7 +34,8 @@ const Cameras: React.FC<CamerasProps> = React.memo((props) => {
     }
   });
 
-  
+ console.log(cameraViews,'camera views');
+   
   
   let selectedCameraAngle = props.selectedCameraAngle
   
@@ -44,6 +45,7 @@ const Cameras: React.FC<CamerasProps> = React.memo((props) => {
   cameraViews = cameraViews.filter((obj) =>
     idsToRemove.includes(obj.name.toLowerCase())
   );
+
 
   return !!props.cameras.length ? (
     <div className="camera_root">

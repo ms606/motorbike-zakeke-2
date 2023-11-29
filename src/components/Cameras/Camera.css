@@ -1,6 +1,7 @@
 .camera_root {
-    position: absolute; 
+    /* position: absolute;  */
     right: 93%;
+    /* padding-top: 15px; */
 }
 
 .cameras_camera {
@@ -31,7 +32,7 @@
 
 @media screen and (max-width: 786px) {
     .camera_root{
-      position: absolute;
+      /* position: absolute; */
       left: 3%;
       top: 0%;
     }

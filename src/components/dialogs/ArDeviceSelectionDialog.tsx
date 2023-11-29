@@ -3,7 +3,7 @@ import useStore from "../../Store";
 import styled from "styled-components";
 import { useZakeke } from 'zakeke-configurator-react';
 import { Dialog, useDialogManager } from "./Dialogs";
-// import QRCode from 'qrcode.react';
+import QRCode from 'qrcode.react';
 
 import deviceAndroid from '../../assets/images/device_android.png';
 import deviceIOS from '../../assets/images/device_ios.png';
@@ -49,7 +49,7 @@ const ArDeviceSelectionDialog = () => {
         showDialog('qr', <Dialog>
             <QRCodeContainer>
                 <h3>{"Scan the QR code on your phone."}</h3>
-                {/* <QRCode value={url} size={256} /> */}
+                <QRCode value={url} size={256} />
             </QRCodeContainer>
         </Dialog>)
     }

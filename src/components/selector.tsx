@@ -436,7 +436,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <div className="bubble_button_text">Full Screen</div>
       </div>
 
-      <div>
+      <div className='left-keys' style={{display: 'flex', position: 'absolute', right: '86%',
+                   flexDirection: 'column', top: '0%'}}>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} onCameraAngle={setSelectedCameraAngle} selectedCameraAngle={selectedCameraAngle}/>
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
         <div className="viewer_zoom">
@@ -470,7 +471,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <div className="scrollPosition">
           <div
             className="scroll"
-            style={{ position: "relative", left: "3%" }}
+            style={{ position: "relative", left: "12%"}}
             onClick={() =>
               refViewer.current?.scrollIntoView({ behavior: "smooth" })
             }
@@ -480,7 +481,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
           <div
             className="scroll"
-            style={{ position: "relative", left: "3%" }}
+            style={{ position: "relative", left: "12%" }}
             onClick={() =>
               viewFooter.current?.scrollIntoView({ behavior: "smooth" })
             }
