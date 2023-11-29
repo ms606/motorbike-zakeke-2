@@ -1,7 +1,8 @@
 .ff_preview {
-    position: absolute; 
+    /* position: absolute;  */
     right: 93%; 
-    top: 32%;
+    /* top: 32%; */
+    padding-top: 15px;
 }
 
 .preview_preview {
@@ -28,14 +29,15 @@
         border-radius: 8px;
         display: flex;
         flex-flow: row;
+        /* padding-top: 10px; */
         /* box-shadow: 0 4px 12px */
     }
 
     .ff_preview {
-        position: absolute;
+        /* position: absolute; */
         left: 3%;
         right: 86%;
-        top: 32%;
+        /* top: 32%; */
     }    
 
     img{
