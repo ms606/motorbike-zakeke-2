@@ -34,8 +34,6 @@ const Cameras: React.FC<CamerasProps> = React.memo((props) => {
     }
   });
 
- console.log(cameraViews,'camera views');
-   
   
   let selectedCameraAngle = props.selectedCameraAngle
   

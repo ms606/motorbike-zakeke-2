@@ -64,6 +64,7 @@ const TextToolsContainer = styled.div`
   flex-direction:row;
   grid-gap:10px;  
   flex-wrap:wrap;
+  top: 20%;
 `;
 
 const TextButtonsContainer = styled.div`
@@ -117,7 +118,7 @@ const OptionContainer = styled(components.Option)`
 
     img {
         max-width: 100%;
-        height: 24px;
+        height: 4px;
         object-fit: contain;
     }
 `;
@@ -125,7 +126,7 @@ const OptionContainer = styled(components.Option)`
 const SingleValueContainer = styled(components.SingleValue)`
     
         max-width: 100%;
-        height: 24px;
+        height: 32px;
         object-fit: contain;
     }
 `;
@@ -160,8 +161,10 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
     const weightData = typeof item.fontWeight === 'number' ? ['normal', 'normal'] : item.fontWeight.split(' ');
     const isBold = weightData.length > 1 ? weightData[1] === 'bold' : weightData[0] === 'bold';
     const isItalic = weightData.length > 1 ? weightData[0] === 'italic' : false;
+    const [textAreaLength, setTextAreaLength] = useState(0);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTextAreaLength(e.currentTarget.value.length);
         if (handleItemPropChange)
             handleItemPropChange((item as TextItem), 'text', (isUpperCase ? (e.currentTarget.value).toUpperCase() : e.currentTarget.value));
     }
@@ -173,8 +176,8 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
 
     if (item)
         return <ItemTextContainer>
-            <FormControl
-                label={item.name || "Text"}
+            <FormControl 
+                label={item.name || "Add Text"}
                 // rightComponent={!hideRemoveButton && item.constraints!.canDelete 
                 // && <Icon onClick={() => removeItem(item.guid)}><CloseIcon /></Icon>}
             >
@@ -184,7 +187,9 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
                     onChange={handleChange}
                     maxLength={!item.constraints ? null : (item.constraints.maxNrChars || null)}
                     disabled={!canEdit} />
+                <span style={{position: 'relative', paddingTop: '25px', right: '23px'}}>{textAreaLength}</span>
             </FormControl>
+            
 
             <TextToolsContainer>
                 {(!constraints || constraints.canChangeFontFamily) && <FormControl label={"Font"}>
@@ -193,7 +198,9 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
                             container: base => ({
                                 ...base,
                                 minWidth: 200,
+                                top: '20%',
                             }),
+                            
                         }}
                         isSearchable={false}
                         options={fonts}

@@ -78,8 +78,8 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
 	padding: 30px 30px 70px 30px;
 	background-color:#ffffff;
 	position: relative;
-    bottom: 2em;
-	border-radius: 50px;
+    bottom: 1.5em;
+	border-radius: 32px;
 
 	@media screen and (max-width: 568px) {
 		position:absolute;
@@ -474,6 +474,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	return ( 
 	 	<>
 		<div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket</div>
+
 			{!moveElements && (
 				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}
@@ -589,6 +590,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 						<Center>{'No customizable items'}</Center>
 					)}
 
+					<br></br>
+					<br></br>
 					{itemsFiltered.map((item) => {
 						if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 							return (
@@ -705,6 +708,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}
+			<br />
+			<br />
 			{moveElements && (
 				<ZakekeDesignerContainer isMobile={isMobile} className='zakeke-container'>
 					<div style={{width: "100%", height: "96%"}}>
