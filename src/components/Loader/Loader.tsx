@@ -23,7 +23,7 @@ const Loader: React.FC<LoaderProps> = props => {
       </div>
       {props.loadingText && (
           <span 
-        //   className={styles.ff_loader_loadingText}
+       
           >{props.loadingText}</span>
       )}
     </div>

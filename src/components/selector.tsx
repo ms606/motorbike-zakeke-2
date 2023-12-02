@@ -18,19 +18,17 @@ import Preview from "./Preview/Preview";
 //import Menu from "./Menu/Menu";
 import SvgArrowDown from "../icons/Arrowdown";
 import ShareIcon from "../icons/ShareIcon";
-import Viewer from "../pages/Viewer/Viewer";
 import Loader from "../components/Loader/Loader";
 import SelectionIcon from "../icons/SelectionIcon";
 import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 
 import DownArrow from "../assets/icons/DownArrow.js";
 import UpArrow from "../assets/icons/UpArrow.js";
-// '../../../../components/Loader/Loader';
+
 import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
-import { reduceRight } from "lodash";
-
+import { customizeGroup } from "../Helpers";
 import {
 	AiIcon,
 	ArIcon,
@@ -86,16 +84,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
 		getMobileArUrl,
 		openArMobile,
     isSceneArEnabled,
-    
-    // isArEnable,
-    // onArIconClick
+
   } = useZakeke();
 
   const {
 		priceFormatter,
 	} = useStore();
 
-  //console.log(groups, 'groups');
   
   const { showDialog, closeDialog } = useDialogManager();
 
@@ -105,22 +100,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
 
-  // const groupsCustom: Group[];
-
-  const customizeGroup: Group = {
-    id: -2,
-    guid: "0000-0000-0000-0000",
-    name: "LINING TEXT",
-    enabled: true,
-    attributes: [],
-    steps: [],
-    cameraLocationId: "4f500be3-14f3-4226-cfd6-e1bbf4e390d4",
-    displayOrder: groups.length - 1,
-    direction: 0,
-    attributesAlwaysOpened: false,
-    imageUrl: "",
-    templateGroups: [],
-  };
+  // const customizeGroup: Group = {
+  //   id: -2,
+  //   guid: "0000-0000-0000-0000",
+  //   name: "LINING TEXT",
+  //   enabled: true,
+  //   attributes: [],
+  //   steps: [],
+  //   cameraLocationId: "4f500be3-14f3-4226-cfd6-e1bbf4e390d4",
+  //   displayOrder: groups.length - 1,
+  //   direction: 0,
+  //   attributesAlwaysOpened: false,
+  //   imageUrl: "",
+  //   templateGroups: [],
+  // };
 
   if (product?.name != "FlexFabrix™ By DA Dress Pants")
     groups1.push(customizeGroup);
@@ -152,22 +145,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const item = {
-      guid: "",
-      name: "Dummy`",
-      text: "Text",
-      fillColor: defaultColor,
-      fontFamily: "Rubik",
-      fontSize: 58,
-      fontWeight: "bold bold",
-      isTextOnPath: false,
-      constraints: null,
-    };
+  // useEffect(() => {
 
-    const fullBlazerGroup = groups.filter((obj) => obj.id === 10483);
+  //   const fullBlazerGroup = groups.filter((obj) => obj.id === 10483);
 
-  }, [groups]);
+  // }, [groups]);
 
   
   var selectedGroup = groups1.find((group) => group.id === selectedGroupId);
@@ -354,6 +336,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
     return <Loader visible={isSceneLoading} />;
 
+
     // if (isLoading)
     // return <Loader visible={isSceneLoading} />;
 
@@ -365,7 +348,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // -- -- -- options
 
   return (
+    
     <Container>
+
       {/* {isArEnable() && (
        <div onClick={onArIconClick}>AR</div> 
         // <BubbleButton label={t('AR')} onClick={onArIconClick}>
@@ -436,8 +421,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <div className="bubble_button_text">Full Screen</div>
       </div>
 
-      <div className='left-keys' style={{display: 'flex', position: 'absolute', right: '86%',
-                   flexDirection: 'column', top: '0%'}}>
+      <div className='left-keys' 
+           style={{display: 'flex', position: 'absolute', left: '3%', flexDirection: 'column', top: '0%'}}>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} onCameraAngle={setSelectedCameraAngle} selectedCameraAngle={selectedCameraAngle}/>
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
         <div className="viewer_zoom">
@@ -851,3 +836,5 @@ const Selector: FunctionComponent<SelectorProps> = ({
 };
 
 export default Selector;
+
+// 851 lines of code 

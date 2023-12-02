@@ -31,28 +31,38 @@ export const Icon = styled.div<{ hoverable?: boolean }>`
 
 export const TextArea = styled.textarea`
 	background-color: transparent;
-	padding: 10px 20px;
+	padding-top: 13px;
+	height: 39px;
+	font-family: "Avenir Next",sans-serif;
+	// padding-left: 10px;
+	// padding: 10px 20px;
 	color: #414042;
-	font-size: 14px;
-	border: 1px var(--template-primary--400) solid;
+	font-size: 16px;
+	border: none;
+	border-bottom: 1px var(--template-primary--400) solid;
 	width: 100%;
-	min-height: 35px;
+	// min-height: 35px;
+	margin-top: 14px;
 	font-family: 'Montserrat', sans-serif;
 	outline: none;
 	resize: none;
 
 	&:hover {
-		border: 1px black solid;
+		// border: 1px black solid;
+		border: none;
+		border-bottom: 1px var(--template-primary--400) solid;
 	}
 
 	&:focus {
-		border: 1px black solid;
-		outline: none;
+		// border: 1px black solid;
+		// outline: none;
+		border: none;
+		border-bottom: 1px var(--template-primary--400) solid;
 	}
 `;
 
 export const Row = styled.div`
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 
 	&:last-child {
 		margin-bottom: 0;

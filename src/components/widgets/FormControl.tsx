@@ -9,11 +9,12 @@ const FormControlLabel = styled.div`
   margin-top: 20px;
 `;
 
-const FormControlContainer = styled.div<{ rightComponent?: any }>`
+const FormControlContainer = styled.div<{ rightComponent?: any, placeholder?: any }>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   grid-gap: 5px;
+  margin-top: 10px;
   margin-bottom: 10px;
 `;
 
@@ -21,11 +22,12 @@ export const FormControl: FC<{
   label: string;
   rightComponent?: any;
   children?: React.ReactNode;
-}> = ({ label, rightComponent, children }) => {
+  placeholder?: string;
+}> = ({ placeholder, label, rightComponent, children }) => {
   return (
-    <FormControlContainer>
+    <FormControlContainer placeholder={placeholder}>
       <FormControlLabel>
-        <span>{label}</span>
+        <span style={{width: '70px'}}>{label}</span>
         {rightComponent}
       </FormControlLabel>
       {children}
