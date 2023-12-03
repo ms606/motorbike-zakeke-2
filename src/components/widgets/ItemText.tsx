@@ -161,10 +161,15 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
     const weightData = typeof item.fontWeight === 'number' ? ['normal', 'normal'] : item.fontWeight.split(' ');
     const isBold = weightData.length > 1 ? weightData[1] === 'bold' : weightData[0] === 'bold';
     const isItalic = weightData.length > 1 ? weightData[0] === 'italic' : false;
-    const [textAreaLength, setTextAreaLength] = useState(0);
+    const [textAreaLength, setTextAreaLength] = useState(item.text.length);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTextAreaLength(e.currentTarget.value.length);
+        
+        let stringWithZeroWidthSpace = e.target.value.replace(/\u200B/g, '');
+
+        console.log(stringWithZeroWidthSpace.length);
+        
+        setTextAreaLength(e.target.value.length);
         if (handleItemPropChange)
             handleItemPropChange((item as TextItem), 'text', (isUpperCase ? (e.currentTarget.value).toUpperCase() : e.currentTarget.value));
     }
