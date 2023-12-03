@@ -3,6 +3,9 @@ import _ from 'lodash';
 import useStore from './Store';
 import { Group, Option, SellerSettings, useZakeke } from 'zakeke-configurator-react';
 
+export const PRODUCT_FULL_SUIT = "FlexFabrix™ By DA Suit"; 
+export const PRODUCT_BLAZER = "FlexFabrix™ By DA Blazer"; 
+export const PRODUCT_PANT =  "FlexFabrix™ By DA Dress Pants"; 
 
 export const range = (actualIndex: number, maxItems: number, array: any) => {
 	let result = [];

@@ -22,9 +22,7 @@ const Loader: React.FC<LoaderProps> = props => {
         <SvgSpinner />
       </div>
       {props.loadingText && (
-          <span 
-       
-          >{props.loadingText}</span>
+          <span>{props.loadingText}</span>
       )}
     </div>
   );

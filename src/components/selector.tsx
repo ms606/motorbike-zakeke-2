@@ -19,12 +19,13 @@ import Preview from "./Preview/Preview";
 import SvgArrowDown from "../icons/Arrowdown";
 import ShareIcon from "../icons/ShareIcon";
 import Loader from "../components/Loader/Loader";
+import Scroll from "./Scroll/Scroll";
 import SelectionIcon from "../icons/SelectionIcon";
 import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 
-import DownArrow from "../assets/icons/DownArrow.js";
-import UpArrow from "../assets/icons/UpArrow.js";
-
+import { ExplodeIconL } from "../assets/icons/ExplodeIcon";
+import { FfZoomIn } from "../assets/icons/FfZoomIn";
+import { FfZoomOut } from "../assets/icons/FfZoomOut";
 import { Icon } from "./Atomic";
 
 import Designer from "./Layout/Designer";
@@ -35,6 +36,7 @@ import {
 } from '../components/Layout/LayoutStyles';
 import useStore from "../Store";
 
+import { PRODUCT_FULL_SUIT, PRODUCT_BLAZER, PRODUCT_PANT} from "../Helpers";
 
 const dialogsPortal = document.getElementById("dialogs-portal")!;
 
@@ -70,21 +72,16 @@ const Selector: FunctionComponent<SelectorProps> = ({
     groups,
     selectOption,
     addToCart,
-    templates,
-    setTemplate,
     setCamera,
     setExplodedMode,
     zoomIn,
     zoomOut,
-    defaultColor,
     product,
-    cameras,
     IS_IOS,
 		IS_ANDROID,
 		getMobileArUrl,
 		openArMobile,
     isSceneArEnabled,
-
   } = useZakeke();
 
   const {
@@ -115,7 +112,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //   templateGroups: [],
   // };
 
-  if (product?.name != "FlexFabrix™ By DA Dress Pants")
+  if (product?.name != PRODUCT_BLAZER)
     groups1.push(customizeGroup);
 
   //console.log(groups,'groups');
@@ -142,15 +139,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const [closeAttribute, setCloseAttribute] = useState<boolean | null>(null);
   
-
   const viewFooter = useRef<HTMLDivElement | null>(null);
-
-  // useEffect(() => {
-
-  //   const fullBlazerGroup = groups.filter((obj) => obj.id === 10483);
-
-  // }, [groups]);
-
   
   var selectedGroup = groups1.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
@@ -405,16 +394,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
       >
         <div className="bubble_button_button">
           <ExplodeIcon>
-            <svg
-              viewBox="0 0 32 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8 2H2v6h2V4h4V2zM24 2h6v6h-2V4h-4V2zM8 30H2v-6h2v4h4v2zM24 30h6v-6h-2v4h-4v2zM24 24H8a2.002 2.002 0 01-2-2V10a2.002 2.002 0 012-2h16a2.002 2.002 0 012 2v12a2.002 2.002 0 01-2 2zM8 10v12h16V10H8z"
-                fill="#838383"
-              ></path>
-            </svg>
+            <ExplodeIconL />
           </ExplodeIcon>
         </div>
 
@@ -431,11 +411,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
             onClick={() => zoomIn()}
             style={{ cursor: "pointer" }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-              <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
-              <path d="M24 15h-7V8h-2v7H8v2h7v7h2v-7h7z"></path>
-              <path fill="none" d="M0 0h32v32H0z"></path>
-            </svg>
+            <FfZoomIn />
           </div>
 
           <div className="ff_zoom_description">ZOOM</div>
@@ -444,37 +420,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
             onClick={() => zoomOut()}
             style={{ cursor: "pointer" }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-              <path d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12S4 22.6 4 16 9.4 4 16 4m0-2C8.3 2 2 8.3 2 16s6.3 14 14 14 14-6.3 14-14S23.7 2 16 2z"></path>
-              <path d="M8 15h16v2H8z"></path>
-              <path fill="none" d="M0 0h32v32H0z"></path>
-            </svg>
+            <FfZoomOut />
           </div>
-
           {/* <img src={previewImage?.image}/> */}
         </div>
-        <div className="scrollPosition">
-          <div
-            className="scroll"
-            style={{ position: "relative", left: "12%"}}
-            onClick={() =>
-              refViewer.current?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            <UpArrow />
-            {/* Down */}
-          </div>
-          <div
-            className="scroll"
-            style={{ position: "relative", left: "12%" }}
-            onClick={() =>
-              viewFooter.current?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            <DownArrow />
-            {/* Down */}
-          </div>
-        </div>
+
+        <Scroll upRef={refViewer.current} downRef={viewFooter.current}/>
       </div>
 
       <div className="menu">
@@ -502,7 +453,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     setSelectedExplodedStatese(true)
                   }
 
-                  if (product?.name === "FlexFabrix™ By DA Suit") {
+                  if (product?.name === PRODUCT_FULL_SUIT) {
                     if (
                       group.name.toLowerCase() === "blazer view" ||
                       group.name.toLowerCase() === "lining text"
@@ -514,7 +465,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     }
                   }
 
-                  if (product?.name === "FlexFabrix™ By DA Blazer") {
+                  if (product?.name === PRODUCT_BLAZER) {
                     if (
                       group.name.toLowerCase() === "blazer view" ||
                       group.name.toLowerCase() === "lining text"
@@ -771,9 +722,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         {selectedGroup?.id === -2 && (
           <div
             className="textEditor"
-            style={{ overflowX: "hidden", height: "100%" }}
-          >
-            {/* <div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket</div> */}
+            style={{ overflowX: "hidden", height: "100%" }}>
             <Designer />
           </div>
         )}
