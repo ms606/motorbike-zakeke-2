@@ -28,6 +28,7 @@ div {
     top: 65%; */
     fill: var(--template-primary--600);
     padding-bottom: 48px;
+    cursor: pointer;
 }
 
 .ff_zoom_out {
@@ -37,6 +38,7 @@ div {
     right: 93.7%;
     top: 76.4%; */
     fill: var(--template-primary--600);
+    cursor: pointer;
 }
 
 .ff_zoom_description {
