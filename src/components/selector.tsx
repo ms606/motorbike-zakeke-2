@@ -6,8 +6,8 @@ import React, {
   useRef,
 } from "react";
 import styled from "styled-components";
-import { useZakeke, Group } from "zakeke-configurator-react";
-import { List, ListItem, ListItemImage } from "./list";
+import { useZakeke } from "zakeke-configurator-react";
+import { ListItem, ListItemImage } from "./list";
 import "./selector.css";
 import "./Menu/menu.css";
 import { Dialog, useDialogManager } from '../components/dialogs/Dialogs';
@@ -15,30 +15,24 @@ import ErrorDialog from '../components/dialogs/ErrorDialog';
 import ArDeviceSelectionDialog from '../components/dialogs/ArDeviceSelectionDialog';
 import Cameras from "./Cameras/Cameras";
 import Preview from "./Preview/Preview";
-//import Menu from "./Menu/Menu";
 import SvgArrowDown from "../icons/Arrowdown";
-import ShareIcon from "../icons/ShareIcon";
 import Loader from "../components/Loader/Loader";
 import Scroll from "./Scroll/Scroll";
 import SelectionIcon from "../icons/SelectionIcon";
 import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 
 import { ExplodeIconL } from "../assets/icons/ExplodeIcon";
-import { FfZoomIn } from "../assets/icons/FfZoomIn";
-import { FfZoomOut } from "../assets/icons/FfZoomOut";
 import { Icon } from "./Atomic";
-
+import MenuFooter from "./Footer/MenuFooter";
 import Designer from "./Layout/Designer";
 import { customizeGroup } from "../Helpers";
 import {
 	AiIcon,
 	ArIcon,
 } from '../components/Layout/LayoutStyles';
-import useStore from "../Store";
 
 import { PRODUCT_FULL_SUIT, PRODUCT_BLAZER, PRODUCT_PANT} from "../Helpers";
-
-const dialogsPortal = document.getElementById("dialogs-portal")!;
+import Zoom from "./Zoom/Zoom";
 
 const Container = styled.div`
   height: 839px;
@@ -64,14 +58,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
   refViewer,
   fullScreen,
 }) => {
-  //console.log(refViewer);
+
   const {
     isSceneLoading,
-    isAddToCartLoading,
-    price,
     groups,
     selectOption,
-    addToCart,
     setCamera,
     setExplodedMode,
     zoomIn,
@@ -84,11 +75,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     isSceneArEnabled,
   } = useZakeke();
 
-  const {
-		priceFormatter,
-	} = useStore();
 
-  
   const { showDialog, closeDialog } = useDialogManager();
 
   const idsToRemove = [10483, 10482, -1, 10852, 10856];
@@ -96,21 +83,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   idsToRemove.push(10640); // id to remove on only blazer product
 
   const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
-
-  // const customizeGroup: Group = {
-  //   id: -2,
-  //   guid: "0000-0000-0000-0000",
-  //   name: "LINING TEXT",
-  //   enabled: true,
-  //   attributes: [],
-  //   steps: [],
-  //   cameraLocationId: "4f500be3-14f3-4226-cfd6-e1bbf4e390d4",
-  //   displayOrder: groups.length - 1,
-  //   direction: 0,
-  //   attributesAlwaysOpened: false,
-  //   imageUrl: "",
-  //   templateGroups: [],
-  // };
 
   if (product?.name != PRODUCT_BLAZER)
     groups1.push(customizeGroup);
@@ -339,16 +311,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   return (
     
     <Container>
-
-      {/* {isArEnable() && (
-       <div onClick={onArIconClick}>AR</div> 
-        // <BubbleButton label={t('AR')} onClick={onArIconClick}>
-        //   <ViewerIcon>
-        //     <ArIcon />
-        //   </ViewerIcon>
-        // </BubbleButton>
-      )} */}
-
       {isSceneArEnabled() && (
        <div className="bubble_button_ar">
           <ArIcon hoverable onClick={() => handleArClick('ar.html')}>
@@ -405,25 +367,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
            style={{display: 'flex', position: 'absolute', left: '3%', flexDirection: 'column', top: '0%'}}>
         <Cameras cameras={groups} onSelect={setSelectedCameraID} onCameraAngle={setSelectedCameraAngle} selectedCameraAngle={selectedCameraAngle}/>
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
-        <div className="viewer_zoom">
-          <div
-            className="ff_zoom_in"
-            onClick={() => zoomIn()}
-            style={{ cursor: "pointer" }}
-          >
-            <FfZoomIn />
-          </div>
 
-          <div className="ff_zoom_description">ZOOM</div>
-          <div
-            className="ff_zoom_out"
-            onClick={() => zoomOut()}
-            style={{ cursor: "pointer" }}
-          >
-            <FfZoomOut />
-          </div>
-          {/* <img src={previewImage?.image}/> */}
-        </div>
+        <Zoom zoomIn={zoomIn} zoomOut={zoomOut}/>
 
         <Scroll upRef={refViewer.current} downRef={viewFooter.current}/>
       </div>
@@ -518,9 +463,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       className="menu_choice_step_description"
                       onClick={() => {
                         setCloseAttribute(true)
-
-                        // selectCollapse(false);
-                        // console.log(closeAttribute);
                       }}
                       style={{
                         paddingBottom: "1em",
@@ -538,18 +480,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       }}
                       onClick={() => {
                         setCloseAttribute(!closeAttribute);
-                        // if (selectedStepId != step.id ) {
-                        //   setCloseAttribute(closeAttribute)
-                        // } else {
-                        //   setCloseAttribute(true)
-                        // }
-                        // selectedStepId = null;
-                      
-                        // selectCollapse(true);
-                        //   console.log("toggle", selectedCollapse);
-                        // selectGroup(-1);
-                        // selectStep(-1);
-                        // selectAttribute(-1);
                       }}
                     >
                       {(selectedStepId != step.id) || !closeAttribute ? "Customize" : "Close"}
@@ -575,7 +505,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                   : "",
                             }}
                             onClick={() => {
-                    //        setCloseAttribute(false);
                               if (selectedAttributeId === attribute.id) {
                                 selectAttribute(null);
                               } else {
@@ -583,9 +512,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                 selectOptionName("");
                                 
                               }
-                          //    console.log(selectedCollapse, selectedAttributeId, attribute, 'selectedCollapse');
-                              
-                              //if (selectedAttributeId === attribute.id) 
                               selectCollapse(!selectedCollapse);
 
                               if (attribute.name === 'Stretch'){
@@ -730,32 +656,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
         <br />
         <br />
-        <div className="menu_footer" ref={viewFooter}>
-          <div className="menu_price">
-            <div className="price_text">Price: </div>
-            <div className="price_value">{priceFormatter.format(price)}</div>
-          </div>
-          <div className="menu_actions">
-            {isAddToCartLoading ? (
-              "Adding to cart..."
-            ) : (
-              <button
-                onClick={addToCart}
-                className="btn btn-primary menu_btn_cart"
-              >
-                Add to cart
-              </button>
-            )}
-            {
-              <button className="btn btn-secondary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__share__1sacu">
-                <div className="menu_btn_share_icon">
-                  <ShareIcon />
-                </div>
-                {/* <span className="Menu_ff_menu__btn__share_text__3eeX0">Share</span> */}
-              </button>
-            }
-          </div>
-        </div>
+        <MenuFooter viewFooter={viewFooter}/>
 
         {/* ----------------------------------------- */}
 
