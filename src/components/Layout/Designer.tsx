@@ -697,14 +697,14 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					
 					{/* )}  */}
 				
-					{itemsFiltered.length > 0 && !allStaticElements && (
+					{/* {itemsFiltered.length > 0 && !allStaticElements && (
 						<MoveElementButton isFullWidth outline onClick={() => setMoveElements(true)}>
 							<Icon>
 								<Arrows />
 							</Icon>
 							<span>{'Scale Your Name'} </span>
 						</MoveElementButton>
-					)}
+					)} */}
 					{/* {isMobile && <CloseEditorButton onClick={onCloseClick}>OK</CloseEditorButton>} */}
 				</DesignerContainer>
 			)}
