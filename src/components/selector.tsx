@@ -367,6 +367,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
             refViewer.current.webkitRequestFullscreen();
           }
 
+          const element = refViewer.current;
+
+          if (element) {
+            if (element.requestFullscreen) {
+              element.requestFullscreen();
+            } else if (element.webkitEnterFullscreen) {
+              element.webkitEnterFullscreen(); // Use webkitEnterFullscreen for iOS Safari
+            } else if (element.mozRequestFullScreen) {
+              element.mozRequestFullScreen(); // For older Firefox
+            } else if (element.msRequestFullscreen) {
+              element.msRequestFullscreen(); // For Internet Explorer
+            }
+          }
+
         }}
       >
         <div className="bubble_button_button">
