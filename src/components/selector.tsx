@@ -50,7 +50,7 @@ export const ExplodeIcon = styled(Icon)`
 `;
 
 interface SelectorProps {
-  refViewer: React.RefObject<HTMLElement>;
+  refViewer: any; // React.RefObject<HTMLElement>;
   fullScreen: any;
 }
 
@@ -313,14 +313,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
   return (
     
     <Container>
-      {isSceneArEnabled() && (
+      {/* {isSceneArEnabled() && (
        <div className="bubble_button_ar">
           <ArIcon hoverable onClick={() => handleArClick('ar.html')}>
             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.74 6.86v18.27c0 .76.61 1.37 1.36 1.37h8.28v2H7.1c-1.85 0-3.36-1.51-3.36-3.36V6.86A3.36 3.36 0 017.1 3.5h9.28c.337 0 .663.05.97.143l-.734 1.878a1.364 1.364 0 00-.236-.021h-1.22c-.23.86-1.01 1.5-1.94 1.5h-2.96c-.93 0-1.71-.64-1.95-1.5H7.1c-.75 0-1.36.61-1.36 1.36z" fill="#838383"></path><path d="M12.53 16.31v7.59l7.86 4.78 7.86-4.78v-7.57l-7.64-5.02-8.08 5zm12.79.47l-4.94 2.69-4.86-2.66 5.07-3.14 4.73 3.11zm-10.79 1.77l4.84 2.65v4.5l-4.84-2.94v-4.21zm6.84 7.19v-4.53l4.89-2.66v4.22l-4.89 2.97zM19.158 8.172l.552-1.76h.016l.512 1.76h-1.08zm-2.408 2.04h1.768l.256-.816h1.816l.24.816h1.824L20.574 4.5h-1.72l-2.104 5.712zM23.044 10.212h1.76V8.22h.936c.696 0 .744.568.792 1.112.023.296.055.592.143.88h1.76c-.16-.264-.168-.944-.191-1.224-.064-.712-.36-1.24-.84-1.424.584-.216.855-.84.855-1.432 0-1.08-.864-1.632-1.864-1.632h-3.351v5.712zm1.76-4.352h.824c.671 0 .872.208.872.568 0 .512-.448.568-.776.568h-.92V5.86z" fill="#838383"></path></svg>
           </ArIcon> 
          <div className='bubble_button_text' style={{fontSize: "13px"}}>AR</div>
        </div>
-			)}
+			)} */}
 
       {product?.name === PRODUCT_FULL_SUIT && (
         <div className="bubble_button">
@@ -362,6 +362,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
         className="bubble_button_fullScreen"
         onClick={() => {
           refViewer.current?.requestFullscreen();
+
+          if (refViewer.current?.webkitRequestFullscreen) {
+            refViewer.current.webkitRequestFullscreen();
+          }
+
         }}
       >
         <div className="bubble_button_button">
