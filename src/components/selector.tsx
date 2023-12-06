@@ -31,7 +31,7 @@ import {
 	ArIcon,
 } from '../components/Layout/LayoutStyles';
 
-import { PRODUCT_FULL_SUIT, PRODUCT_BLAZER, PRODUCT_PANT} from "../Helpers";
+import { PRODUCT_FULL_SUIT, PRODUCT_BLAZER, PRODUCT_PANT, scrollDownOnClick} from "../Helpers";
 import Zoom from "./Zoom/Zoom";
 
 const Container = styled.div`
@@ -155,6 +155,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
 			showDialog('select-ar', <ArDeviceSelectionDialog />);
 		}
 	};
+
+  
 
 
   useEffect(() => {
@@ -320,23 +322,31 @@ const Selector: FunctionComponent<SelectorProps> = ({
        </div>
 			)}
 
-      {product?.name === "FlexFabrix™ By DA Suit" && (
+      {product?.name === PRODUCT_FULL_SUIT && (
         <div className="bubble_button">
           <div className="bubble_button_button">
             <ExplodeIcon
               hoverable
               onClick={() => {
+                setSelectedExplodedStatese(!selectedExplodedState);
                 {
-                  selectedExplodedState == true
-                    ? setSelectedExplodedStatese(false)
-                    : setSelectedExplodedStatese(true);
-                }
-                {
-                  selectedExplodedState == true
-                    ? setExplodedMode(true)
-                    : setExplodedMode(false);
+                      selectedExplodedState == true
+                        ? setExplodedMode(true)
+                        : setExplodedMode(false);
                 }
               }}
+              // onClick={() => {
+              //   {
+              //     selectedExplodedState == true
+              //       ? setSelectedExplodedStatese(false)
+              //       : setSelectedExplodedStatese(true);
+              //   }
+              //   {
+              //     selectedExplodedState == true
+              //       ? setExplodedMode(true)
+              //       : setExplodedMode(false);
+              //   }
+              // }}
             >
               <ExplodeSolid />
             </ExplodeIcon>
@@ -376,50 +386,60 @@ const Selector: FunctionComponent<SelectorProps> = ({
       <div className="menu">
         <div className="menu_group">
           {groups1.map((group) => {
+
+            const handleGroupClick = (group:any) => {
+              selectGroup(group.id);
+
+
+              const isBlazerViewOrLiningText =
+              (group.name.toLowerCase() === 'blazer view' ||
+                group.name.toLowerCase() === 'lining text') &&
+              (product?.name === PRODUCT_FULL_SUIT || product?.name === PRODUCT_BLAZER);
+
+              console.log(isBlazerViewOrLiningText,'isBlazerViewOrLiningText');
+              
+
+              selectOptionName("");
+              if (group.name.toLowerCase() === "pant") {
+                setExplodedMode(true);
+                setSelectedExplodedStatese(false)
+              } else {
+                setExplodedMode(false);
+                setSelectedExplodedStatese(true)
+              }
+
+              if (product?.name === PRODUCT_FULL_SUIT) {
+                if (
+                  group.name.toLowerCase() === "blazer view" ||
+                  group.name.toLowerCase() === "lining text"
+                ) {
+                  selectOption(1363645); // Open jacket comm
+                } 
+                else {
+                  selectOption(1363646);
+                }
+              }
+
+              if (product?.name === PRODUCT_BLAZER) {
+                if (
+                  group.name.toLowerCase() === "blazer view" ||
+                  group.name.toLowerCase() === "lining text"
+                ) {
+                  selectOption(1382103); // Open jacket comm
+                } else {
+                  selectOption(1382104);
+                }
+              }
+            } 
+
             return (
               <div
                 className= {`menu_item ${group.id === selectedGroupId ? "selected":""}`}
                 key={group.id}
                 onClick={() => {
-                  if(checkOnce && window.innerWidth < 500){
-                    setCheckOnce(false)
-                    window.scrollTo({
-                      top: window.scrollY + 150,
-                      behavior: 'smooth'
-                  });
-                  }
-                  selectGroup(group.id);
-                  selectOptionName("");
-                  if (group.name.toLowerCase() === "pant") {
-                    setExplodedMode(true);
-                    setSelectedExplodedStatese(false)
-                  } else {
-                    setExplodedMode(false);
-                    setSelectedExplodedStatese(true)
-                  }
-
-                  if (product?.name === PRODUCT_FULL_SUIT) {
-                    if (
-                      group.name.toLowerCase() === "blazer view" ||
-                      group.name.toLowerCase() === "lining text"
-                    ) {
-                      selectOption(1363645); // Open jacket comm
-                    } 
-                    else {
-                      selectOption(1363646);
-                    }
-                  }
-
-                  if (product?.name === PRODUCT_BLAZER) {
-                    if (
-                      group.name.toLowerCase() === "blazer view" ||
-                      group.name.toLowerCase() === "lining text"
-                    ) {
-                      selectOption(1382103); // Open jacket comm
-                    } else {
-                      selectOption(1382104);
-                    }
-                  }
+                  scrollDownOnClick(checkOnce,setCheckOnce)
+                  handleGroupClick(group)
+             
                 }}
               >
                 {group.id === -1 ? "Other" : group.name}
