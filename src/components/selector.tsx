@@ -75,7 +75,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
     isSceneArEnabled,
   } = useZakeke();
 
-
   const { showDialog, closeDialog } = useDialogManager();
 
   const idsToRemove = [10483, 10482, -1, 10852, 10856];
@@ -358,7 +357,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div>
       )}
 
-      <div
+      {!IS_IOS && <div
         className="bubble_button_fullScreen"
         onClick={() => {
           refViewer.current?.requestFullscreen();
@@ -390,7 +389,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div>
 
         <div className="bubble_button_text">Full Screen</div>
-      </div>
+      </div>}
 
       <div className='left-keys' 
            style={{display: 'flex', position: 'absolute', left: '3%', flexDirection: 'column', top: '0%'}}>
@@ -415,7 +414,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 group.name.toLowerCase() === 'lining text') &&
               (product?.name === PRODUCT_FULL_SUIT || product?.name === PRODUCT_BLAZER);
 
-              console.log(isBlazerViewOrLiningText,'isBlazerViewOrLiningText');
+              // console.log(isBlazerViewOrLiningText,'isBlazerViewOrLiningText');
               
 
               selectOptionName("");
