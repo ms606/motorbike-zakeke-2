@@ -119,9 +119,9 @@ const useStore = create<Store>((set) => ({
 		set({
 			selectedTemplateGroupId: templateGroupId
 		}),
-	priceFormatter: new Intl.NumberFormat('it-IT', {
+	priceFormatter: new Intl.NumberFormat('us-US', {
 		style: 'currency',
-		currency: 'EUR'
+		currency: 'USD'
 	}),
 	setPriceFormatter: (priceFormatter: Intl.NumberFormat) => {
 		set({
