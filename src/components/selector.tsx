@@ -73,8 +73,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
 		getMobileArUrl,
 		openArMobile,
     isSceneArEnabled,
+    productName
   } = useZakeke();
-
+  
   const { showDialog, closeDialog } = useDialogManager();
 
   const idsToRemove = [10483, 10482, -1, 10852, 10856];
@@ -83,7 +84,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
 
-  if (product?.name != PRODUCT_BLAZER)
+  if (product?.name != PRODUCT_PANT)
     groups1.push(customizeGroup);
 
   //console.log(groups,'groups');
