@@ -295,8 +295,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // console.log(product);
 
-  if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
-    return <Loader visible={isSceneLoading} />;
+  
+   if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
+    return <Loader visible={true} />;
 
 
     // if (isLoading)
