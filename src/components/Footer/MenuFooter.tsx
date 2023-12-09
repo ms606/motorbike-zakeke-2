@@ -1,6 +1,6 @@
 import React from 'react'
 import ShareIcon from "../../icons/ShareIcon";
-import { useZakeke, Group } from "zakeke-configurator-react";
+import { useZakeke } from "zakeke-configurator-react";
 import useStore from "../../Store";
 
 
