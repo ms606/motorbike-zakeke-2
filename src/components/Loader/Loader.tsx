@@ -87,7 +87,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
     height: 100%;
     border-radius: 4px;
     margin: 7px 0px;
-    background-color: #008556;
+    background-color: #00000;
     border-radius: "inherit";
     width: ${({ completed }) => completed && `${completed}%`};
   `;
