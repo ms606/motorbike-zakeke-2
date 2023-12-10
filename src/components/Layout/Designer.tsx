@@ -46,6 +46,7 @@ import {
 	ZoomInIcon,
 	ZoomOutIcon
 } from '../../components/Layout/LayoutStyles';
+import Loading from '../Loader/Loader_spring';
 
 export type PropChangeHandler = (
 	item: EditTextItem, // | EditImageItem,
@@ -470,12 +471,12 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const SelectSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, boolean, GroupBase<any>>) => {
 		return <SingleValueContainer {...props}>{<span>{props.data.name}</span>}</SingleValueContainer>;
 	};
-
+	console.log(itemsFiltered.length,'loading for items');
+	
 	return ( 
 	 	<>
-		<div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket</div>
-
-			{!moveElements && (
+		<div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket		</div>
+	    	{!moveElements && (			  	
 				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}
 					{!isMobile && templates.length > 1 && (
@@ -592,6 +593,8 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 					<br></br>
 					<br></br>
+					{itemsFiltered.length === 0 && <div style={{zIndex: '1', top: "50%", position: "absolute"}}><Loading /></div>}
+					{/* <div style={{zIndex: '1', top: "50%", position: "absolute"}}><Loading /></div> */}
 					{itemsFiltered.map((item) => {
 						if (item.type === 0 && isItemEditable(item, currentTemplateArea))
 							return (
@@ -710,6 +713,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 			)}
 			<br />
 			<br />
+			
 			{moveElements && (
 				<ZakekeDesignerContainer isMobile={isMobile} className='zakeke-container'>
 					<div style={{width: "100%", height: "96%"}}>
@@ -725,6 +729,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 					<Button isFullWidth onClick={() => setMoveElements(false)}>
 						<span>OK</span>
 					</Button>
+					
 					</div>
 				</ZakekeDesignerContainer>
 			)}
