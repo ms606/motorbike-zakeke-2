@@ -372,7 +372,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
           if (element) {
             if (element.requestFullscreen) {
-              element.requestFullscreen();
+              // element.requestFullscreen();
             } else if (element.webkitEnterFullscreen) {
               element.webkitEnterFullscreen(); // Use webkitEnterFullscreen for iOS Safari
             } else if (element.mozRequestFullScreen) {
