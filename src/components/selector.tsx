@@ -76,6 +76,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     productName
   } = useZakeke();
   
+  console.log(groups, 'groups');
+
   const { showDialog, closeDialog } = useDialogManager();
 
   const idsToRemove = [10483, 10482, -1, 10852, 10856];
@@ -96,6 +98,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [selectedAttributeOptionName, setSelectedAttributeOptionName] =
     useState<string | null>(null);
   const [selectedOptionName, selectOptionName] = useState<string | null>(null);
+  const [selectedLiningTypeName, selectLiningTypeName] = useState<string | null>(null);
 
   const [selectedExplodedState, setSelectedExplodedStatese] = useState<
     boolean | null
@@ -172,9 +175,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
             stepName: attr.name,
             groupName: attr.code,
           };
-          setPreviewImage(Previewdata);
-          //  console.log(Previewdata, 'previewImage');
-          //console.log(Previewdata,'attributes');
+          // setPreviewImage(Previewdata);
+          
           return;
         }
       });
@@ -336,18 +338,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         : setExplodedMode(false);
                 }
               }}
-              // onClick={() => {
-              //   {
-              //     selectedExplodedState == true
-              //       ? setSelectedExplodedStatese(false)
-              //       : setSelectedExplodedStatese(true);
-              //   }
-              //   {
-              //     selectedExplodedState == true
-              //       ? setExplodedMode(true)
-              //       : setExplodedMode(false);
-              //   }
-              // }}
             >
               <ExplodeSolid />
             </ExplodeIcon>
@@ -410,7 +400,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
             const handleGroupClick = (group:any) => {
               selectGroup(group.id);
 
-
               const isBlazerViewOrLiningText =
               (group.name.toLowerCase() === 'blazer view' ||
                 group.name.toLowerCase() === 'lining text') &&
@@ -432,8 +421,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 if (
                   group.name.toLowerCase() === "blazer view" ||
                   group.name.toLowerCase() === "lining text"
-                ) {
-                  selectOption(1363645); // Open jacket comm
+                ) {                      
+                    selectOption(1363645) // Open jacket comm
+                  
                 } 
                 else {
                   selectOption(1363646);
@@ -554,6 +544,16 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               }
                               selectCollapse(!selectedCollapse);
 
+                              if (attribute.code === "Stretch - Non stretch"){
+                                attribute.options.map(x => {
+                                  console.log(x.name,x.selected);                                  
+                                  if(x.selected===true) selectLiningTypeName(x.name); 
+                                })
+                                console.log(selectLiningTypeName);
+                                
+                                
+                              }
+
                               if (attribute.name === 'Stretch'){
                                 showDialog('error', <ErrorDialog error={"Stretch Lining style will add $50 to the total cost"} onCloseClick={() => closeDialog('error')} />);
                               }
@@ -630,6 +630,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                             }}                          
                           >
                             {!selectedCollapse &&
+                             (attribute.code != 'Stretch' && attribute.code != 'Lining Style_1' )&&
                              attribute.options.map((option) => {
                               return (
                                 <>
@@ -654,9 +655,59 @@ const Selector: FunctionComponent<SelectorProps> = ({
                                               className="menu_choice_option"
                                             >
                                               <div
-                                                className="menu_choice_option_image_container"
-                                                // style={}
-                                              >
+                                                className="menu_choice_option_image_container">
+                                                {option.imageUrl && (
+                                                  <ListItemImage
+                                                    src={option.imageUrl}
+                                                  />
+                                                )}
+                                              </div>
+
+                                              <div className="menu_choice_option_description">
+                                                {option.name}
+                                              </div>
+                                            </ListItem>
+                                          )}
+                                      </div>
+                                    </div>
+                                  )}
+                                </>
+                              );
+                            })}
+
+
+                            {/* FOR ONLY STRETCH / NON STRETCH -- HAVE TO REFACTOR LATER */}
+                            {!selectedCollapse &&
+                            //  (attribute.code === 'Stretch' || attribute.code === 'Lining Style_1' ) &&
+                            selectedLiningTypeName?.toLowerCase() === attribute.name.toLowerCase() &&
+                              attribute.options.map((option) => {
+
+                              console.log(selectedLiningTypeName,'selectLiningTypeName');
+                              
+                              return (
+                                <>
+                                  {option.enabled == true && (
+                                    <div
+                                      style={{
+                                        marginLeft: "5px",
+                                        width: "23%",
+                                      }}
+                                    >
+                                      <div>
+                                        {selectedAttributeId ===
+                                            option.attribute.id &&
+                                          option.imageUrl && (
+                                            <ListItem
+                                              key={option.id}
+                                              onClick={() => {
+                                                selectOption(option.id);
+                                                selectOptionName(option.name)
+                                              }}
+                                              selected={option.selected}
+                                              className="menu_choice_option"
+                                            >
+                                              <div
+                                                className="menu_choice_option_image_container">
                                                 {option.imageUrl && (
                                                   <ListItemImage
                                                     src={option.imageUrl}

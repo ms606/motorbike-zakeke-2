@@ -471,7 +471,6 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	const SelectSingleValue = (props: JSX.IntrinsicAttributes & SingleValueProps<any, boolean, GroupBase<any>>) => {
 		return <SingleValueContainer {...props}>{<span>{props.data.name}</span>}</SingleValueContainer>;
 	};
-	console.log(itemsFiltered.length,'loading for items');
 	
 	return ( 
 	 	<>
