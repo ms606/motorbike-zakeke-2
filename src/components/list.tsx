@@ -41,9 +41,17 @@ export const ListItem = styled.div<{ selected?: boolean }>`
           width: 60px;
           height: 60px;
         }
+        @media screen and (max-width: 913px) {
+          width: 53px;
+          height: 53px;
+        }
         @media screen and (max-width: 842px) {
           width: 50px;
           height: 50px;
+        }
+        @media screen and (max-width: 792px) {
+          width: 45px;
+          height: 45px;
         }
         @media screen and (max-width: 568px) {
             width: 53px;

@@ -10,9 +10,9 @@ import { useZakeke } from "zakeke-configurator-react";
 import { ListItem, ListItemImage } from "./list";
 import "./selector.css";
 import "./Menu/menu.css";
-import { Dialog, useDialogManager } from '../components/dialogs/Dialogs';
-import ErrorDialog from '../components/dialogs/ErrorDialog';
-import ArDeviceSelectionDialog from '../components/dialogs/ArDeviceSelectionDialog';
+import { Dialog, useDialogManager } from "../components/dialogs/Dialogs";
+import ErrorDialog from "../components/dialogs/ErrorDialog";
+import ArDeviceSelectionDialog from "../components/dialogs/ArDeviceSelectionDialog";
 import Cameras from "./Cameras/Cameras";
 import Preview from "./Preview/Preview";
 import SvgArrowDown from "../icons/Arrowdown";
@@ -26,12 +26,14 @@ import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
 import Designer from "./Layout/Designer";
 import { customizeGroup } from "../Helpers";
-import {
-	AiIcon,
-	ArIcon,
-} from '../components/Layout/LayoutStyles';
+import { AiIcon, ArIcon } from "../components/Layout/LayoutStyles";
 
-import { PRODUCT_FULL_SUIT, PRODUCT_BLAZER, PRODUCT_PANT, scrollDownOnClick} from "../Helpers";
+import {
+  PRODUCT_FULL_SUIT,
+  PRODUCT_BLAZER,
+  PRODUCT_PANT,
+  scrollDownOnClick,
+} from "../Helpers";
 import Zoom from "./Zoom/Zoom";
 
 const Container = styled.div`
@@ -58,7 +60,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   refViewer,
   fullScreen,
 }) => {
-
   const {
     isSceneLoading,
     groups,
@@ -69,43 +70,51 @@ const Selector: FunctionComponent<SelectorProps> = ({
     zoomOut,
     product,
     IS_IOS,
-		IS_ANDROID,
-		getMobileArUrl,
-		openArMobile,
+    IS_ANDROID,
+    getMobileArUrl,
+    openArMobile,
     isSceneArEnabled,
-    productName
+    productName,
   } = useZakeke();
-  
-  console.log(groups, 'groups');
+
+  //console.log(groups, "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
 
-  const idsToRemove = [10483, 10482, -1, 10852, 10856];
+  const idsToRemove = [10483, 10482, -1, 10852, 10856, 11209];
 
   idsToRemove.push(10640); // id to remove on only blazer product
 
   const groups1 = groups.filter((obj) => !idsToRemove.includes(obj.id));
 
-  if (product?.name != PRODUCT_PANT)
-    groups1.push(customizeGroup);
+  if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
   //console.log(groups,'groups');
 
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
   const [selectedStepId, selectStep] = useState<number | null>(null);
+  const [selectedStepName, selectStepName] = useState<string | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
   const [selectedAttributeOptionName, setSelectedAttributeOptionName] =
     useState<string | null>(null);
   const [selectedOptionName, selectOptionName] = useState<string | null>(null);
-  const [selectedLiningTypeName, selectLiningTypeName] = useState<string | null>(null);
+
+  const [selectedLiningTypeHeadName, selectLiningTypeHeadName] = useState<
+    string | null
+  >(null);
+  const [selectedLiningTypeName, selectLiningTypeName] = useState<
+    string | null
+  >(null);
 
   const [selectedExplodedState, setSelectedExplodedStatese] = useState<
     boolean | null
   >(false);
 
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
-  const [selectedCameraAngle, setSelectedCameraAngle] = useState<string | null>(null);
+  const [selectedCameraAngle, setSelectedCameraAngle] = useState<string | null>(
+    null
+  );
   const [previewImage, setPreviewImage] = useState<any | null>(null);
 
   const [selectedCollapse, selectCollapse] = useState<boolean | null>(null); // This is the small inner icons
@@ -113,14 +122,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
 
   const [closeAttribute, setCloseAttribute] = useState<boolean | null>(null);
-  
+
   const viewFooter = useRef<HTMLDivElement | null>(null);
-  
+
   var selectedGroup = groups1.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
-  
 
   // Attributes can be in both groups1 and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
@@ -128,80 +136,105 @@ const Selector: FunctionComponent<SelectorProps> = ({
     [selectedGroup, selectedStep]
   );
 
-
-	const handleArClick = async (arOnFlyUrl: string) => {
-		if (IS_ANDROID || IS_IOS) {
-			setIsLoading(true);
-			const link = new URL(arOnFlyUrl, window.location.href);
-			const url = await getMobileArUrl(link.href);
-			setIsLoading(false);
-			if (url)
-				if (IS_IOS) {
-					openArMobile(url as string);
-				} else if (IS_ANDROID) {
-					showDialog(
-						'open-ar',
-						<Dialog>
-							<button
-								style={{ display: 'block', width: '100%' }}
-								onClick={() => {
-									closeDialog('open-ar');
-									openArMobile(url as string);
-								}}
-							>
-								See your product in AR
-							</button>
-						</Dialog>
-					);
-				}
-		} else {
-			showDialog('select-ar', <ArDeviceSelectionDialog />);
-		}
-	};
-
-  
-
+  const handleArClick = async (arOnFlyUrl: string) => {
+    if (IS_ANDROID || IS_IOS) {
+      setIsLoading(true);
+      const link = new URL(arOnFlyUrl, window.location.href);
+      const url = await getMobileArUrl(link.href);
+      setIsLoading(false);
+      if (url)
+        if (IS_IOS) {
+          openArMobile(url as string);
+        } else if (IS_ANDROID) {
+          showDialog(
+            "open-ar",
+            <Dialog>
+              <button
+                style={{ display: "block", width: "100%" }}
+                onClick={() => {
+                  closeDialog("open-ar");
+                  openArMobile(url as string);
+                }}
+              >
+                See your product in AR
+              </button>
+            </Dialog>
+          );
+        }
+    } else {
+      showDialog("select-ar", <ArDeviceSelectionDialog />);
+    }
+  };
 
   useEffect(() => {
-    //console.log(attributes,'attri ')
+    //console.log(selectedStepName, "selectStepName");
 
     const previewImage = attributes.forEach((attr) => {
       attr.options.forEach((option) => {
         if (option.selected && !!option.imageUrl) {
-          const Previewdata = {
+          let Previewdata = {
             image: option.imageUrl,
             optionName: option.id,
             attributeName: attr.id,
             stepName: attr.name,
             groupName: attr.code,
           };
-          // setPreviewImage(Previewdata);
-          
-          return;
+
+          setPreviewImage(Previewdata);
+        }
+
+        // console.log(selectedLiningTypeName, selectedLiningTypeHeadName, "selectedLiningTypeName");
+
+        if (
+          selectedStepName === "LINING TYPE"
+        ) {
+          groups[1].steps[3].attributes[0].options.map((x) => {
+            if (x.selected === true) selectLiningTypeName(x.name);
+          });
+
+          if (selectedLiningTypeName === "Stretch") {
+            groups[1].steps[3].attributes[1].options.map((x) => {
+              if (x.selected === true) {
+                
+                let Previewdata = {
+                  image: x.imageUrl,
+                  optionName: x.id,
+                  attributeName: attr.id,
+                  stepName: attr.name,
+                };
+
+                setPreviewImage(Previewdata);
+              }
+            });
+          }
         }
       });
     });
-  }, [attributes, selectedGroup, selectedAttributeId, selectedCameraID]);
+  }, [
+    attributes,
+    selectedGroup,
+    selectedAttributeId,
+    selectedCameraID,
+    selectedLiningTypeHeadName,
+    selectedLiningTypeName,
+  ]);
 
   //  console.log(previewImage,'previewImage');
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
-  
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    
     if (!selectedGroup && groups1.length > 0 && groups1[0].id != -2) {
       selectGroup(groups1[0].id);
 
-    if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
+      if (groups1[0].steps.length > 0) selectStep(groups1[0].steps[0].id);
 
       // if (templates.length > 0) setTemplate(templates[0].id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroup, groups1]
-  );
+  }, [selectedGroup, groups1]);
 
   // Select attribute first time
   useEffect(() => {
@@ -220,27 +253,24 @@ const Selector: FunctionComponent<SelectorProps> = ({
   useEffect(() => {
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
-      
-     if (camera) setCamera(camera);
 
+      if (camera) setCamera(camera);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [selectedGroupId, selectedCameraID, selectedStepId]);
-
+    // }, [selectedGroupId, selectedCameraID, selectedStepId]);
   }, [selectedGroupId]);
 
-  // Camera for left icons 
+  // Camera for left icons
   useEffect(() => {
-    if (selectedCameraID) setCamera(selectedCameraID)
-    if (selectedCameraAngle === 'pant') {
-      setSelectedExplodedStatese(false)
+    if (selectedCameraID) setCamera(selectedCameraID);
+    if (selectedCameraAngle === "pant") {
+      setSelectedExplodedStatese(false);
     } else {
-      setSelectedExplodedStatese(true)
+      setSelectedExplodedStatese(true);
     }
-    
-     setSelectedCameraID('')
-  },[selectedCameraID])
 
+    setSelectedCameraID("");
+  }, [selectedCameraID]);
 
   // Camera for attributes
   useEffect(() => {
@@ -298,13 +328,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // console.log(product);
 
-  
-   if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
+  if (isSceneLoading || !groups1 || groups1.length === 0 || isLoading)
     return <Loader visible={true} />;
 
-
-    // if (isLoading)
-    // return <Loader visible={isSceneLoading} />;
+  // if (isLoading)
+  // return <Loader visible={isSceneLoading} />;
 
   // groups1
   // -- attributes
@@ -314,7 +342,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // -- -- -- options
 
   return (
-    
     <Container>
       {/* {isSceneArEnabled() && (
        <div className="bubble_button_ar">
@@ -333,9 +360,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
               onClick={() => {
                 setSelectedExplodedStatese(!selectedExplodedState);
                 {
-                      selectedExplodedState == true
-                        ? setExplodedMode(true)
-                        : setExplodedMode(false);
+                  selectedExplodedState == true
+                    ? setExplodedMode(true)
+                    : setExplodedMode(false);
                 }
               }}
             >
@@ -349,83 +376,94 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div>
       )}
 
-      {!IS_IOS && <div
-        className="bubble_button_fullScreen"
-        onClick={() => {
-          refViewer.current?.requestFullscreen();
+      {!IS_IOS && (
+        <div
+          className="bubble_button_fullScreen"
+          onClick={() => {
+            refViewer.current?.requestFullscreen();
 
-          if (refViewer.current?.webkitRequestFullscreen) {
-            refViewer.current.webkitRequestFullscreen();
-          }
-
-          const element = refViewer.current;
-
-          if (element) {
-            if (element.requestFullscreen) {
-              // element.requestFullscreen();
-            } else if (element.webkitEnterFullscreen) {
-              element.webkitEnterFullscreen(); // Use webkitEnterFullscreen for iOS Safari
-            } else if (element.mozRequestFullScreen) {
-              element.mozRequestFullScreen(); // For older Firefox
-            } else if (element.msRequestFullscreen) {
-              element.msRequestFullscreen(); // For Internet Explorer
+            if (refViewer.current?.webkitRequestFullscreen) {
+              refViewer.current.webkitRequestFullscreen();
             }
-          }
 
+            const element = refViewer.current;
+
+            if (element) {
+              if (element.requestFullscreen) {
+                // element.requestFullscreen();
+              } else if (element.webkitEnterFullscreen) {
+                element.webkitEnterFullscreen(); // Use webkitEnterFullscreen for iOS Safari
+              } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen(); // For older Firefox
+              } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen(); // For Internet Explorer
+              }
+            }
+          }}
+        >
+          <div className="bubble_button_button">
+            <ExplodeIcon>
+              <ExplodeIconL />
+            </ExplodeIcon>
+          </div>
+
+          <div className="bubble_button_text">Full Screen</div>
+        </div>
+      )}
+
+      <div
+        className="left-keys"
+        style={{
+          display: "flex",
+          position: "absolute",
+          left: "3%",
+          flexDirection: "column",
+          top: "0%",
         }}
       >
-        <div className="bubble_button_button">
-          <ExplodeIcon>
-            <ExplodeIconL />
-          </ExplodeIcon>
-        </div>
-
-        <div className="bubble_button_text">Full Screen</div>
-      </div>}
-
-      <div className='left-keys' 
-           style={{display: 'flex', position: 'absolute', left: '3%', flexDirection: 'column', top: '0%'}}>
-        <Cameras cameras={groups} onSelect={setSelectedCameraID} onCameraAngle={setSelectedCameraAngle} selectedCameraAngle={selectedCameraAngle}/>
+        <Cameras
+          cameras={groups}
+          onSelect={setSelectedCameraID}
+          onCameraAngle={setSelectedCameraAngle}
+          selectedCameraAngle={selectedCameraAngle}
+        />
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
 
-        <Zoom zoomIn={zoomIn} zoomOut={zoomOut}/>
+        <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
 
-        <Scroll upRef={refViewer.current} downRef={viewFooter.current}/>
+        <Scroll upRef={refViewer.current} downRef={viewFooter.current} />
       </div>
 
       <div className="menu">
         <div className="menu_group">
           {groups1.map((group) => {
-
-            const handleGroupClick = (group:any) => {
+            const handleGroupClick = (group: any) => {
               selectGroup(group.id);
 
               const isBlazerViewOrLiningText =
-              (group.name.toLowerCase() === 'blazer view' ||
-                group.name.toLowerCase() === 'lining text') &&
-              (product?.name === PRODUCT_FULL_SUIT || product?.name === PRODUCT_BLAZER);
+                (group.name.toLowerCase() === "blazer view" ||
+                  group.name.toLowerCase() === "lining text") &&
+                (product?.name === PRODUCT_FULL_SUIT ||
+                  product?.name === PRODUCT_BLAZER);
 
               // console.log(isBlazerViewOrLiningText,'isBlazerViewOrLiningText');
-              
 
               selectOptionName("");
               if (group.name.toLowerCase() === "pant") {
                 setExplodedMode(true);
-                setSelectedExplodedStatese(false)
+                setSelectedExplodedStatese(false);
               } else {
                 setExplodedMode(false);
-                setSelectedExplodedStatese(true)
+                setSelectedExplodedStatese(true);
               }
 
               if (product?.name === PRODUCT_FULL_SUIT) {
                 if (
                   group.name.toLowerCase() === "blazer view" ||
                   group.name.toLowerCase() === "lining text"
-                ) {                      
-                    selectOption(1363645) // Open jacket comm
-                  
-                } 
-                else {
+                ) {
+                  selectOption(1363645); // Open jacket comm
+                } else {
                   selectOption(1363646);
                 }
               }
@@ -440,16 +478,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   selectOption(1382104);
                 }
               }
-            } 
+            };
 
             return (
               <div
-                className= {`menu_item ${group.id === selectedGroupId ? "selected":""}`}
+                className={`menu_item ${
+                  group.id === selectedGroupId ? "selected" : ""
+                }`}
                 key={group.id}
                 onClick={() => {
-                  scrollDownOnClick(checkOnce,setCheckOnce)
-                  handleGroupClick(group)
-             
+                  scrollDownOnClick(checkOnce, setCheckOnce);
+                  handleGroupClick(group);
                 }}
               >
                 {group.id === -1 ? "Other" : group.name}
@@ -459,26 +498,25 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div>
         <br />
         {selectedGroup && selectedGroup.steps.length > 0 && (
-          <div className="menu_choice_steps"
+          <div
+            className="menu_choice_steps"
             // onClick={() => {setCloseAttribute(true)}}
           >
             {selectedGroup.steps.map((step) => {
-
               return (
                 <div
                   className="menu_choice_step_step"
                   key={step.id}
-                  onClick={() => {    
+                  onClick={() => {
+                    selectStepName(step.name);
                     selectStep(step.id);
                     setCamera(step?.cameraLocationID || "");
                     if (selectedStepId != step.id) {
                       selectOptionName("");
-                    }               
-                    if(step.name === 'LINING TYPE') selectCollapse(false);
+                    }
+                    if (step.name === "LINING TYPE") selectCollapse(false);
                   }}
-
-
-                  >
+                >
                   <div
                     className="menu_choice_step_title"
                     style={{
@@ -492,7 +530,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     <div
                       className="menu_choice_step_description"
                       onClick={() => {
-                        setCloseAttribute(true)
+                        setCloseAttribute(true);
                       }}
                       style={{
                         paddingBottom: "1em",
@@ -512,14 +550,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         setCloseAttribute(!closeAttribute);
                       }}
                     >
-                      {(selectedStepId != step.id) || !closeAttribute ? "Customize" : "Close"}
-                      
+                      {selectedStepId != step.id || !closeAttribute
+                        ? "Customize"
+                        : "Close"}
                     </div>
                   </div>
-    
+
                   {closeAttribute &&
-                  step.id === selectedStepId &&
+                    step.id === selectedStepId &&
                     step.attributes.map((attribute) => {
+                      // if((attribute.code === 'Stretch' || attribute.code === 'Lining Style_1')) return <></>
+                      if (attribute.enabled === false) return <></>;
                       return (
                         <>
                           <div
@@ -540,25 +581,32 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               } else {
                                 selectAttribute(attribute.id);
                                 selectOptionName("");
-                                
                               }
                               selectCollapse(!selectedCollapse);
 
-                              if (attribute.code === "Stretch - Non stretch"){
-                                attribute.options.map(x => {
-                                  console.log(x.name,x.selected);                                  
-                                  if(x.selected===true) selectLiningTypeName(x.name); 
-                                })
-                                console.log(selectLiningTypeName);
-                                
-                                
+                              selectLiningTypeHeadName(attribute.code);
+
+                              if (attribute.code === "Stretch - Non stretch") {
+                                selectLiningTypeHeadName(attribute.code);
+
+                                attribute.options.map((x) => {
+                                  if (x.selected === true)
+                                    selectLiningTypeName(x.name);
+                                });
                               }
 
-                              if (attribute.name === 'Stretch'){
-                                showDialog('error', <ErrorDialog error={"Stretch Lining style will add $50 to the total cost"} onCloseClick={() => closeDialog('error')} />);
+                              if (attribute.name === "Stretch") {
+                                showDialog(
+                                  "error",
+                                  <ErrorDialog
+                                    error={
+                                      "Stretch Lining style will add $50 to the total cost"
+                                    }
+                                    onCloseClick={() => closeDialog("error")}
+                                  />
+                                );
                               }
-
-                              }}
+                            }}
                           >
                             <br />
                             <div
@@ -597,7 +645,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                             >
                               {selectedAttributeId === attribute.id
                                 ? selectedOptionName
-                                : ""}                             
+                                : ""}
                             </div>
                             <div
                               className="menu_choice_attribute_state_icon"
@@ -627,105 +675,113 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               display: "flex",
                               flexDirection: "row",
                               flexWrap: "wrap",
-                            }}                          
+                            }}
                           >
                             {!selectedCollapse &&
-                             (attribute.code != 'Stretch' && attribute.code != 'Lining Style_1' )&&
-                             attribute.options.map((option) => {
-                              return (
-                                <>
-                                  {option.enabled == true && (
-                                    <div
-                                      style={{
-                                        marginLeft: "5px",
-                                        width: "23%",
-                                      }}
-                                    >
-                                      <div>
-                                        {selectedAttributeId ===
+                              // (attribute.code != 'Stretch' && attribute.code != 'Lining Style_1') &&
+                              attribute.options.map((option) => {
+                                return (
+                                  <>
+                                    {option.enabled == true && (
+                                      <div
+                                        style={{
+                                          marginLeft: "5px",
+                                          width: "23%",
+                                        }}
+                                      >
+                                        <div>
+                                          {selectedAttributeId ===
                                             option.attribute.id &&
-                                          option.imageUrl && (
-                                            <ListItem
-                                              key={option.id}
-                                              onClick={() => {
-                                                selectOption(option.id);
-                                                selectOptionName(option.name)
-                                              }}
-                                              selected={option.selected}
-                                              className="menu_choice_option"
-                                            >
-                                              <div
-                                                className="menu_choice_option_image_container">
-                                                {option.imageUrl && (
-                                                  <ListItemImage
-                                                    src={option.imageUrl}
-                                                  />
-                                                )}
-                                              </div>
+                                            option.imageUrl && (
+                                              <ListItem
+                                                key={option.id}
+                                                onClick={() => {
+                                                  attribute.options.map((x) => {
+                                                    if (x.selected === true)
+                                                      selectLiningTypeName(
+                                                        x.name
+                                                      );
+                                                  });
 
-                                              <div className="menu_choice_option_description">
-                                                {option.name}
-                                              </div>
-                                            </ListItem>
-                                          )}
+                                                  selectOption(option.id);
+                                                  selectOptionName(option.name);
+                                                }}
+                                                selected={option.selected}
+                                                className="menu_choice_option"
+                                              >
+                                                <div className="menu_choice_option_image_container">
+                                                  {option.imageUrl && (
+                                                    <ListItemImage
+                                                      src={option.imageUrl}
+                                                    />
+                                                  )}
+                                                </div>
+
+                                                <div className="menu_choice_option_description">
+                                                  {option.name}
+                                                </div>
+                                              </ListItem>
+                                            )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
-                                </>
-                              );
-                            })}
-
+                                    )}
+                                  </>
+                                );
+                              })}
 
                             {/* FOR ONLY STRETCH / NON STRETCH -- HAVE TO REFACTOR LATER */}
-                            {!selectedCollapse &&
-                            //  (attribute.code === 'Stretch' || attribute.code === 'Lining Style_1' ) &&
-                            selectedLiningTypeName?.toLowerCase() === attribute.name.toLowerCase() &&
-                              attribute.options.map((option) => {
+                            {/* {!selectedCollapse &&
+                              (attribute.code === "Stretch" ||
+                                attribute.code === "Lining Style_1") &&
+                               attribute.options.map((option) => {
+                                console.log(
+                                  selectedLiningTypeName,
+                                  "selectLiningTypeName"
+                                );
 
-                              console.log(selectedLiningTypeName,'selectLiningTypeName');
-                              
-                              return (
-                                <>
-                                  {option.enabled == true && (
-                                    <div
-                                      style={{
-                                        marginLeft: "5px",
-                                        width: "23%",
-                                      }}
-                                    >
-                                      <div>
-                                        {selectedAttributeId ===
+                                // if(attribute.enabled === true) return <></>
+
+                                return (
+                                  <>
+                                    {option.enabled == true && (
+                                      <div
+                                        style={{
+                                          marginLeft: "5px",
+                                          width: "23%",
+                                        }}
+                                      >
+                                        <div>
+                                          {selectedAttributeId ===
                                             option.attribute.id &&
-                                          option.imageUrl && (
-                                            <ListItem
-                                              key={option.id}
-                                              onClick={() => {
-                                                selectOption(option.id);
-                                                selectOptionName(option.name)
-                                              }}
-                                              selected={option.selected}
-                                              className="menu_choice_option"
-                                            >
-                                              <div
-                                                className="menu_choice_option_image_container">
-                                                {option.imageUrl && (
-                                                  <ListItemImage
-                                                    src={option.imageUrl}
-                                                  />
-                                                )}
-                                              </div>
+                                            option.imageUrl && (
+                                              <ListItem
+                                                key={option.id}
+                                                onClick={() => {
+                                                  selectOption(option.id);
+                                                  selectOptionName(option.name);
+                                                }}
+                                                selected={option.selected}
+                                                className="menu_choice_option"
+                                              >
+                                                <div className="menu_choice_option_image_container">
+                                                  {option.imageUrl && (
+                                                    <ListItemImage
+                                                      src={option.imageUrl}
+                                                    />
+                                                  )}
+                                                </div>
 
-                                              <div className="menu_choice_option_description">
-                                                {option.name}
-                                              </div>
-                                            </ListItem>
-                                          )}
+                                                <div className="menu_choice_option_description">
+                                                  {option.name}
+                                                </div>
+                                              </ListItem>
+                                            )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
-                                </>
-                              );
-                            })}
+                                    )}
+                                  </>
+                                );
+                              })} */}
                           </div>
                         </>
                       );
@@ -736,10 +792,102 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         )}
 
+        {/* // FOR ONLY STRETCH / NON STRETCH -- HAVE TO REFACTOR LATER */}
+        {/* <div style={{ display: "flex", flexDirection: "row" }}>
+          {!selectedCollapse &&
+            selectedLiningTypeName === "Stretch" &&
+            groups[1].steps[3].attributes[1].options.map((option) => {
+              // if(attribute.enabled === true) return <></>
+
+              return (
+                <>
+                  {option.enabled == true && (
+                    <div
+                      style={{
+                        marginLeft: "5px",
+                        width: "23%",
+                      }}
+                    >
+                      <div>
+                        {option.imageUrl && (
+                          <ListItem
+                            key={option.id}
+                            onClick={() => {
+                              selectOption(option.id);
+                              selectOptionName(option.name);
+                            }}
+                            selected={option.selected}
+                            className="menu_choice_option"
+                          >
+                            <div className="menu_choice_option_image_container">
+                              {option.imageUrl && (
+                                <ListItemImage src={option.imageUrl} />
+                              )}
+                            </div>
+
+                            <div className="menu_choice_option_description">
+                              yo yoy {option.name}
+                            </div>
+                          </ListItem>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </>
+              );
+            })} */}
+
+        {/* {!selectedCollapse &&
+            // (attribute.code === 'Stretch' || attribute.code === 'Lining Style_1' ) &&
+            // selectedLiningTypeName?.toLowerCase() === attribute.name.toLowerCase() &&
+            selectedLiningTypeName === "Non stretch" &&
+            groups[1].steps[3].attributes[2].options.map((option) => {
+              // if(attribute.enabled === true) return <></>
+
+              return (
+                <>
+                  {option.enabled == true && (
+                    <div
+                      style={{
+                        marginLeft: "5px",
+                        width: "23%",
+                      }}
+                    >
+                      <div>
+                        {option.imageUrl && (
+                          <ListItem
+                            key={option.id}
+                            onClick={() => {
+                              selectOption(option.id);
+                              selectOptionName(option.name);
+                            }}
+                            selected={option.selected}
+                            className="menu_choice_option"
+                          >
+                            <div className="menu_choice_option_image_container">
+                              {option.imageUrl && (
+                                <ListItemImage src={option.imageUrl} />
+                              )}
+                            </div>
+
+                            <div className="menu_choice_option_description">
+                              {option.name}
+                            </div>
+                          </ListItem>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </>
+              );
+            })}
+        </div> */}
+
         {selectedGroup?.id === -2 && (
           <div
             className="textEditor"
-            style={{ overflowX: "hidden", height: "100%" }}>
+            style={{ overflowX: "hidden", height: "100%" }}
+          >
             <Designer />
           </div>
         )}
@@ -747,7 +895,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
         <br />
         <br />
-        <MenuFooter viewFooter={viewFooter}/>
+        <MenuFooter viewFooter={viewFooter} />
 
         {/* ----------------------------------------- */}
 
@@ -778,4 +926,4 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
 export default Selector;
 
-// 851 lines of code 
+// 851 lines of code
