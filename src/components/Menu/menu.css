@@ -70,6 +70,12 @@
     color: var(--template-primary--800);
 }
 
+.menu_light_bold {
+    font-weight: 500;  
+    font-size: 15px;
+    color: var(--template-primary--800);
+
+}
 .menu_choice_attribute_title {
     display: flex;
     flex-direction: row;

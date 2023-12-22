@@ -609,7 +609,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                             }}
                           >
                             <br />
-                            <div
+                            {attribute.name != 'Select Your Lining Type' && <div
                               className="menu_choice_attribute_selection_icon"
                               style={{
                                 width: "21px",
@@ -622,10 +622,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               }}
                             >
                               <SelectionIcon />
-                            </div>
+                            </div>}
 
                             <div
-                              className="menu_choice_attribute_description"
+                              className= {`menu_choice_attribute_description ${attribute.name === 'Select Your Lining Type' ? `menu_light_bold` : ''}`}
                               style={{
                                 display: "flex",
                                 alignItems: "center",
