@@ -542,14 +542,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     <div
                       className="menu_choice_step_toggle"
                       style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                         fontSize: "12px",
                         lineHeight: "16px",
                         textTransform: "uppercase",
+                        color: "var(--template-boundary-color)"
                       }}
                       onClick={() => {
                         setCloseAttribute(!closeAttribute);
                       }}
                     >
+                      <div className="triangle"></div>
+
                       {selectedStepId != step.id || !closeAttribute
                         ? "Customize"
                         : "Close"}
@@ -652,6 +658,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                               style={{ width: "21px", height: "21px" }}
                             >
                               <div
+                                className = {`${attribute.name === 'Select Your Lining Type' ? `menu_light_bold` : ''}`}
                                 style={{
                                   transform:
                                     attribute.id === selectedAttributeId &&

@@ -23,7 +23,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
      margin-right: 8px;
     // border: 1px solid transparent;
      cursor: pointer;
-     border: ${props => props.selected ? '1px solid var(--template-primary--900)' : ''};
+     border: ${props => props.selected ? '1px solid var(--template-highlight-boundary-color)' : ''};
        @media screen and (max-width: 568px) {
          font-size: 24px;
        }

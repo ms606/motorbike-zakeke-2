@@ -15,6 +15,8 @@
   --template-default-box-shadow-color: rgba(0, 0, 0, 0.1);
   --template-loader-overlay: hsla(0, 0%, 95.7%, 0.4);
   --template-camera-box-shadow-color: rgba(0, 0, 0, 0.25);
+  --template-boundary-color: #900909;
+  --template-highlight-boundary-color: #900909;
 }
 
 html,
@@ -27,6 +29,16 @@ body {
 
 html {
   overflow-x: hidden;
+}
+
+.triangle {
+  margin-right: 7px;
+  margin-bottom: 2px;
+  width: 10px;
+  height: 10px;
+  background: var(--template-boundary-color);
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  transform: rotate(89deg);
 }
 
 /* .noSelect {

@@ -240,4 +240,15 @@ div {
         padding: 0px;
     }
 }
+
+@media screen and (max-width: 400px) {
+    .left-keys {
+        display: none !important;
+        /* position: static !important; */
+    } 
+
+    .bubble_button {
+        display: none !important;
+    }
+}
   

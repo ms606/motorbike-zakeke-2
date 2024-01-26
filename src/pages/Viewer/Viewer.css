@@ -36,15 +36,9 @@
     }
     
     .ff_root {
-        /* width: 24em;
-        min-height: 660px; */
-
-        width: 387px;
-    min-height: 596px;
-
-        /* width: 18em;
-        min-height: 500px; */
-        /* left: 14%; */
+        width: 358px;
+        min-height: 490px;
+        left: 5%;
     }
 
     .textEditor {

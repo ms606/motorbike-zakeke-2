@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {
   ZakekeEnvironment,
   ZakekeViewer,
-  ZakekeProvider,
   useZakeke,
 } from "zakeke-configurator-react";
 import Cameras from "../../components/Cameras/Cameras";
