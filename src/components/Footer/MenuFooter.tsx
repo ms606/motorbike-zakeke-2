@@ -15,7 +15,7 @@ const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
     const { priceFormatter} = useStore();
 
     return (<div>
-          <div className="menu_footer" ref={viewFooter}>
+          <div className="menu_footer" ref={viewFooter} style ={{position: 'fixed', bottom: '5px',  display: 'flex', justifyContent: 'space-between', width: '100%'}}>
           <div className="menu_price">
             <div className="price_text">Price: </div>
             <div className="price_value">{priceFormatter.format(price)}</div>
@@ -31,13 +31,13 @@ const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
                 Add to cart
               </button>
             )}
-            {
+            {/* {
               <button className="btn btn-secondary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__share__1sacu">
                 <div className="menu_btn_share_icon">
                   <ShareIcon />
                 </div>  
               </button>
-            }
+            } */}
           </div>
         </div>
     </div>)

@@ -127,6 +127,9 @@ div {
     position: relative;
     bottom: 3em;
     padding: 27px 0 0 20px;
+    position: fixed;
+    bottom: 5px;
+    z-index: 44;
 }
 
 .menu_price {
@@ -138,6 +141,7 @@ div {
     font-size: 24px;
     font-style: normal;
     letter-spacing: -.5px;
+    color: var(--template-boundary-color) !important;
 }
 
 .menu_help_customization_help {
@@ -162,10 +166,13 @@ div {
 .menu_actions { 
     display: flex;
     margin-left: auto;
+    color: var(--template-boundary-color) !important;
+    padding-right: 15px;
 }
 
 .menu_btn_cart {
     margin-right: 10px;
+    background-color: var(--template-boundary-color) !important;
 }
 
 .menu_btn_share_icon {
