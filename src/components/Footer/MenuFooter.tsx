@@ -42,5 +42,4 @@ const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
         </div>
     </div>)
 }
-
 export default MenuFooter
