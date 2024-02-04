@@ -118,7 +118,6 @@ div {
     top: 45%;
 }
 
-
 .menu_footer {
     display: flex;
     flex-flow: row;
@@ -248,7 +247,7 @@ div {
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 600px) {
     .left-keys {
         display: none !important;
         /* position: static !important; */
@@ -256,6 +255,22 @@ div {
 
     .bubble_button {
         display: none !important;
+    }
+
+    .menu_footer {
+        width: 90vw !important;
+        padding: 20px 0px !important ;
+    }
+
+    .menu_actions {
+        padding-right: 0px !important;
+    }
+
+    .menu_price {
+        padding-left: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 35px;        
     }
 }
   

@@ -89,6 +89,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   if (product?.name != PRODUCT_PANT) groups1.push(customizeGroup);
 
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
   //console.log(groups,'groups');
 
   // Keep saved the ID and not the refereces, they will change on each update
@@ -165,6 +167,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
       showDialog("select-ar", <ArDeviceSelectionDialog />);
     }
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+      //   setHeight(window.innerHeight);
+    };
+
+    //window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [groups]);
 
   useEffect(() => {
     //console.log(selectedStepName, "selectStepName");
@@ -796,7 +812,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 </div>
               );
             })}
+
+            {screenWidth < 500 && (<MenuFooter viewFooter={viewFooter} />)}
+
           </div>
+          
         )}
 
         {/* // FOR ONLY STRETCH / NON STRETCH -- HAVE TO REFACTOR LATER */}
@@ -902,7 +922,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
         <br />
         <br />
-        <MenuFooter viewFooter={viewFooter} />
+        {/* closed recently */}
+        {screenWidth > 500 && (<MenuFooter viewFooter={viewFooter} />)}
 
         {/* ----------------------------------------- */}
 
