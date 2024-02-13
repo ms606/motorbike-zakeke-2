@@ -36,7 +36,8 @@
     }
     
     .ff_root {
-        width: 358px;
+        /* width: 358px; */
+        width: 100%;
         min-height: 490px;
         /* left: 5%; */
     }
