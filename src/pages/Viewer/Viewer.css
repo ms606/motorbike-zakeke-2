@@ -38,7 +38,7 @@
     .ff_root {
         width: 358px;
         min-height: 490px;
-        left: 5%;
+        /* left: 5%; */
     }
 
     .textEditor {
