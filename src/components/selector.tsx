@@ -911,11 +911,16 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div> */}
 
         {selectedGroup?.id === -2 && (
+          <div>
           <div
             className="textEditor"
             style={{ overflowX: "hidden", height: "100%" }}
           >
             <Designer />
+          </div>
+           <div style={{position: 'relative', bottom: '370px', left: '20px'}}>
+           {screenWidth < 500 && (<MenuFooter viewFooter={viewFooter} />)}
+           </div>
           </div>
         )}
 

@@ -289,6 +289,7 @@ const ItemText: FC<{
                     ({
                       ...base,
                       width: 200,
+                      marginTop: 20
                     } as CSSObjectWithLabel),
                 }}
                 isSearchable={false}
