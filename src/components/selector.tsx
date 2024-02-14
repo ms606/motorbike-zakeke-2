@@ -437,12 +437,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
           top: "0%",
         }}
       >
-        <Cameras
+        {/* <Cameras
           cameras={groups}
           onSelect={setSelectedCameraID}
           onCameraAngle={setSelectedCameraAngle}
           selectedCameraAngle={selectedCameraAngle}
-        />
+        /> */}
         {previewImage?.image && <Preview PreviewImage={previewImage} />}
 
         <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
