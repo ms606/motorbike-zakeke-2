@@ -11,7 +11,7 @@ interface MenuFooterProps {
 
 const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
 
-    const { isAddToCartLoading, addToCart, price} = useZakeke();
+    const { isAddToCartLoading, addToCart, price, useLegacyScreenshot} = useZakeke();
     const { priceFormatter} = useStore();
 
     return (<div>
@@ -25,7 +25,7 @@ const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
               "Adding to cart..."
             ) : (
               <button
-                onClick={addToCart}
+                onClick={() => addToCart([], undefined, useLegacyScreenshot)}
                 className="btn btn-primary menu_btn_cart"
               >
                 Add to cart
