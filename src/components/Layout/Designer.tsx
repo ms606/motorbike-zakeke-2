@@ -474,7 +474,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	
 	return ( 
 	 	<>
-		<div className="menu_help_customization_help">Initial's applied on your blazer's inner pocket		</div>
+		<div className="menu_help_customization_help">Your name or initials will be applied on your blazer's inner pocket</div>
 	    	{!moveElements && (			  	
 				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}
