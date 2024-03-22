@@ -185,8 +185,6 @@ const ItemText: FC<{
 }> = ({ item, handleItemPropChange, hideRemoveButton }) => {
   const { removeItem, fonts, disableTextColors, textColors } = useZakeke();
 
-  console.log(fonts, "fonts");
-
   const constraints = item.constraints;
   const canEdit = constraints?.canEdit ?? true;
   const hasCurvedText = item.isTextOnPath;

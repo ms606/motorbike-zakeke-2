@@ -273,5 +273,10 @@ div {
         letter-spacing: 1px;
         font-size: 35px;        
     }
+
+    .menu_help_customization_help {
+        left: 18px;
+        font-size: 13px;
+    }
 }
   
