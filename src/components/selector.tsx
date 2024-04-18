@@ -77,7 +77,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     productName,
   } = useZakeke();
 
-  //console.log(groups, "groups");
+  console.log(groups, "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
 
