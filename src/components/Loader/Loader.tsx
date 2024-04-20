@@ -35,7 +35,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
     align-items: flex-start;
     gap: 8px;
     border-radius: 4px;
-    background: var(--surface-default, #fff);
+    background: var(--surface-default, rgb(236 25 25););
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15),
       0px 0px 3px 0px rgba(0, 0, 0, 0.1);
 
@@ -46,7 +46,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
   `;
 
   const LoadingLabel = styled.div`
-    color: #000;
+    color: rgb(236 25 25);;
     font-size: 12px;
     font-family: "Inter";
     font-style: normal;

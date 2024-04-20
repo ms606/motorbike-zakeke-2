@@ -16,14 +16,14 @@ export const ListItem = styled.div<{ selected?: boolean }>`
      justify-content: flex-start;
      align-items: center;
      padding: 8px 1px 1px 1px;
-     background: #fff;
-     box-shadow: 0 4px 16px rgba(0,0,0,0.1);;
+    //  background: #fff;
+    //  box-shadow: 0 4px 16px rgba(0,0,0,0.1);;
      border-radius: 16px;
      margin-bottom: 12px;
      margin-right: 8px;
     // border: 1px solid transparent;
      cursor: pointer;
-     border: ${props => props.selected ? '1px solid var(--template-highlight-boundary-color)' : ''};
+    //  border: ${props => props.selected ? '1px solid var(--template-highlight-boundary-color)' : ''};
        @media screen and (max-width: 568px) {
          font-size: 24px;
        }
@@ -59,3 +59,62 @@ export const ListItem = styled.div<{ selected?: boolean }>`
             margin: 0px 4px;
 
     `
+
+
+    export const ListItemColor = styled.li<{ selected?: boolean, selectedColor?: any}>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 0px 10px;
+    cursor: pointer;
+    margin: 0 11px;
+    border-radius: 100%;
+    width: 36px;
+    height: 36px;
+    white-space: nowrap;  
+    font-size: 12px;  
+    border-color: ${props => props.selected ? 'black' : '#DDD'};
+
+    &:hover {
+        background-color: #D8D8D8;
+    };
+    
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: 20%;
+        /* Additional styling for the :before pseudo-element can be added here */
+    };
+
+    &:after {
+    // content: "${props => { return props.selected ? props.selectedColor : '' }}";
+    position: absolute;
+    bottom: 7%;
+    }
+        
+    @media screen and (max-width: 568px) {
+    &:after {
+     bottom: -65%;  
+     }
+    }`;
+ 
+    
+
+
+export const ListItemImageNoCarousel = styled.img<{ selected?: any }>`
+position: relative;
+width: 40px;
+height: 40px;
+object-fit: contain;
+margin: 0px 11px;
+border-radius: 100%;
+border: 1px solid rgb(229, 229, 229);
+
+@media screen and (max-width: 568px) {
+width: 30px;
+height: 30px;
+margin: 0px 8px;
+}
+`

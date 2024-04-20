@@ -49,7 +49,7 @@ const Preview: React.FC<PreviewProps> = React.memo(props => {
   return !!props.PreviewImage?.image ? (
     <div className='ff_preview'
          data-testid="preview">
-    <div
+    {/* <div
         className="preview_preview"
         data-testid="preview"
         onClick={onImageClick}
@@ -58,7 +58,7 @@ const Preview: React.FC<PreviewProps> = React.memo(props => {
         src={props.PreviewImage.image}
         alt={"CAMERA_ALT"}
         />
-    </div>
+    </div> */}
     </div>
   ) : null;
 });
