@@ -33,7 +33,7 @@ import AddTextDialog from '../dialogs/AddTextDialog';
 import { useDialogManager } from '../dialogs/Dialogs';
 import ErrorDialog from '../dialogs/ErrorDialog';
 // import ImagesGalleryDialog from '../dialogs/ImagesGalleryDialog';
-// import ItemImage, { EditImageItem } from '../widgets/ItemImage';
+import ItemImage, { EditImageItem } from '../widgets/ItemImage';
 import ItemText, { EditTextItem } from '../widgets/ItemText';
 import {
 	Center,
@@ -49,7 +49,7 @@ import {
 import Loading from '../Loader/Loader_spring';
 
 export type PropChangeHandler = (
-	item: EditTextItem, // | EditImageItem,
+	item: EditTextItem | EditImageItem,
 	prop: string,
 	value: string | boolean | File
 ) => void;
@@ -228,7 +228,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 
 	filteredAreas.length > 0 &&
 		filteredAreas.forEach((filteredArea) => {
-			let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === filteredArea.id);
+			let currentTemplateArea = currentTemplate!.areas?.find((x) => x.id === filteredArea.id);
 			let itemsOfTheArea = items.filter((item) => item.areaId === filteredArea.id);
 			// const areaId = itemsOfTheArea.find(({areaId}) => areaId === 385515);
 			// if(areaId) removeItem(areaId?.guid);
@@ -255,7 +255,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 		finalVisibleAreas && finalVisibleAreas.length > 0 ? finalVisibleAreas[0].id : 0
 	);
 
-	let currentTemplateArea = currentTemplate!.areas.find((x) => x.id === actualAreaId);
+	let currentTemplateArea = currentTemplate!.areas?.find((x) => x.id === actualAreaId);
 	let itemsFiltered = items.filter((item) => item.areaId === actualAreaId);
 	const allStaticElements = !itemsFiltered.some((item) => {
 		return (
@@ -599,7 +599,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 							return (
 								<ItemText
 									key={item.guid}
-									handleItemPropChange={handleItemPropChange}
+									handleItemPropChange={handleItemPropChange as any}
 									item={item as TextItem}
 								/>
 							);

@@ -24,7 +24,7 @@ import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
 import { ExplodeIconL } from "../assets/icons/ExplodeIcon";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
-import Designer from "./Layout/Designer";
+import Designer from "./layouts/Designer";
 import { customizeGroup } from "../Helpers";
 import { AiIcon, ArIcon } from "../components/Layout/LayoutStyles";
 
@@ -75,8 +75,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
     openArMobile,
     isSceneArEnabled,
     productName,
+    templates,
+    items,
   } = useZakeke();
-
+  console.log(product, "product");
   // console.log(groups, useZakeke(), "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
@@ -122,8 +124,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
 
-  console.log(selectedStep, "selectedStepOnly");
+  console.log(items, templates, "templates");
 
+  const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
+    false
+  );
+
+  const togglePersonalize = () => {
+    setSelectedPersonalize(!selectedPersonalize);
+  };
+
+  
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
     () => (selectedStep || selectedGroup)?.attributes ?? [],
@@ -205,21 +216,39 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const handleLeftClick = () => {
     selectColorName("");
-    setCurrentIndex((currentIndex - 1 + groups.length) % groups.length);
-    selectGroup(groups[(currentIndex - 1 + groups.length) % groups.length].id);
+    if (selectedGroup) {
+      setCurrentIndex(
+        (currentIndex - 1 + selectedGroup?.steps.length) %
+          selectedGroup?.steps.length
+      );
+      selectStep(
+        selectedGroup.steps[
+          (currentIndex - 1 + selectedGroup?.steps.length) %
+            selectedGroup?.steps.length
+        ].id
+      );
+    }
   };
 
   const handleRightClick = () => {
     selectColorName("");
-    setCurrentIndex((currentIndex + 1) % groups.length);
-    selectGroup(groups[(currentIndex + 1) % groups.length].id);
+    if (selectedGroup) {
+      setCurrentIndex(
+        (currentIndex + 1 + selectedGroup?.steps.length) %
+          selectedGroup?.steps.length
+      );
+      selectStep(
+        selectedGroup.steps[
+          (currentIndex + 1 + selectedGroup?.steps.length) %
+            selectedGroup?.steps.length
+        ].id
+      );
+    }
   };
 
   if (isSceneLoading || !groups || groups.length === 0 || isLoading)
     return <Loader visible={true} />;
 
-  // if (isLoading)
-  // return <Loader visible={isSceneLoading} />;
 
   // groups
   // -- attributes
@@ -232,13 +261,46 @@ const Selector: FunctionComponent<SelectorProps> = ({
   return (
     <Container>
       <div
+        className="iHdtWA group-item selected"
+        style={{
+          position: "absolute",
+          top: "5%",
+          right: "1%",
+          cursor: "pointer",
+          marginLeft: "20px",
+          width: "30vw",
+        }}
+      >
+        <div
+          className="button-53"
+          onClick={() => setSelectedPersonalize(!selectedPersonalize)}
+        >
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "7px",
+            }}
+          >
+            "Personalizează"
+          </span>
+        </div>
+        {/* {selectedPersonalize ? ( */}
+          <Designer />
+        {/* ) : ( */}
+          {/* "" */}
+        {/* )} */}
+      </div>
+
+      <div
         className="left-keys"
         style={{
           display: "flex",
           position: "absolute",
           left: "3%",
           flexDirection: "column",
-          top: "0%",
+          top: "40%",
         }}
       >
         <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
@@ -252,6 +314,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
             const handleGroupClick = (group: any) => {
               selectGroup(group.id);
               selectOptionName("");
+              setCurrentIndex(0);
             };
 
             return (
@@ -274,12 +337,25 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
         <div className="menu_choice_steps">
           <div className="active-marketing-component-name">
+            <div
+              onClick={() => {
+                handleLeftClick();
+              }}
+            >
+              {"<"}
+            </div>
+
             <span
               style={{
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
                 overflow: "hidden",
                 lineHeight: "28px",
+                fontWeight: "700",
+                fontSize: "18px",
+                fontStyle: "italic",
+                paddingRight: "10px",
+                paddingLeft: "10px",
               }}
             >
               {selectedGroup?.steps[currentIndex]?.name}
@@ -288,70 +364,71 @@ const Selector: FunctionComponent<SelectorProps> = ({
               {" "}
               {currentIndex + 1} / {selectedGroup?.steps.length}
             </span>
+
+            <div
+              onClick={() => {
+                handleRightClick();
+              }}
+            >
+              {">"}
+            </div>
           </div>
-         <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
-          {selectedGroup && selectedGroup.steps.length > 0 && (
-            <List>
-              {selectedGroup.steps.map((step) => {
-                return (
-                  <ListItem
-                    key={step.id}
-                    onClick={() => selectStep(step.id)}
-                    selected={selectedStep === step}
-                  >
-                    Step: {step.name}
-                  </ListItem>
-                );
-              })}
-            </List>
-          )}
-         </div>
+
+          {/* <div
+            style={{ display: "flex", flexDirection: "column", width: "100%" }}
+          >
+            {selectedGroup && selectedGroup.steps.length > 0 && (
+              <List>
+                {selectedGroup.steps.map((step) => {
+                  return (
+                    <ListItem
+                      key={step.id}
+                      onClick={() => selectStep(step.id)}
+                      selected={selectedStep === step}
+                    >
+                      Step: {step.name}
+                    </ListItem>
+                  );
+                })}
+              </List>
+            )}
+          </div> */}
 
           <div
             className="new"
             style={{
-              marginTop: "10px",
+              width: "100%",
+              marginTop: "30px",
               display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "column"
+              flexDirection: "row",
+              flexFlow: "wrap",
             }}
           >
             {selectedStep?.attributes[0]?.options.map((option) => {
               return (
                 <>
-                  {
-                    <div
-                      style={{
-                        marginLeft: "5px",
-                        width: "23%",
-                      }}
-                    >
-                      <div>
-                        {option.imageUrl && (
-                          <ListItem
-                            key={option.id}
-                            onClick={() => {
-                              // option.map((x) => {
-                              //   if (x.selected === true)
-                              //     selectLiningTypeName(x.name);
-                              // });
+                  {option.imageUrl && (
+                    <ListItem
+                      key={option.id}
+                      onClick={() => {
+                        // option.map((x) => {
+                        //   if (x.selected === true)
+                        //     selectLiningTypeName(x.name);
+                        // });
 
-                              selectOption(option.id);
-                              selectOptionName(option.name);
-                            }}
-                            //   selected={option.selected}
-                            className="menu_choice_option"
-                          >
-                            <div className="menu_choice_option_image_container">
-                              {option.imageUrl && (
-                                <ListItemImage src={option.imageUrl} />
-                              )}
-                            </div>
-                          </ListItem>
+                        selectOption(option.id);
+                        selectOptionName(option.name);
+                      }}
+                      //   selected={option.selected}
+                      className="menu_choice_option"
+                    >
+                      <div className="menu_choice_option_image_container">
+                        {option.imageUrl && (
+                          <ListItemImage src={option.imageUrl} />
                         )}
                       </div>
-                    </div>
-                  }
+                    </ListItem>
+                  )}
                 </>
               );
             })}
@@ -460,7 +537,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         )}
 */}
-        {selectedGroup?.id === -2 && (
+        {/* {selectedGroup?.id === -2 && (
           <div>
             <div
               className="textEditor"
@@ -471,10 +548,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
             >
-              {/* {screenWidth < 500 && (<MenuFooter viewFooter={viewFooter} />)} */}
             </div>
           </div>
-        )}
+        )} */}
 
         <br />
         <br />

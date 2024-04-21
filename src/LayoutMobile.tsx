@@ -1,5 +1,5 @@
 import React from 'react';
-import FooterMobile from './components/Layout/FooterMobile';
+// import FooterMobile from './components/Layout/FooterMobile';
 import SelectorMobile from './components/Layout/mobile/SelectorMobile';
 import Viewer from './components/Layout/Viewer';
 import styled from 'styled-components';
@@ -48,7 +48,7 @@ function LayoutMobile() {
     <MobileContainer>
       <Viewer />
       <SelectorMobile />
-      <FooterMobile />
+      {/* <FooterMobile /> */}
     </MobileContainer>
   );
 }

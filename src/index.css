@@ -11,11 +11,12 @@
   --template-primary--600: #838383;
   --template-primary--800: #4f4f4f;
   --template-primary--900: #292929;
+  --template-primary--1000: #000000;
   --template-background-color: #f4f4f4;
   --template-default-box-shadow-color: rgba(0, 0, 0, 0.1);
   --template-loader-overlay: hsla(0, 0%, 95.7%, 0.4);
   --template-camera-box-shadow-color: rgba(0, 0, 0, 0.25);
-  --template-boundary-color: #5a5555;
+  --template-boundary-color: #b1adad;
   --template-highlight-boundary-color: #900909;
 }
 

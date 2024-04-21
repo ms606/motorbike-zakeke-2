@@ -5,25 +5,20 @@ export const List = styled.div`
     padding: 0;
     display: flex;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     // flex-wrap:wrap;
 `;
 
 export const ListItem = styled.div<{ selected?: boolean }>`
      display: flex;
      flex-direction: column;
-     //width: calc(22% - 18px);
      justify-content: flex-start;
      align-items: center;
-     padding: 8px 1px 1px 1px;
-    //  background: #fff;
-    //  box-shadow: 0 4px 16px rgba(0,0,0,0.1);;
+    //  padding: 8px 1px 1px 1px;
      border-radius: 16px;
      margin-bottom: 12px;
      margin-right: 8px;
-    // border: 1px solid transparent;
      cursor: pointer;
-    //  border: ${props => props.selected ? '1px solid var(--template-highlight-boundary-color)' : ''};
        @media screen and (max-width: 568px) {
          font-size: 24px;
        }
