@@ -17,7 +17,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
     //  padding: 8px 1px 1px 1px;
      border-radius: 16px;
      margin-bottom: 12px;
-     margin-right: 8px;
+     margin-right: 6px;
      cursor: pointer;
        @media screen and (max-width: 568px) {
          font-size: 24px;

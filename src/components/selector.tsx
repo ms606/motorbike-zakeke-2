@@ -78,7 +78,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     templates,
     items,
   } = useZakeke();
-  console.log(product, "product");
+  console.log(useZakeke(), "useZakeke()");
   // console.log(groups, useZakeke(), "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
@@ -256,11 +256,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // -- steps
   // -- -- attributes
   // -- -- -- options
-  console.log(selectedGroup, selectedStep, selectedStepId, "selectedGroup");
-
+  
   return (
     <Container>
-      <div
+      {/* <div
         className="iHdtWA group-item selected"
         style={{
           position: "absolute",
@@ -285,13 +284,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
           >
             "Personalizează"
           </span>
-        </div>
+        </div> */}
         {/* {selectedPersonalize ? ( */}
-          <Designer />
+          {/* <Designer /> */}
         {/* ) : ( */}
           {/* "" */}
         {/* )} */}
-      </div>
+      {/* </div> */}
 
       <div
         className="left-keys"
@@ -315,6 +314,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
               selectGroup(group.id);
               selectOptionName("");
               setCurrentIndex(0);
+              selectStep(group.steps[0].id)            
             };
 
             return (

@@ -419,6 +419,7 @@ export const SupportedFormatsList = styled.span`
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
+	color: #000;
 	z-index: 3;
 	height: 87%;
 	width: 100%;

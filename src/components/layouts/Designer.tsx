@@ -76,6 +76,7 @@ const MoveElementButton = styled(Button)`
 `;
 
 const DesignerContainer = styled.div<{ isMobile?: boolean }>`
+  color: #000;
   display: flex;
   flex-flow: column;
   user-select: none;
@@ -222,8 +223,6 @@ const Designer: FC<{
     setCopyrightMessageAccepted,
     getCopyrightMessageAccepted,
   } = useZakeke();
-
-  console.log(currentTemplate, "currentTemplate");
 
   const customizerRef = useRef<any | null>(null);
   const [selectedCarouselSlide, setSelectedCarouselSlide] = useState<number>(0);
@@ -546,40 +545,27 @@ const Designer: FC<{
   };
 
   const handleLeftClick = () => {
-    // selectColorName("");
-    // if (selectedGroup) {
+    const newIndex = (currentIndex - 1 + finalVisibleAreas.length) %
+    finalVisibleAreas.length; 
+
       setCurrentIndex(
         (currentIndex - 1 + finalVisibleAreas.length) %
         finalVisibleAreas.length
       );
-    //   selectStep(
-    //     selectedGroup.steps[
-    //       (currentIndex - 1 + selectedGroup?.steps.length) %
-    //         selectedGroup?.steps.length
-    //     ].id
-    //   );
-    // }
+
+      setActualAreaId(finalVisibleAreas[newIndex].id)
   };
 
   const handleRightClick = () => {
+    const newIndex = (currentIndex + 1 + finalVisibleAreas.length) %
+    finalVisibleAreas.length;
+
     setCurrentIndex(
       (currentIndex + 1 + finalVisibleAreas.length) %
       finalVisibleAreas.length
     );
 
-    // selectColorName("");
-    // if (selectedGroup) {
-    //   setCurrentIndex(
-    //     (currentIndex + 1 + selectedGroup?.steps.length) %
-    //       selectedGroup?.steps.length
-    //   );
-    //   selectStep(
-    //     selectedGroup.steps[
-    //       (currentIndex + 1 + selectedGroup?.steps.length) %
-    //         selectedGroup?.steps.length
-    //     ].id
-    //   );
-    // }
+    setActualAreaId(finalVisibleAreas[newIndex].id)
   };
 
   console.log(finalVisibleAreas, product, isMobile, "sdfdsdfffd");
@@ -606,7 +592,7 @@ const Designer: FC<{
           )}
 
           {/* Areas */}
-          {!isMobile && finalVisibleAreas.length > 1 && (
+          {/* {!isMobile && finalVisibleAreas.length > 1 && (
             <CarouselContainer
               slidesToScroll={1}
               speed={50}
@@ -658,7 +644,7 @@ const Designer: FC<{
                 </Area>
               ))}
             </CarouselContainer>
-          )}
+          )} */}
 
           <div className="active-marketing-component-name">
             <div
@@ -676,7 +662,7 @@ const Designer: FC<{
                 overflow: "hidden",
                 lineHeight: "28px",
                 fontWeight: "700",
-                fontSize: "18px",
+                fontSize: "15px",
                 fontStyle: "italic",
                 paddingRight: "10px",
                 paddingLeft: "10px",
