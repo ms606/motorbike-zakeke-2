@@ -35,7 +35,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
     align-items: flex-start;
     gap: 8px;
     border-radius: 4px;
-    background: var(--surface-default, rgb(236 25 25););
+    background: var(--surface-default, #fff);
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15),
       0px 0px 3px 0px rgba(0, 0, 0, 0.1);
 
@@ -46,7 +46,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
   `;
 
   const LoadingLabel = styled.div`
-    color: rgb(236 25 25);;
+    color: #2E8B57;
     font-size: 12px;
     font-family: "Inter";
     font-style: normal;
@@ -65,7 +65,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
   `;
 
   const LoadingPercentageLabel = styled.span`
-    color: #8fa4ae;
+    color: #2E8B57;
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
@@ -87,7 +87,7 @@ const Loader: React.FC<LoaderProps> = (props) => {
     height: 100%;
     border-radius: 4px;
     margin: 7px 0px;
-    background-color: #000000;
+    background-color: #2E8B57;
     border-radius: "inherit";
     width: ${({ completed }) => completed && `${completed}%`};
   `;
