@@ -78,7 +78,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     templates,
     items,
   } = useZakeke();
-  console.log(useZakeke(), "useZakeke()");
+  //   console.log(useZakeke(), "useZakeke()");
   // console.log(groups, useZakeke(), "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
@@ -124,8 +124,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
 
-  console.log(items, templates, "templates");
-
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
     false
   );
@@ -134,7 +132,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
     setSelectedPersonalize(!selectedPersonalize);
   };
 
-  
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
     () => (selectedStep || selectedGroup)?.attributes ?? [],
@@ -147,7 +144,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
       //   setHeight(window.innerHeight);
     };
 
-    //window.addEventListener('resize', handleResize);
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -246,9 +242,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
     }
   };
 
+  console.log(selectedStep, "selectedStep");
+
   if (isSceneLoading || !groups || groups.length === 0 || isLoading)
     return <Loader visible={true} />;
-
 
   // groups
   // -- attributes
@@ -256,7 +253,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // -- steps
   // -- -- attributes
   // -- -- -- options
-  
+
   return (
     <Container>
       {/* <div
@@ -285,11 +282,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
             "Personalizează"
           </span>
         </div> */}
-        {/* {selectedPersonalize ? ( */}
-          {/* <Designer /> */}
-        {/* ) : ( */}
-          {/* "" */}
-        {/* )} */}
+      {/* {selectedPersonalize ? ( */}
+      {/* <Designer /> */}
+      {/* ) : ( */}
+      {/* "" */}
+      {/* )} */}
       {/* </div> */}
 
       <div
@@ -314,7 +311,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
               selectGroup(group.id);
               selectOptionName("");
               setCurrentIndex(0);
-              selectStep(group.steps[0].id)            
+              selectStep(group.steps[0].id);
             };
 
             return (
@@ -404,34 +401,33 @@ const Selector: FunctionComponent<SelectorProps> = ({
               flexFlow: "wrap",
             }}
           >
-            {selectedStep?.attributes[0]?.options.map((option) => {
-              return (
-                <>
-                  {option.imageUrl && (
-                    <ListItem
-                      key={option.id}
-                      onClick={() => {
-                        // option.map((x) => {
-                        //   if (x.selected === true)
-                        //     selectLiningTypeName(x.name);
-                        // });
 
-                        selectOption(option.id);
-                        selectOptionName(option.name);
-                      }}
-                      //   selected={option.selected}
-                      className="menu_choice_option"
-                    >
-                      <div className="menu_choice_option_image_container">
-                        {option.imageUrl && (
-                          <ListItemImage src={option.imageUrl} />
-                        )}
-                      </div>
-                    </ListItem>
-                  )}
-                </>
-              );
+            {selectedStep?.attributes.map((attribute, index) => {
+            if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
+            
+            return attribute.options.map((option) => {
+                if (!option.imageUrl) return null; // Skip options without image URL
+
+                return (
+                <ListItem
+                    key={option.id}
+                    onClick={() => {
+                    // Logic for selecting options
+                    selectOption(option.id);
+                    selectOptionName(option.name);
+                    }}
+                    className="menu_choice_option"
+                >
+                    <div className="menu_choice_option_image_container">
+                    <ListItemImage src={option.imageUrl} />
+                    </div>
+                </ListItem>
+                );
+            });
             })}
+
+
+            
           </div>
         </div>
 
