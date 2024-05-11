@@ -35,6 +35,7 @@ import {
   scrollDownOnClick,
 } from "../Helpers";
 import Zoom from "./Zoom/Zoom";
+import Tray from '../components/Tray/Tray';
 
 const Container = styled.div`
   height: 839px;
@@ -79,7 +80,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     items,
   } = useZakeke();
   //   console.log(useZakeke(), "useZakeke()");
-  // console.log(groups, useZakeke(), "groups");
+   console.log(groups, useZakeke(), "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
 
@@ -115,14 +116,26 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
   const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
 
+  // Get a list of all group names so we can populate on the tray
+  const [selectedGroupList, selectGroupList] = useState<any | null>(null);
+
   // const [closeAttribute, setCloseAttribute] = useState<boolean | null>(null);
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
+  
+  var indexToRemove = groups.findIndex((obj) => obj.id === -1);
+  
+  if (indexToRemove !== -1) {
+    groups.splice(indexToRemove, 1);
+  }
 
   var selectedGroup = groups.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
+
+//Inner Menu open 
+  const [menuTrayOpen, setMenuTrayOpen] = useState<any | null>(false);
 
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
     false
@@ -188,7 +201,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [selectedGroupId, selectedCameraID, selectedStepId]);
-  }, [selectedGroupId]);
+  }, [selectedGroupId, selectedGroup]);
 
   // Camera for left icons
   useEffect(() => {
@@ -209,6 +222,33 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, !isSceneLoading]);
+
+
+  // Open the first group and the first step when loaded
+  useEffect(() => {
+    if (!selectedGroup && groups.length > 0) {
+      selectGroup(groups[0].id);
+    }
+
+    if (groups.length > 0) {
+      var groupRec: {
+        id: number;
+        name: string;
+        imageUrl: string | null | undefined;
+      }[] = [];
+      groups.map((group) => {
+        groupRec.push({
+          id: group.id,
+          name: group.name,
+          imageUrl: group.imageUrl,
+        });
+      });
+      selectGroupList(groupRec);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groups]);
+
 
   const handleLeftClick = () => {
     selectColorName("");
@@ -242,7 +282,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
     }
   };
 
-  console.log(selectedStep, "selectedStep");
+  const menuTrayToggle = () => {
+    setMenuTrayOpen(!menuTrayOpen)
+  }
 
   if (isSceneLoading || !groups || groups.length === 0 || isLoading)
     return <Loader visible={true} />;
@@ -288,6 +330,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
       {/* "" */}
       {/* )} */}
       {/* </div> */}
+      
+      
+      {menuTrayOpen && <Tray 
+        groupNameList={selectedGroupList}
+        menuTrayToggle={menuTrayToggle}
+        // filteredAreas={filteredAreas}
+        // toggleFunc={toggleTray}
+        // UpdateGroupId={groupIdFromFunc}
+        // updCurrentIndex={updCurrentIndex}
+        // selectedTray={selectedTrayType}
+        // selectStepName={selectStepName}
+      />}
 
       <div
         className="left-keys"
@@ -428,8 +482,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
 
             
+          <div className="menu_tray_selection" onClick={() => setMenuTrayOpen(!menuTrayOpen)}>MENU</div>
           </div>
         </div>
+
+        
 
         {/*
 
