@@ -45,12 +45,29 @@ const Container = styled.div`
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
+  position: relative;
 `;
 
 export const ExplodeIcon = styled(Icon)`
   width: 32px;
   height: 32px;
 `;
+
+export const HamburgerIcon = () => (
+    <svg
+      width="30"
+      height="30"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ marginRight: '5px' }}
+    >
+      <rect y="3" width="16" height="2" fill="currentColor"/>
+      <rect y="7" width="16" height="2" fill="currentColor"/>
+      <rect y="11" width="16" height="2" fill="currentColor"/>
+    </svg>
+  );
+
 
 interface SelectorProps {
   refViewer: any; // React.RefObject<HTMLElement>;
@@ -118,6 +135,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Get a list of all group names so we can populate on the tray
   const [selectedGroupList, selectGroupList] = useState<any | null>(null);
+
+  // const [selectedStepList, setSelectedStepList] = useState<any | null>([]);
+  const [selectedStepList, setSelectedStepList] = useState<(number | string)[]>([]);
 
   // const [closeAttribute, setCloseAttribute] = useState<boolean | null>(null);
 
@@ -286,6 +306,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
     setMenuTrayOpen(!menuTrayOpen)
   }
 
+
+  const addOptionToList = (optionId: number | string) => {
+    setSelectedStepList((prevList) =>  [...prevList, optionId]);
+  };
+
+
   if (isSceneLoading || !groups || groups.length === 0 || isLoading)
     return <Loader visible={true} />;
 
@@ -335,6 +361,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
       {menuTrayOpen && <Tray 
         groupNameList={selectedGroupList}
         menuTrayToggle={menuTrayToggle}
+        selectedStepList={selectedStepList}
         // filteredAreas={filteredAreas}
         // toggleFunc={toggleTray}
         // UpdateGroupId={groupIdFromFunc}
@@ -469,6 +496,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     // Logic for selecting options
                     selectOption(option.id);
                     selectOptionName(option.name);
+                    addOptionToList(option.attribute.stepId)
                     }}
                     className="menu_choice_option"
                 >
@@ -481,8 +509,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
             })}
 
 
-            
-          <div className="menu_tray_selection" onClick={() => setMenuTrayOpen(!menuTrayOpen)}>MENU</div>
+         <div className="menu_tray_selection" >
+           
+          <div className="menu_tray_name" onClick={() => setMenuTrayOpen(!menuTrayOpen)}>MENU</div>
+          <HamburgerIcon />
+            </div>   
           </div>
         </div>
 

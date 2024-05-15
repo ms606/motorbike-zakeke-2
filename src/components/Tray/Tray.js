@@ -5,7 +5,8 @@ import { useZakeke } from "zakeke-configurator-react";
 
 const Tray = ({
   groupNameList,
-  menuTrayToggle
+  menuTrayToggle,
+  selectedStepList
   //, filteredAreas, toggleFunc, UpdateGroupId, updCurrentIndex, selectedTray, selectStepName
 }) => {
   const {
@@ -83,7 +84,7 @@ const Tray = ({
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
 
-    console.log(groupNameList, selectedGroupId, selectedStep, selectedGroup, "groupNameList");
+    console.log(groupNameList, selectedGroupId, selectedStep, selectedGroup, selectedStepList, "groupNameList");
 
   },[selectedGroupId])
 
@@ -206,7 +207,8 @@ const Tray = ({
             {selectedGroup?.steps.map((x,i) => (
               <div className="tray-mc-sub-list" key={i}>
                 <div className="tray-mc-sub-key"> {i+1}.</div>
-                <div> {x.name}</div>
+                <div style={{ fontWeight: selectedStepList.includes(x.id) ? '550' : 'normal' }} > {x.name}</div>
+                {selectedStepList.includes(x.id) && <span style={{paddingLeft: '50px'}}>✔️ </span>}
               </div>
             ))}
             </div>

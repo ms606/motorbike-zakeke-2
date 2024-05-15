@@ -241,6 +241,7 @@ div {
 
   .left-keys {
     top: 40%;
+    z-index: 55;
     /* position: static !important; */
   }
 

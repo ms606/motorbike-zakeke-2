@@ -4,10 +4,14 @@
     padding-left: 13px;
     transition: all 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
     right: 25px;
-    width: 445px;
-    height: 80%;
+    width: 76%;
+    height: 76vh;
+
+    /* width: 445px;
+    height: 80%; */
     position: absolute;
-    bottom: 9em;
+    top: 2%;
+    /* bottom: 7em; */
     z-index: 4;
     mix-blend-mode: normal;
   }
@@ -132,11 +136,11 @@
   .heading {
     background: rgba(196, 195, 195, 0.2);
     border: rgb(45, 44, 44);
-    border-radius: 18%;
+    border-radius: 15px;
     color: rgb(24, 21, 21);
     text-align: center;
     align-items: center;
-    width: 29%;      
+    width: 24%;      
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -156,7 +160,7 @@
     /* color: rgba(58, 55, 55, 0.8); */
     font-size: 15px;
     line-height: 10px;
-    font-weight: 500;
+    font-weight: 800;
     font-style: italic;
     display: table-cell;
     position: relative;
@@ -198,7 +202,8 @@
 
   .tray-mc-sub-steps {
     padding-left: 5px;
-    width: 500px;
+    width: 33em;
+    /* width: 650px; */
     column-count: 2; /* Set to 2 columns */
     column-gap: 20px; 
     font-size: 14px;
