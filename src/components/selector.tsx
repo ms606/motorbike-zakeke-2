@@ -101,7 +101,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const { showDialog, closeDialog } = useDialogManager();
 
-  // if (product?.name != PRODUCT_PANT) groups.push(customizeGroup);
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [selectedColorName, selectColorName] = useState<any | null>(null);
