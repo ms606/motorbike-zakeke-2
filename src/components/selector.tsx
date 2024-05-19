@@ -119,9 +119,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [selectedLiningTypeHeadName, selectLiningTypeHeadName] = useState<
     string | null
   >(null);
-  const [selectedLiningTypeName, selectLiningTypeName] = useState<
-    string | null
-  >(null);
 
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
   const [selectedCameraAngle, setSelectedCameraAngle] = useState<string | null>(
