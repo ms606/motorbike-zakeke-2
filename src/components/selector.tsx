@@ -97,7 +97,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     items,
   } = useZakeke();
   //   console.log(useZakeke(), "useZakeke()");
-   console.log(groups, useZakeke(), "groups");
+  //  console.log(groups, useZakeke(), "groups");
 
   const { showDialog, closeDialog } = useDialogManager();
 
@@ -210,6 +210,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
+    console.log(selectedGroup,'selectedGroup');
+    
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
 
@@ -217,14 +219,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [selectedGroupId, selectedCameraID, selectedStepId]);
-  }, [selectedGroupId, selectedGroup]);
+  }, [selectedGroupId, selectedGroup, currentIndex]);
 
   // Camera for left icons
   useEffect(() => {
     if (selectedCameraID) setCamera(selectedCameraID);
 
     setSelectedCameraID("");
-  }, [selectedCameraID]);
+  }, [selectedCameraID,selectedGroup]);
 
   // Camera for attributes
   useEffect(() => {
@@ -279,10 +281,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
             selectedGroup?.steps.length
         ].id
       );
+      setSelectedCameraID(selectedGroup.steps[
+        (currentIndex - 1 + selectedGroup?.steps.length) %
+          selectedGroup?.steps.length
+      ].cameraLocationID)
     }
   };
 
   const handleRightClick = () => {
+
+    console.log(selectedGroup?.steps,'selectedGroup?.steps');
+    // if(selectedGroup?.steps?[currentIndex+1]){ 
+      // setCamera(selectedGroup?.steps[currentIndex].cameraLocationID)
+    // };
+
     selectColorName("");
     if (selectedGroup) {
       setCurrentIndex(
@@ -295,6 +307,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
             selectedGroup?.steps.length
         ].id
       );
+      setSelectedCameraID(selectedGroup.steps[
+        (currentIndex + 1 + selectedGroup?.steps.length) %
+          selectedGroup?.steps.length
+      ].cameraLocationID)
     }
   };
 
@@ -425,6 +441,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 textOverflow: "ellipsis",
                 overflow: "hidden",
                 lineHeight: "28px",
+                fontFamily: 'PF DinDisplay Pro',
                 fontWeight: "700",
                 fontSize: "18px",
                 fontStyle: "italic",
@@ -480,6 +497,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           >
 
             {selectedStep?.attributes.map((attribute, index) => {
+
             if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
             
             return attribute.options.map((option) => {
@@ -497,7 +515,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     className="menu_choice_option"
                 >
                     <div className="menu_choice_option_image_container">
-                    <ListItemImage src={option.imageUrl} />
+                    <ListItemImage src={option.imageUrl} big = {attribute.code === "PROTECTORS" ? 'Yes' : ''}/>
                     </div>
                 </ListItem>
                 );
@@ -511,6 +529,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <HamburgerIcon />
             </div>   
           </div>
+
+
+          {screenWidth > 500 && (<MenuFooter viewFooter={viewFooter} />)}
         </div>
 
         
