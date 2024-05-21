@@ -12,8 +12,10 @@ interface MenuFooterProps {
 const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
 
     const { isAddToCartLoading, addToCart, price, useLegacyScreenshot} = useZakeke();
-    const { priceFormatter} = useStore();
+    const { priceFormatter, bodyMeasurements} = useStore();
 
+    console.log(bodyMeasurements,'bodyMeasurements');
+    
     return (<div>
           <div className="menu_footer" ref={viewFooter} style ={{position: 'relative', bottom: '5px',  display: 'flex', justifyContent: 'space-between', width: '100%'}}>
           <div className="menu_price">
@@ -24,12 +26,12 @@ const MenuFooter:React.FC<MenuFooterProps> = ({viewFooter}) => {
             {isAddToCartLoading ? (
               "Adding to cart..."
             ) : (
-              <button
-                onClick={() => addToCart([], undefined, useLegacyScreenshot)}
+              <div
+                onClick={() => addToCart([{collar: '53cms'}], undefined, useLegacyScreenshot)}
                 className="btn btn-primary menu_btn_cart"
               >
-                Add to cart
-              </button>
+                NEXT
+              </div>
             )}
             {/* {
               <button className="btn btn-secondary Menu_ff_menu__btn__iOQsk Menu_ff_menu__btn__share__1sacu">

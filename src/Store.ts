@@ -61,6 +61,8 @@ interface Store {
 	notifications: Notification[];
 	setNotifications: (notifications: Notification[]) => void;
 	removeNotification: (id: number) => void;
+	bodyMeasurements: {bodyPart: string, measurements: number}[];
+	addBodyMeasurements: (bodyPart: string, measurements: number) => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -196,7 +198,13 @@ const useStore = create<Store>((set) => ({
 		set((state) => ({
 			notifications: state.notifications.filter((notification) => null !== id)
 		}));
-	}
+	},
+	bodyMeasurements: [],
+	addBodyMeasurements: (bodyPart: string, measurements: number) => {
+		set((state) => ({
+			bodyMeasurements: [...state.bodyMeasurements, { bodyPart, measurements }]
+		}));
+	},
 }));
 
 export default useStore;

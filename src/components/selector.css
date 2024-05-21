@@ -123,12 +123,14 @@ div {
 .menu_footer {
   display: flex;
   flex-flow: row;
+  top: 33.5em;
+  left: 7em;
   /* border: 2px solid #d3d3d3; */
   align-items: center;
   position: relative;
-  bottom: 3em;
+  /* bottom: 3em; */
   padding: 27px 0 0 20px;
-  position: fixed;
+  /* position: fixed; */
   bottom: 5px;
   z-index: 44;
 }
@@ -171,7 +173,11 @@ div {
 
 .menu_btn_cart {
   margin-right: 10px;
-  background-color: var(--template-boundary-color) !important;
+  font-weight: 900;
+  font-size: 25px;
+  font-style: italic;
+  color: #ffce13 !important;
+  background-color: var(--template-primary--1000) !important;
 }
 
 .menu_btn_share_icon {

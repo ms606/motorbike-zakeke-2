@@ -35,7 +35,9 @@ import {
   scrollDownOnClick,
 } from "../Helpers";
 import Zoom from "./Zoom/Zoom";
-import Tray from '../components/Tray/Tray';
+import Tray from "../components/Tray/Tray";
+import useStore from "../Store";
+
 
 const Container = styled.div`
   height: 839px;
@@ -54,20 +56,19 @@ export const ExplodeIcon = styled(Icon)`
 `;
 
 export const HamburgerIcon = () => (
-    <svg
-      width="30"
-      height="30"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ marginRight: '5px' }}
-    >
-      <rect y="3" width="16" height="2" fill="currentColor"/>
-      <rect y="7" width="16" height="2" fill="currentColor"/>
-      <rect y="11" width="16" height="2" fill="currentColor"/>
-    </svg>
-  );
-
+  <svg
+    width="30"
+    height="30"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ marginRight: "5px" }}
+  >
+    <rect y="3" width="16" height="2" fill="currentColor" />
+    <rect y="7" width="16" height="2" fill="currentColor" />
+    <rect y="11" width="16" height="2" fill="currentColor" />
+  </svg>
+);
 
 interface SelectorProps {
   refViewer: any; // React.RefObject<HTMLElement>;
@@ -99,8 +100,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //   console.log(useZakeke(), "useZakeke()");
   //  console.log(groups, useZakeke(), "groups");
 
-  const { showDialog, closeDialog } = useDialogManager();
+  const { addBodyMeasurements, bodyMeasurements} = useStore();
 
+  const { showDialog, closeDialog } = useDialogManager();
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [selectedColorName, selectColorName] = useState<any | null>(null);
@@ -133,14 +135,16 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [selectedGroupList, selectGroupList] = useState<any | null>(null);
 
   // const [selectedStepList, setSelectedStepList] = useState<any | null>([]);
-  const [selectedStepList, setSelectedStepList] = useState<(number | string)[]>([]);
+  const [selectedStepList, setSelectedStepList] = useState<(number | string)[]>(
+    []
+  );
 
   // const [closeAttribute, setCloseAttribute] = useState<boolean | null>(null);
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
-  
+
   var indexToRemove = groups.findIndex((obj) => obj.id === -1);
-  
+
   if (indexToRemove !== -1) {
     groups.splice(indexToRemove, 1);
   }
@@ -150,7 +154,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
 
-//Inner Menu open 
+  //Inner Menu open
   const [menuTrayOpen, setMenuTrayOpen] = useState<any | null>(false);
 
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
@@ -160,6 +164,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const togglePersonalize = () => {
     setSelectedPersonalize(!selectedPersonalize);
   };
+
 
   // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
@@ -187,6 +192,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
+
+   // addBodyMeasurements({'neck':'34'})
+    // addBodyMeasurements({'height':'334'})
+
     if (!selectedGroup && groups.length > 0) {
       selectGroup(groups[0].id);
 
@@ -210,8 +219,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
-    console.log(selectedGroup,'selectedGroup');
-    
+
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
 
@@ -226,7 +234,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     if (selectedCameraID) setCamera(selectedCameraID);
 
     setSelectedCameraID("");
-  }, [selectedCameraID,selectedGroup]);
+  }, [selectedCameraID, selectedGroup]);
 
   // Camera for attributes
   useEffect(() => {
@@ -240,7 +248,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, !isSceneLoading]);
-
 
   // Open the first group and the first step when loaded
   useEffect(() => {
@@ -267,7 +274,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groups]);
 
-
   const handleLeftClick = () => {
     selectColorName("");
     if (selectedGroup) {
@@ -281,18 +287,19 @@ const Selector: FunctionComponent<SelectorProps> = ({
             selectedGroup?.steps.length
         ].id
       );
-      setSelectedCameraID(selectedGroup.steps[
-        (currentIndex - 1 + selectedGroup?.steps.length) %
-          selectedGroup?.steps.length
-      ].cameraLocationID)
+      setSelectedCameraID(
+        selectedGroup.steps[
+          (currentIndex - 1 + selectedGroup?.steps.length) %
+            selectedGroup?.steps.length
+        ].cameraLocationID
+      );
     }
   };
 
   const handleRightClick = () => {
-
-    console.log(selectedGroup?.steps,'selectedGroup?.steps');
-    // if(selectedGroup?.steps?[currentIndex+1]){ 
-      // setCamera(selectedGroup?.steps[currentIndex].cameraLocationID)
+    console.log(selectedGroup?.steps, "selectedGroup?.steps");
+    // if(selectedGroup?.steps?[currentIndex+1]){
+    // setCamera(selectedGroup?.steps[currentIndex].cameraLocationID)
     // };
 
     selectColorName("");
@@ -307,22 +314,22 @@ const Selector: FunctionComponent<SelectorProps> = ({
             selectedGroup?.steps.length
         ].id
       );
-      setSelectedCameraID(selectedGroup.steps[
-        (currentIndex + 1 + selectedGroup?.steps.length) %
-          selectedGroup?.steps.length
-      ].cameraLocationID)
+      setSelectedCameraID(
+        selectedGroup.steps[
+          (currentIndex + 1 + selectedGroup?.steps.length) %
+            selectedGroup?.steps.length
+        ].cameraLocationID
+      );
     }
   };
 
   const menuTrayToggle = () => {
-    setMenuTrayOpen(!menuTrayOpen)
-  }
-
-
-  const addOptionToList = (optionId: number | string) => {
-    setSelectedStepList((prevList) =>  [...prevList, optionId]);
+    setMenuTrayOpen(!menuTrayOpen);
   };
 
+  const addOptionToList = (optionId: number | string) => {
+    setSelectedStepList((prevList) => [...prevList, optionId]);
+  };
 
   if (isSceneLoading || !groups || groups.length === 0 || isLoading)
     return <Loader visible={true} />;
@@ -368,19 +375,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
       {/* "" */}
       {/* )} */}
       {/* </div> */}
-      
-      
-      {menuTrayOpen && <Tray 
-        groupNameList={selectedGroupList}
-        menuTrayToggle={menuTrayToggle}
-        selectedStepList={selectedStepList}
-        // filteredAreas={filteredAreas}
-        // toggleFunc={toggleTray}
-        // UpdateGroupId={groupIdFromFunc}
-        // updCurrentIndex={updCurrentIndex}
-        // selectedTray={selectedTrayType}
-        // selectStepName={selectStepName}
-      />}
+
+      {menuTrayOpen && (
+        <Tray
+          groupNameList={selectedGroupList}
+          menuTrayToggle={menuTrayToggle}
+          selectedStepList={selectedStepList}
+          // filteredAreas={filteredAreas}
+          // toggleFunc={toggleTray}
+          // UpdateGroupId={groupIdFromFunc}
+          // updCurrentIndex={updCurrentIndex}
+          // selectedTray={selectedTrayType}
+          // selectStepName={selectStepName}
+        />
+      )}
 
       <div
         className="left-keys"
@@ -441,7 +449,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 textOverflow: "ellipsis",
                 overflow: "hidden",
                 lineHeight: "28px",
-                fontFamily: 'PF DinDisplay Pro',
+                fontFamily: "PF DinDisplay Pro",
                 fontWeight: "700",
                 fontSize: "18px",
                 fontStyle: "italic",
@@ -495,46 +503,47 @@ const Selector: FunctionComponent<SelectorProps> = ({
               flexFlow: "wrap",
             }}
           >
-
             {selectedStep?.attributes.map((attribute, index) => {
+              if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
 
-            if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
-            
-            return attribute.options.map((option) => {
+              return attribute.options.map((option) => {
                 if (!option.imageUrl) return null; // Skip options without image URL
 
                 return (
-                <ListItem
+                  <ListItem
                     key={option.id}
                     onClick={() => {
-                    // Logic for selecting options
-                    selectOption(option.id);
-                    selectOptionName(option.name);
-                    addOptionToList(option.attribute.stepId)
+                      // Logic for selecting options
+                      selectOption(option.id);
+                      selectOptionName(option.name);
+                      addOptionToList(option.attribute.stepId);
                     }}
                     className="menu_choice_option"
-                >
+                  >
                     <div className="menu_choice_option_image_container">
-                    <ListItemImage src={option.imageUrl} big = {attribute.code === "PROTECTORS" ? 'Yes' : ''}/>
+                      <ListItemImage
+                        src={option.imageUrl}
+                        big={attribute.code === "PROTECTORS" ? "Yes" : ""}
+                      />
                     </div>
-                </ListItem>
+                  </ListItem>
                 );
-            });
+              });
             })}
 
-
-         <div className="menu_tray_selection" >
-           
-          <div className="menu_tray_name" onClick={() => setMenuTrayOpen(!menuTrayOpen)}>MENU</div>
-          <HamburgerIcon />
-            </div>   
+            <div className="menu_tray_selection">
+              <div
+                className="menu_tray_name"
+                onClick={() => setMenuTrayOpen(!menuTrayOpen)}
+              >
+                MENU
+              </div>
+              <HamburgerIcon />
+            </div>
           </div>
 
-
-          {screenWidth > 500 && (<MenuFooter viewFooter={viewFooter} />)}
+          {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
         </div>
-
-        
 
         {/*
 
