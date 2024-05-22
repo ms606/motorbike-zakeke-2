@@ -68,8 +68,6 @@ export const useDefinitiveGroups = (
   const { isEditorMode, isViewerMode, isDraftEditor } = useStore();
   const definitiveGroups: Group[] = [];
 
-
-
   const savedConfigurationsGroup: Group = {
     id: -3,
     name: "Saved designs",
@@ -84,6 +82,22 @@ export const useDefinitiveGroups = (
     attributesAlwaysOpened: false,
     templateGroups: [],
   };
+
+  const measurementConfigurationsGroup: Group = {
+    id: -4,
+    name: "MEASUREMENTS",
+    imageUrl: "../src/assets/icons/saved_designs.svg",
+    attributes: [],
+    steps: [],
+    guid: "",
+    enabled: true,
+    displayOrder: 0,
+    cameraLocationId: null,
+    direction: 0,
+    attributesAlwaysOpened: false,
+    templateGroups: [],
+  };
+
 
   let groupsFiltered = groups.map((group) => {
     return {
@@ -138,11 +152,14 @@ export const useDefinitiveGroups = (
     }
   }
 
+  // definitiveGroups.push(measurementConfigurationsGroup);
+
   // if (hasCustomizeEnabled) {
   // 	definitiveGroups.push(customizeGroup);
   //	}
   if (hasDesignsSaved && !isEditorMode && !isViewerMode && !isDraftEditor) {
     definitiveGroups.push(savedConfigurationsGroup);
+   
   }
   return definitiveGroups;
 };
@@ -168,8 +185,8 @@ export function useActualGroups() {
       groups,
       shouldCustomizerGroupBeVisible,
       hasDesignsSaved,
-      sellerSettings
-    ) ?? [];
+      sellerSettings,
+    ) ?? [];    
   return actualGroups;
 }
 

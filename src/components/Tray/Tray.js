@@ -84,8 +84,6 @@ const Tray = ({
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
 
-    console.log(groupNameList, selectedGroupId, selectedStep, selectedGroup, selectedStepList, "groupNameList");
-
   },[selectedGroupId])
 
   const handleMultipleClicks = (event) => {

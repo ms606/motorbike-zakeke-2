@@ -25,7 +25,7 @@ import { ExplodeIconL } from "../assets/icons/ExplodeIcon";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
 import Designer from "./layouts/Designer";
-import { customizeGroup } from "../Helpers";
+import { customizeGroup, useActualGroups } from "../Helpers";
 import { AiIcon, ArIcon } from "../components/Layout/LayoutStyles";
 
 import {
@@ -36,6 +36,7 @@ import {
 } from "../Helpers";
 import Zoom from "./Zoom/Zoom";
 import Tray from "../components/Tray/Tray";
+import Measurements from "../components/Measurements/Measurements";
 import useStore from "../Store";
 
 
@@ -81,7 +82,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 }) => {
   const {
     isSceneLoading,
-    groups,
     selectOption,
     setCamera,
     setExplodedMode,
@@ -96,18 +96,19 @@ const Selector: FunctionComponent<SelectorProps> = ({
     productName,
     templates,
     items,
+    groups
   } = useZakeke();
   //   console.log(useZakeke(), "useZakeke()");
-  //  console.log(groups, useZakeke(), "groups");
+//   console.log(groups, useZakeke(), "newGroup");
 
-  const { addBodyMeasurements, bodyMeasurements} = useStore();
-
+  const newGroup = useActualGroups();
+  
   const { showDialog, closeDialog } = useDialogManager();
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [selectedColorName, selectColorName] = useState<any | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  //console.log(groups,'groups');
+  //console.log(newGroup,'newGroup');
 
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(null);
@@ -143,13 +144,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const viewFooter = useRef<HTMLDivElement | null>(null);
 
-  var indexToRemove = groups.findIndex((obj) => obj.id === -1);
+  var indexToRemove = newGroup.findIndex((obj) => obj.id === -1);
 
   if (indexToRemove !== -1) {
-    groups.splice(indexToRemove, 1);
+    newGroup.splice(indexToRemove, 1);
   }
 
-  var selectedGroup = groups.find((group) => group.id === selectedGroupId);
+  var selectedGroup = newGroup.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
@@ -166,7 +167,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   };
 
 
-  // Attributes can be in both groups and steps, so show the attributes of step or in a group based on selection
+  // Attributes can be in both newGroup and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
     () => (selectedStep || selectedGroup)?.attributes ?? [],
     [selectedGroup, selectedStep]
@@ -183,7 +184,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [groups]);
+  }, []);
 
   //  console.log(previewImage,'previewImage');
   const selectedAttribute = attributes.find(
@@ -193,16 +194,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // Open the first group and the first step when loaded
   useEffect(() => {
 
-   // addBodyMeasurements({'neck':'34'})
-    // addBodyMeasurements({'height':'334'})
+    if (!selectedGroup && newGroup.length > 0) {
+      selectGroup(newGroup[0].id);
 
-    if (!selectedGroup && groups.length > 0) {
-      selectGroup(groups[0].id);
-
-      if (groups[0].steps.length > 0) selectStep(groups[0].steps[0].id);
+      if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroup, groups]);
+  }, [selectedGroup]);
 
   // Select attribute first time
   useEffect(() => {
@@ -251,17 +249,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    if (!selectedGroup && groups.length > 0) {
-      selectGroup(groups[0].id);
+    if (!selectedGroup && newGroup.length > 0) {
+      selectGroup(newGroup[0].id);
     }
 
-    if (groups.length > 0) {
+    if (newGroup.length > 0) {
       var groupRec: {
         id: number;
         name: string;
         imageUrl: string | null | undefined;
       }[] = [];
-      groups.map((group) => {
+      newGroup.map((group) => {
         groupRec.push({
           id: group.id,
           name: group.name,
@@ -272,7 +270,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groups]);
+  }, []);
 
   const handleLeftClick = () => {
     selectColorName("");
@@ -331,10 +329,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
     setSelectedStepList((prevList) => [...prevList, optionId]);
   };
 
-  if (isSceneLoading || !groups || groups.length === 0 || isLoading)
+  if (isSceneLoading || !newGroup || newGroup.length === 0 || isLoading)
     return <Loader visible={true} />;
 
-  // groups
+  // newGroup
   // -- attributes
   // -- -- options
   // -- steps
@@ -407,7 +405,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
       <div className="menu">
         <div className="menu_group">
-          {groups.map((group) => {
+          {newGroup.map((group) => {
             const handleGroupClick = (group: any) => {
               selectGroup(group.id);
               selectOptionName("");
@@ -647,20 +645,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         )}
 */}
-        {/* {selectedGroup?.id === -2 && (
+        {selectedGroup?.id === -4 && (
           <div>
             <div
               className="textEditor"
               style={{ overflowX: "hidden", height: "100%" }}
             >
-              <Designer />
+              <Measurements />
             </div>
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
             >
             </div>
           </div>
-        )} */}
+        )}
 
         <br />
         <br />
@@ -671,7 +669,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         {/* ----------------------------------------- */}
 
         {/* <Menu
-           //  groups={groups}
+           //  newGroup={newGroup}
              //price={price}
            //  selectedGroupId={selectedGroupId || null}
           // selectedStepId={viewerState?.stepId || null}
@@ -679,7 +677,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           // setViewerState={setViewerState}
           // viewerState={viewerState}
           //   isCartLoading={isCartLoading}
-          // groupSelected={onSelectGroup}
+          // newGroupelected={onSelectGroup}
           // stepSelect={onSelectStep}
           // attributeSelected={onSelectAttribute}
           // optionSelected={onSelectOptions}
