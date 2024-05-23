@@ -83,7 +83,7 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
   width: 100%;
   padding: 30px 30px 70px 30px;
   background-color: rgb(235, 237, 242);
-  height: 23em;
+  height: 47em;
   overflow-y: auto;
   font-family: Inter, sans-serif;
   border-radius: 23px;

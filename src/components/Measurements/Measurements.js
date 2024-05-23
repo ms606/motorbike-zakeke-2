@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import "./measurements.css";
 import { useZakeke } from "zakeke-configurator-react";
 import MeasurementsInfo from "../MeasurementsInfo/MeasurementsInfo";
+import PairedMeasurementInput  from "../MeasurementsInfo/PairedMeasurements";
 import useStore from "../../Store";
 
 const Measurements = () => {
@@ -53,7 +54,6 @@ const Measurements = () => {
 
   return (
     <div className="measurements">
-    
 
       <MeasurementsInfo 
         name='height'
@@ -64,6 +64,16 @@ const Measurements = () => {
         onKeyDown={handleInputKeyDown}
         handleInputChange={handleInputChange}
       /> 
+
+      <MeasurementsInfo 
+        name='neck'
+        value={measurements.neck}
+        measurement_main= 'NECK CIRCUMFERENCE'
+        measurement_sub_head='Measure the neck circumference at the base of the neck.'
+        measurement_sub_head_2='Make sure the measuring tape is not too tight nor too loose.'
+        onKeyDown={handleInputKeyDown}
+        handleInputChange={handleInputChange}
+      />   
 
       <MeasurementsInfo 
         name='chest'
@@ -94,16 +104,40 @@ const Measurements = () => {
         handleInputChange={handleInputChange}
       />   
 
-      <MeasurementsInfo 
-        name='thigh'
-        value={measurements.hip}
-        measurement_main='HIP CIRCUMFERENCE'
-        measurement_sub_head='Measure the circumference at the widest point of the pelvis itself,'
-        measurement_sub_head_2='at the most protruding part of the buttocks, or at the most protruded part of the hips if the hips are more pronounced than the buttocks. should be standing, breathing normally, and keeping his arms at his sides.'
+      <PairedMeasurementInput 
+        nameLeft='thighLeft'
+        valueLeft={measurements.thighLeft}
+        nameRight='thighRight'
+        valueRight={measurements.thighRight}
+        measurement_main='THIGH CIRCUMFERENCE'
+        measurement_sub_head='Measure the circumference of the thigh at the widest point.'
         onKeyDown={handleInputKeyDown}
         handleInputChange={handleInputChange}
       /> 
       
+      <PairedMeasurementInput 
+        nameLeft='kneeLeft'
+        valueLeft={measurements.kneeLeft}
+        nameRight='kneeRight'
+        valueRight={measurements.kneeRight}
+        measurement_main='KNEE CIRCUMFERENCE'
+        measurement_sub_head='Measure the circumference of each knee at the widest point'
+        measurement_sub_head_2='whilst remaining in a standing position.'
+        onKeyDown={handleInputKeyDown}
+        handleInputChange={handleInputChange}
+      /> 
+
+      <PairedMeasurementInput 
+        nameLeft='ankleLeft'
+        valueLeft={measurements.ankleLeft}
+        nameRight='ankleRight'
+        valueRight={measurements.ankleRight}
+        measurement_main='ANKLE CIRCUMFERENCE'
+        measurement_sub_head=''
+        measurement_sub_head_2=''
+        onKeyDown={handleInputKeyDown}
+        handleInputChange={handleInputChange}
+      />       
 
     </div>
   );

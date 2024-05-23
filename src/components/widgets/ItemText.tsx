@@ -58,7 +58,7 @@ const ItemTextContainer = styled.div`
 
 const TextToolsContainer = styled.div`
   display:flex;
-  flex-direction:row;
+  flex-direction:column;
   grid-gap:10px;  
   flex-wrap:wrap;
 `;

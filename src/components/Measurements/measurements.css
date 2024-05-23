@@ -1,9 +1,10 @@
 .measurements {
- width: 69%;
- height: 85%;
+ width: 72%;
+ height: 60vh;
  position: absolute;
  left: 13em;
- top: 5em;
+ top: 4em;
+ overflow: auto;
 }   
 
 .measurement_attribute {
@@ -17,7 +18,7 @@
  width: 130px;
  height: 48px;
  border-radius: 8%;
- font-size: 36px;
+ font-size: 33px;
 }
 
 .measurement_title {
@@ -42,4 +43,12 @@ font-style: italic;
  font-size: 12px;
  color: #060505;
  font-style: italic;
+}
+
+.measurement_inputs_paired {
+ width: 62px;
+ height: 48px;
+ margin-right: 5px;
+ border-radius: 8%;
+ font-size: 25px;
 }

@@ -40,6 +40,8 @@ const DialogOverlay = styled.div`
 	align-items: center;
 	padding: 40px;
 	overflow: auto;
+	font-family: 'PF DinDisplay Pro', sans-serif;
+	font-size: 20px;
 	z-index: 12;
 	@media (max-width: 1024px) {
 		padding: 20px;
@@ -134,7 +136,7 @@ const DialogFooter = styled.div<{
 `;
 
 const DialogTitle = styled.h1`
-	font-size: 15px;
+	font-size: 20px;
 	text-align: left;
 	margin: 0;
 	position: absolute;

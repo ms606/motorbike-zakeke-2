@@ -30,16 +30,17 @@ export const Icon = styled.div<{ hoverable?: boolean }>`
 `;
 
 export const TextArea = styled.textarea`
-	background-color: transparent;
+	border-radius: 4px;
+	// background-color: transparent;
 	padding-top: 13px;
-	height: 39px;
+	height: 45px;
 	font-family: "Avenir Next",sans-serif;
 	// padding-left: 10px;
 	// padding: 10px 20px;
 	color: #414042;
-	font-size: 16px;
+	font-size: 20px;
 	border: none;
-	border-bottom: 1px var(--template-primary--400) solid;
+	border-bottom: 1px ##1a1717 solid;
 	width: 100%;
 	// min-height: 35px;
 	margin-top: 14px;

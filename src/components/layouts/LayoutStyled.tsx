@@ -147,7 +147,7 @@ export const SupportedFormatsList = styled.span`
 `;
 
 export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
-	height: 50vh;
+	height: 66vh;
 	width: 97%;
 	position: relative;
 	display: flex;

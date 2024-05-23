@@ -247,7 +247,7 @@ div {
 
   .left-keys {
     top: 40%;
-    z-index: 55 !important;
+    z-index: 5 !important;
     /* position: static !important; */
   }
 
@@ -273,6 +273,7 @@ div {
 @media screen and (max-width: 600px) {
   .left-keys {
     display: none !important;
+    z-index: 5 !important;
     /* position: static !important; */
   }
 

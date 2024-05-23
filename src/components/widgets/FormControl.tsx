@@ -11,7 +11,7 @@ const FormControlLabel = styled.div`
 
 const FormControlContainer = styled.div<{ rightComponent?: any, placeholder?: any }>`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   grid-gap: 5px;
   margin-top: 10px;

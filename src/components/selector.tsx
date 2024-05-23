@@ -111,7 +111,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //console.log(newGroup,'newGroup');
 
   // Keep saved the ID and not the refereces, they will change on each update
-  const [selectedGroupId, selectGroup] = useState<number | null>(null);
+  const [selectedGroupId, selectGroup] = useState<number | null>(4);
   const [selectedStepId, selectStep] = useState<number | null>(null);
   const [selectedStepName, selectStepName] = useState<string | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
@@ -329,6 +329,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
     setSelectedStepList((prevList) => [...prevList, optionId]);
   };
 
+  console.log(selectedGroupId,'selectedGroupId');
+  
   if (isSceneLoading || !newGroup || newGroup.length === 0 || isLoading)
     return <Loader visible={true} />;
 
@@ -396,6 +398,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           left: "3%",
           flexDirection: "column",
           top: "40%",
+          zIndex: "5"
         }}
       >
         <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
@@ -410,7 +413,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
               selectGroup(group.id);
               selectOptionName("");
               setCurrentIndex(0);
-              selectStep(group.steps[0].id);
+              if (group.steps){
+                selectStep(group?.steps[0]?.id);
+              }
             };
 
             return (
@@ -431,6 +436,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         </div>
         <br />
 
+        { (selectedGroupId && selectedGroupId > 0) ?
         <div className="menu_choice_steps">
           <div className="active-marketing-component-name">
             <div
@@ -541,7 +547,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
 
           {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
-        </div>
+        </div> : ''}
 
         {/*
 
@@ -659,6 +665,22 @@ const Selector: FunctionComponent<SelectorProps> = ({
             </div>
           </div>
         )}
+
+        {selectedGroup?.id === -5 && (
+          <div>
+            <div
+              className="textEditor"
+              style={{ overflowX: "hidden", width: "30vw", height: "70vh" }}
+            >
+              <Designer />
+            </div>
+            <div
+              style={{ position: "relative", bottom: "370px", left: "20px" }}
+            >
+            </div>
+          </div>
+        )}
+
 
         <br />
         <br />

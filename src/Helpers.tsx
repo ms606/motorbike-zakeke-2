@@ -99,6 +99,23 @@ export const useDefinitiveGroups = (
   };
 
 
+  const logoConfigurationsGroup: Group = {
+    id: -5,
+    name: "LOGO",
+    imageUrl: "../src/assets/icons/saved_designs.svg",
+    attributes: [],
+    steps: [],
+    guid: "",
+    enabled: true,
+    displayOrder: 0,
+    cameraLocationId: null,
+    direction: 0,
+    attributesAlwaysOpened: false,
+    templateGroups: [],
+  };
+
+
+
   let groupsFiltered = groups.map((group) => {
     return {
       ...group,
@@ -153,6 +170,7 @@ export const useDefinitiveGroups = (
   }
 
   // definitiveGroups.push(measurementConfigurationsGroup);
+  // definitiveGroups.push(logoConfigurationsGroup);
 
   // if (hasCustomizeEnabled) {
   // 	definitiveGroups.push(customizeGroup);
