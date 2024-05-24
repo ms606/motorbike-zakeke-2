@@ -12,8 +12,6 @@ import "./selector.css";
 import "./Menu/menu.css";
 import { Dialog, useDialogManager } from "../components/dialogs/Dialogs";
 import ErrorDialog from "../components/dialogs/ErrorDialog";
-import ArDeviceSelectionDialog from "../components/dialogs/ArDeviceSelectionDialog";
-import Cameras from "./Cameras/Cameras";
 import Preview from "./Preview/Preview";
 import SvgArrowDown from "../icons/Arrowdown";
 import Loader from "../components/Loader/Loader";
@@ -111,7 +109,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //console.log(newGroup,'newGroup');
 
   // Keep saved the ID and not the refereces, they will change on each update
-  const [selectedGroupId, selectGroup] = useState<number | null>(4);
+  const [selectedGroupId, selectGroup] = useState<number | null>(12014);
   const [selectedStepId, selectStep] = useState<number | null>(null);
   const [selectedStepName, selectStepName] = useState<string | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
@@ -149,15 +147,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
   if (indexToRemove !== -1) {
     newGroup.splice(indexToRemove, 1);
   }
-
+  
   var selectedGroup = newGroup.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
     : null;
 
   //Inner Menu open
-  const [menuTrayOpen, setMenuTrayOpen] = useState<any | null>(false);
+  const [menuTrayOpen, setMenuTrayOpen] = useState<boolean | null>(false);
 
+
+  console.log(menuTrayOpen,'menuTrayOpe');
+  
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
     false
   );
@@ -165,7 +166,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const togglePersonalize = () => {
     setSelectedPersonalize(!selectedPersonalize);
   };
-
 
   // Attributes can be in both newGroup and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
@@ -193,12 +193,14 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
+console.log(newGroup,'newGroup');
 
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
 
       if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroup]);
 
@@ -213,6 +215,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
             null
         : null
     );
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, attributes]);
 
@@ -295,11 +298,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   };
 
   const handleRightClick = () => {
-    console.log(selectedGroup?.steps, "selectedGroup?.steps");
-    // if(selectedGroup?.steps?[currentIndex+1]){
-    // setCamera(selectedGroup?.steps[currentIndex].cameraLocationID)
-    // };
-
+ 
     selectColorName("");
     if (selectedGroup) {
       setCurrentIndex(
@@ -329,8 +328,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     setSelectedStepList((prevList) => [...prevList, optionId]);
   };
 
-  console.log(selectedGroupId,'selectedGroupId');
-  
+
   if (isSceneLoading || !newGroup || newGroup.length === 0 || isLoading)
     return <Loader visible={true} />;
 
@@ -376,6 +374,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
       {/* )} */}
       {/* </div> */}
 
+      
+
+
       {menuTrayOpen && (
         <Tray
           groupNameList={selectedGroupList}
@@ -389,22 +390,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
           // selectStepName={selectStepName}
         />
       )}
-
-      <div
-        className="left-keys"
-        style={{
-          display: "flex",
-          position: "absolute",
-          left: "3%",
-          flexDirection: "column",
-          top: "40%",
-          zIndex: "5"
-        }}
-      >
-        <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
-
-        <Scroll upRef={refViewer.current} downRef={viewFooter.current} />
-      </div>
 
       <div className="menu">
         <div className="menu_group">
@@ -546,9 +531,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
             </div>
           </div>
 
-          {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
+         
         </div> : ''}
-
+        
         {/*
 
         {selectedGroup && selectedGroup.steps.length > 0 && (
@@ -651,6 +636,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         )}
 */}
+        
         {selectedGroup?.id === -4 && (
           <div>
             <div
@@ -681,7 +667,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
           </div>
         )}
 
-
         <br />
         <br />
         <br />
@@ -710,6 +695,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
           // params={customizationParams}
           // share={onShare}
             /> */}
+
+            {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
       </div>
     </Container>
   );

@@ -11,6 +11,9 @@ import Selector from "../../components/selector";
 import ExplodeSolid from "../../assets/icons/expand-arrows-alt-solid.js";
 
 import { Icon } from '../../components/Atomic';
+import Zoom from "../../components/Zoom/Zoom";
+// import Zoom from "../../Zoom/Zoom";
+
 
 const zakekeEnvironment = new ZakekeEnvironment();
 
@@ -29,7 +32,9 @@ const ExplodeIcon = styled(Icon)`
 
 const Viewer: FunctionComponent<{}> = () => {
   const {
-    isSceneLoading
+    isSceneLoading,
+    zoomIn,
+    zoomOut,
   } = useZakeke();
 
   const viewElement = useRef<HTMLDivElement | null>(null);
@@ -43,6 +48,20 @@ const Viewer: FunctionComponent<{}> = () => {
       <div className="layout">
       <>
       <div className="ff_root">
+        <div
+          className="left-keys"
+          style={{
+            display: "flex",
+            position: "absolute",
+            left: "3%",
+            flexDirection: "column",
+            top: "40%",
+            zIndex: "5"
+          }}
+        >
+          
+          <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
+        </div>
         <div className="ff_viewer">
           {/* <div className="ff_viewer_left_actions"> */}
             {/* <Cameras cameras={groups} onSelect={onSelectCamera}/> */}

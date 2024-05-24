@@ -82,8 +82,9 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
   user-select: none;
   width: 100%;
   padding: 30px 30px 70px 30px;
-  background-color: rgb(235, 237, 242);
-  height: 47em;
+  background-color: #ffff;
+  //  rgb(235, 237, 242);
+  height: 70vh;
   overflow-y: auto;
   font-family: Inter, sans-serif;
   border-radius: 23px;
@@ -568,8 +569,7 @@ const Designer: FC<{
     setActualAreaId(finalVisibleAreas[newIndex].id)
   };
 
-  console.log(finalVisibleAreas, product, isMobile, "sdfdsdfffd");
-
+ 
   return (
     <>
       {!moveElements && (
@@ -662,13 +662,13 @@ const Designer: FC<{
                 overflow: "hidden",
                 lineHeight: "28px",
                 fontWeight: "700",
-                fontSize: "15px",
+                fontSize: "17px",
                 fontStyle: "italic",
                 paddingRight: "10px",
                 paddingLeft: "10px",
               }}
             >
-              {finalVisibleAreas[currentIndex].name}
+              {finalVisibleAreas[currentIndex].name.toUpperCase()}
             </span>
             <span className="active-marketing-component-index">
               {" "}
@@ -774,19 +774,19 @@ const Designer: FC<{
             <UploadButtons>
               {showAddTextButton && (
                 <Button isFullWidth onClick={handleAddTextClick}>
-                  <Icon>
+                  {/* <Icon>
                     <Add />
-                  </Icon>
-                  <span>{T._("Adaugă Text", "Composer")}</span>
+                  </Icon> */}
+                  <span>{T._("Add Text", "Composer")}</span>
                 </Button>
               )}
 
               {showGalleryButton && (
                 <Button isFullWidth onClick={handleAddImageFromGalleryClick}>
-                  <Icon>
+                  {/* <Icon>
                     <Add />
-                  </Icon>
-                  <span>{T._("Adaugă Logo", "Composer")}</span>
+                  </Icon> */}
+                  <span>{T._("Add Logo", "Composer")}</span>
                 </Button>
               )}
 
@@ -804,9 +804,9 @@ const Designer: FC<{
                       handleUploadImageClick(addItemImage, createImage)
                     }
                   >
-                    <Icon>
+                    {/* <Icon>
                       <Add />
-                    </Icon>
+                    </Icon> */}
                     <span>
                       <span>
                         {itemsFiltered.some(

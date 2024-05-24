@@ -1,9 +1,9 @@
 .measurements {
  width: 72%;
- height: 60vh;
+ height: 82vh;
  position: absolute;
  left: 13em;
- top: 4em;
+ top: 0.5em;
  overflow: auto;
 }   
 

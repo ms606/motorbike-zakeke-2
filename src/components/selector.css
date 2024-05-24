@@ -123,15 +123,15 @@ div {
 .menu_footer {
   display: flex;
   flex-flow: row;
-  top: 33.5em;
-  left: 7em;
+  /* top: 12.5em; */
+  /* left: 7em; */
   /* border: 2px solid #d3d3d3; */
   align-items: center;
   position: relative;
   /* bottom: 3em; */
-  padding: 27px 0 0 20px;
+  padding: 20px 0 0 10px;
   /* position: fixed; */
-  bottom: 5px;
+  /* bottom: 5px; */
   z-index: 44;
 }
 
@@ -203,7 +203,7 @@ div {
 
 @media (min-width: 61.25em) {
   .menu_btn_cart {
-    width: 216px;
+    width: 176px;
   }
 }
 

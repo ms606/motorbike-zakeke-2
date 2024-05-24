@@ -14,7 +14,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
   console.log(bodyMeasurements,'bodyMeasurements');
   
   return (
-    <div>
+    <div style={{position: 'absolute', bottom: '0px', right: '0px'}}>
       <div
         className="menu_footer"
         ref={viewFooter}

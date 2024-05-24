@@ -91,7 +91,7 @@ export const useDefinitiveGroups = (
     steps: [],
     guid: "",
     enabled: true,
-    displayOrder: 0,
+    displayOrder: 10,
     cameraLocationId: null,
     direction: 0,
     attributesAlwaysOpened: false,
@@ -107,7 +107,7 @@ export const useDefinitiveGroups = (
     steps: [],
     guid: "",
     enabled: true,
-    displayOrder: 0,
+    displayOrder: 10,
     cameraLocationId: null,
     direction: 0,
     attributesAlwaysOpened: false,
@@ -169,8 +169,11 @@ export const useDefinitiveGroups = (
     }
   }
 
-  // definitiveGroups.push(measurementConfigurationsGroup);
-  // definitiveGroups.push(logoConfigurationsGroup);
+  if (definitiveGroups.length > 1 ) {
+    // definitiveGroups.push(measurementConfigurationsGroup);
+    // definitiveGroups.push(logoConfigurationsGroup);
+  }
+  
 
   // if (hasCustomizeEnabled) {
   // 	definitiveGroups.push(customizeGroup);

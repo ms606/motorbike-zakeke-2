@@ -31,23 +31,20 @@ export const Icon = styled.div<{ hoverable?: boolean }>`
 
 export const TextArea = styled.textarea`
 	border-radius: 4px;
-	// background-color: transparent;
 	padding-top: 13px;
 	height: 45px;
-	font-family: "Avenir Next",sans-serif;
-	// padding-left: 10px;
-	// padding: 10px 20px;
 	color: #414042;
 	font-size: 20px;
-	border: none;
-	border-bottom: 1px ##1a1717 solid;
+	border: 1px #1a1717 solid;
 	width: 100%;
 	// min-height: 35px;
 	margin-top: 14px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'PF DinDisplay Pro';
+	font-style: italic;
+	text-transform: uppercase;
 	outline: none;
 	resize: none;
-
+	
 	&:hover {
 		// border: 1px black solid;
 		border: none;
@@ -98,15 +95,18 @@ export const Button = styled.button<{
 	justify-content: center;
 	align-items: center;
 	min-width: ${(props) => (props.isFullWidth ? '100%' : 'unset')};
-	background-color: ${(props) => (props.primary ? '#313c46' : 'white')};
-	color: ${(props) => (props.outline ? 'black' : props.primary ? 'white' : '#313c46')};
+	background-color: ${(props) => (props.primary ? 'rgb(75, 71, 71)' : 'rgb(75, 71, 71)')};
+	color: ${(props) => (props.outline ? 'white' : props.primary ? 'white' : '#ffff')};
 	min-height: 38px;
 	padding: ${(props) => (props.outline ? '' : '5px 10px 5px 10px')};
 	text-align: center;
 	text-transform: ${(props) => (props.uppercase ? 'uppercase' : 'none')};
 	border: ${(props) => (props.outline ? '1px solid lightgray' : '1px solid #313c46')};
 	cursor: ${(props) => (!props.disabled ? 'pointer' : 'auto')};
-
+	border-radius: 6px;
+	font-weight: 800;
+	font-style: italic;
+	text-transform: uppercase;
 	${(props) =>
 		props.selected &&
 		`

@@ -55,6 +55,8 @@
   background-color: var(--template-primary--000);
 }
 
+
+
 .menu_choice_step_step {
   width: 100%;
   display: flex;
@@ -124,6 +126,7 @@
   margin-left: 10px;
   border:  1px solid #c6baba;
   border-radius: 15px;
+  z-index: 3;
 }
 
 .menu_tray_name {

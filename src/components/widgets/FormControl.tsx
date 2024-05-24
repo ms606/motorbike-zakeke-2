@@ -13,9 +13,9 @@ const FormControlContainer = styled.div<{ rightComponent?: any, placeholder?: an
   display: flex;
   flex-direction: column;
   justify-content: center;
-  grid-gap: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  grid-gap: 0px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 `;
 
 export const FormControl: FC<{
