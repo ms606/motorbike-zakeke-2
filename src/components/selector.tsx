@@ -156,8 +156,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //Inner Menu open
   const [menuTrayOpen, setMenuTrayOpen] = useState<boolean | null>(false);
 
-
-  console.log(menuTrayOpen,'menuTrayOpe');
   
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
     false

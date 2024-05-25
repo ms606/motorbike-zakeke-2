@@ -2,6 +2,7 @@ import React from "react";
 import ShareIcon from "../../icons/ShareIcon";
 import { useZakeke } from "zakeke-configurator-react";
 import useStore from "../../Store";
+import DownloadPDF from "../Preview/DownloadPDF";
 
 interface MenuFooterProps {
   viewFooter: any;
@@ -51,6 +52,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               </button>
             } */}
         </div>
+        <DownloadPDF />
       </div>
     </div>
   );

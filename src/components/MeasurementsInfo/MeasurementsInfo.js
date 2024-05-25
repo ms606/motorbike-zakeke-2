@@ -1,6 +1,7 @@
 import React from 'react'
 
 const MeasurementsInfo = ({name, value, measurement_main, measurement_sub_head, measurement_sub_head_2, onKeyDown, handleInputChange}) => {
+
     return (
         <div className="measurement_attribute">
           <label>
