@@ -30,12 +30,16 @@ const DownloadPDF = () => {
           `Ankle (Right): ${bodyMeasurement.ankleRight} cms`
       ];
   
-      let yOffset = 10; // starting y position
+      let yOffset = 30; // starting y position
+      doc.setFontSize(20);
+      doc.text('Body Measurements', 80, 10);
+      doc.setFontSize(10);
+      doc.line(15, 150, 150, 150);
       measurements.forEach((measurement, index) => {
-          if (measurement.split(': ')[1].trim() !== 'cms') { // check if the value is not empty
+           if (measurement.split(': ')[1].trim() !== 'cms') { // check if the value is not empty
               doc.text(`${index + 1}. ${measurement}`, 10, yOffset);
               yOffset += 10; // move down for next line
-          }
+           }
         })
 
     // Convert JSON object to a formatted string
@@ -51,8 +55,8 @@ const DownloadPDF = () => {
 
   return (
     <div onClick={downloadPDF}>
-        <img width="30" height="30" src="https://img.icons8.com/ios-filled/50/length.png" alt="length"/>
-        <img width="30" height="30" src="https://img.icons8.com/ios/50/pdf--v1.png" alt="pdf--v1"/>
+        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/length.png" alt="length"/>
+        <img width="20" height="20" src="https://img.icons8.com/ios/50/pdf--v1.png" alt="pdf--v1"/>
       {/* <button onClick={downloadPDF}>Download JSON as PDF</button> */}
     </div>
   );

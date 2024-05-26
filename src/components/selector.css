@@ -57,7 +57,7 @@ div {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 16px;
+  padding: 9px;
   border-radius: 16px;
 }
 
@@ -173,7 +173,7 @@ div {
 
 .menu_btn_cart {
   margin-right: 10px;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 25px;
   font-style: italic;
   color: #ffce13 !important;
