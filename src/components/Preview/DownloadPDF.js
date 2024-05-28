@@ -30,14 +30,24 @@ const DownloadPDF = () => {
           `Ankle (Right): ${bodyMeasurement.ankleRight} cms`
       ];
   
-      let yOffset = 30; // starting y position
+      let yOffset = 43; // starting y position
       doc.setFontSize(20);
-      doc.text('Body Measurements', 80, 10);
+      doc.setFont("bold"); 
+      doc.setFont("italic"); 
+      doc.text('MIZURO', 80, 15)
+      
+      doc.setFont("italic");
+    //   doc.text('Body Measurements', 80, 15);
       doc.setFontSize(10);
-      doc.line(15, 150, 150, 150);
+      doc.line(22, 22, 195, 22);
+      doc.text(`Printed On: ${Date()}`, 70, 27)
+      doc.setFontSize(12).setFont(undefined, 'bold');
+      doc.text('* Custom Body Measurements', 10, 33);
+      doc.setFontSize(10);
+      doc.setFont("normal"); 
       measurements.forEach((measurement, index) => {
            if (measurement.split(': ')[1].trim() !== 'cms') { // check if the value is not empty
-              doc.text(`${index + 1}. ${measurement}`, 10, yOffset);
+              doc.text(`${index + 1}. ${measurement}`, 10, yOffset).setFont(undefined, 'bold');;
               yOffset += 10; // move down for next line
            }
         })

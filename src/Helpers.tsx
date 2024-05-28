@@ -170,7 +170,7 @@ export const useDefinitiveGroups = (
   }
 
   if (definitiveGroups.length > 1 ) {
-    // definitiveGroups.push(measurementConfigurationsGroup);
+    definitiveGroups.push(measurementConfigurationsGroup);
     // definitiveGroups.push(logoConfigurationsGroup);
   }
   
