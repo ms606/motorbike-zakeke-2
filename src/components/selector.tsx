@@ -199,6 +199,8 @@ console.log(newGroup,'newGroup');
       if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
 
+    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroup]);
 
@@ -249,30 +251,69 @@ console.log(newGroup,'newGroup');
   }, [selectedAttribute, !isSceneLoading]);
 
   // Open the first group and the first step when loaded
+  // useEffect(() => {
+  //   console.log(newGroup,'newGroup');
+    
+  //   if (!selectedGroup && newGroup.length > 0) {
+  //     selectGroup(newGroup[0].id);
+  //   }
+
+  //   var groupRec: {
+  //     id: number;
+  //     name: string;
+  //     imageUrl: string | null | undefined;
+  //   }[] = [];
+
+
+  //   if (newGroup.length > 0) {
+     
+  //     newGroup.map((group) => {
+  //       groupRec.push({
+  //         id: group.id,
+  //         name: group.name,
+  //         imageUrl: group.imageUrl,
+  //       });
+  //     });
+
+  //     console.log(groupRec,'groupRec');
+      
+  //     selectGroupList(groupRec);
+  //   }
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
+    console.log(newGroup, 'newGroup');
+  
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
     }
-
-    if (newGroup.length > 0) {
-      var groupRec: {
-        id: number;
-        name: string;
-        imageUrl: string | null | undefined;
-      }[] = [];
-      newGroup.map((group) => {
-        groupRec.push({
-          id: group.id,
-          name: group.name,
-          imageUrl: group.imageUrl,
-        });
-      });
-      selectGroupList(groupRec);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
+    var groupRec = newGroup.map(group => ({
+      id: group.id,
+      name: group.name,
+      imageUrl: group.imageUrl
+    }));
+  
+    console.log(groupRec, 'groupRec');
+    selectGroupList(groupRec);
+    
   }, []);
 
+
+  const loadMenu = () => {
+    var groupRec = newGroup.map(group => ({
+      id: group.id,
+      name: group.name,
+      imageUrl: group.imageUrl
+    }));
+  
+    console.log(groupRec, 'groupRec');
+    selectGroupList(groupRec);
+  }
+
+  
   const handleLeftClick = () => {
     selectColorName("");
     if (selectedGroup) {
@@ -521,7 +562,10 @@ console.log(newGroup,'newGroup');
             <div className="menu_tray_selection">
               <div
                 className="menu_tray_name"
-                onClick={() => setMenuTrayOpen(!menuTrayOpen)}
+                onClick={() => {
+                  loadMenu()
+                  setMenuTrayOpen(!menuTrayOpen)
+                }}
               >
                 MENU
               </div>

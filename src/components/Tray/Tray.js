@@ -32,7 +32,7 @@ const Tray = ({
   const itemAvailable = items?.filter((item) => item.type === 0).length > 0;
   const acopName = groups;
 
-  
+  console.log('aaaa',groupNameList);
   // var selectedStep = selectedGroup
   //   ? selectedGroup.steps.find((step) => step.id === selectedStepId)
   //   : null;

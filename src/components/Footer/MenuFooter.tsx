@@ -23,7 +23,8 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
           bottom: "5px",
           display: "flex",
           justifyContent: "space-between",
-          width: "100%",
+          width: "100%", 
+          cursor: "pointer"
         }}
       >
         <div className="menu_price">
