@@ -96,9 +96,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     items,
     groups
   } = useZakeke();
-  //   console.log(useZakeke(), "useZakeke()");
-//   console.log(groups, useZakeke(), "newGroup");
-
+  
   const newGroup = useActualGroups();
   
   const { showDialog, closeDialog } = useDialogManager();
@@ -296,7 +294,6 @@ console.log(newGroup,'newGroup');
       imageUrl: group.imageUrl
     }));
   
-    console.log(groupRec, 'groupRec');
     selectGroupList(groupRec);
     
   }, []);
