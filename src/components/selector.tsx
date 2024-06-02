@@ -96,7 +96,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     items,
     groups
   } = useZakeke();
-  
+
   const newGroup = useActualGroups();
   
   const { showDialog, closeDialog } = useDialogManager();
@@ -104,7 +104,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [selectedColorName, selectColorName] = useState<any | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  //console.log(newGroup,'newGroup');
 
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(12014);
