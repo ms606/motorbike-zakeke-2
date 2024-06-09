@@ -190,10 +190,14 @@ div {
 }
 
 .active-marketing-component-name {
-  width: 100%;
+  width: 85%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.arrows {
+  font-size: 30px;
 }
 
 .active-marketing-component-index {

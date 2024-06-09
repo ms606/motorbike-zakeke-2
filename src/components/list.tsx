@@ -26,8 +26,8 @@ export const ListItem = styled.div<{ selected?: boolean }>`
 `;
 
     export const ListItemImage = styled.img<{big?: any}>`
-    width: ${props => props.big ? '88px' : '68px' };
-    height: ${props => props.big ? '88px' : '67px' };
+    width: ${props => props.big ? '88px' : '81px' };
+    height: ${props => props.big ? '88px' : '81px' };
       background-size: contain;
       background-position: 50%;
       background-repeat: no-repeat;

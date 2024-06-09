@@ -460,6 +460,7 @@ console.log(newGroup,'newGroup');
         <div className="menu_choice_steps">
           <div className="active-marketing-component-name">
             <div
+              className="arrows"
               onClick={() => {
                 handleLeftClick();
               }}
@@ -489,6 +490,7 @@ console.log(newGroup,'newGroup');
             </span>
 
             <div
+            className="arrows"
               onClick={() => {
                 handleRightClick();
               }}
