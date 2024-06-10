@@ -467,8 +467,8 @@ console.log(newGroup,'newGroup');
             >
               {"<"}
             </div>
-
-            <span
+           <div>
+            <span className="active-marketing-component-name-detail"
               style={{
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
@@ -488,9 +488,9 @@ console.log(newGroup,'newGroup');
               {" "}
               {currentIndex + 1} / {selectedGroup?.steps.length}
             </span>
-
+            </div>
             <div
-            className="arrows"
+              className="arrows"
               onClick={() => {
                 handleRightClick();
               }}

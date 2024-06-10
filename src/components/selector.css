@@ -176,7 +176,7 @@ div {
   font-weight: 700;
   font-size: 25px;
   font-style: italic;
-  color: #ffce13 !important;
+  color: rgba(235, 230, 40) !important;
   background-color: var(--template-primary--1000) !important;
 }
 
@@ -196,8 +196,13 @@ div {
   align-items: center;
 }
 
+.active-marketing-component-name-detail {
+  font-size: 18px !important;
+}
+
 .arrows {
   font-size: 30px;
+  cursor: pointer;
 }
 
 .active-marketing-component-index {
@@ -208,6 +213,12 @@ div {
 @media (min-width: 61.25em) {
   .menu_btn_cart {
     width: 176px;
+  }
+}
+
+@media screen and (max-width: 1538px) {
+  .active-marketing-component-name-detail {
+    font-size: 15px !important;
   }
 }
 
