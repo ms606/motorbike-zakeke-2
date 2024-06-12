@@ -114,6 +114,20 @@ export const useDefinitiveGroups = (
     templateGroups: [],
   };
 
+  const extraConfigurationsGroup: Group = {
+    id: -6,
+    name: "EXTRA",
+    imageUrl: "../src/assets/icons/saved_designs.svg",
+    attributes: [],
+    steps: [],
+    guid: "",
+    enabled: true,
+    displayOrder: 10,
+    cameraLocationId: null,
+    direction: 0,
+    attributesAlwaysOpened: false,
+    templateGroups: [],
+  };
 
 
   let groupsFiltered = groups.map((group) => {
@@ -171,7 +185,8 @@ export const useDefinitiveGroups = (
 
   if (definitiveGroups.length > 1 ) {
     definitiveGroups.push(measurementConfigurationsGroup);
-    // definitiveGroups.push(logoConfigurationsGroup);
+    definitiveGroups.push(logoConfigurationsGroup);
+    // definitiveGroups.push(extraConfigurationsGroup);
   }
   
 

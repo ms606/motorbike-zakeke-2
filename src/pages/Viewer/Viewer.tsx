@@ -35,6 +35,7 @@ const Viewer: FunctionComponent<{}> = () => {
     isSceneLoading,
     zoomIn,
     zoomOut,
+    setCamera
   } = useZakeke();
 
   const viewElement = useRef<HTMLDivElement | null>(null);
@@ -59,6 +60,7 @@ const Viewer: FunctionComponent<{}> = () => {
             zIndex: "5"
           }}
         >
+          <div className='reset' onClick={() => setCamera('ccd7c458-76ca-41ae-a2e3-c90f9fd063f4')}>[Reset View]</div>
           
           <Zoom zoomIn={zoomIn} zoomOut={zoomOut} />
         </div>

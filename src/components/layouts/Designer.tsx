@@ -770,22 +770,18 @@ const Designer: FC<{
             return null;
           })}
 
-          {(showAddTextButton || showUploadButton || showGalleryButton) && (
+          {/* {(showAddTextButton || showUploadButton || showGalleryButton) && (
             <UploadButtons>
               {showAddTextButton && (
                 <Button isFullWidth onClick={handleAddTextClick}>
-                  {/* <Icon>
-                    <Add />
-                  </Icon> */}
+                
                   <span>{T._("Add Text", "Composer")}</span>
                 </Button>
               )}
 
               {showGalleryButton && (
                 <Button isFullWidth onClick={handleAddImageFromGalleryClick}>
-                  {/* <Icon>
-                    <Add />
-                  </Icon> */}
+                
                   <span>{T._("Add Logo", "Composer")}</span>
                 </Button>
               )}
@@ -804,9 +800,7 @@ const Designer: FC<{
                       handleUploadImageClick(addItemImage, createImage)
                     }
                   >
-                    {/* <Icon>
-                      <Add />
-                    </Icon> */}
+                   
                     <span>
                       <span>
                         {itemsFiltered.some(
@@ -859,7 +853,7 @@ const Designer: FC<{
                 </CopyrightMessage>
               )}
             </UploadButtons>
-          )}
+          )} */}
           {itemsFiltered.length > 0 && !allStaticElements && (
             <MoveElementButton
               isFullWidth

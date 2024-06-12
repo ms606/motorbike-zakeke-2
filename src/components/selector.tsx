@@ -281,7 +281,6 @@ console.log(newGroup,'newGroup');
   // }, []);
 
   useEffect(() => {
-    console.log(newGroup, 'newGroup');
   
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
