@@ -36,7 +36,7 @@ import Zoom from "./Zoom/Zoom";
 import Tray from "../components/Tray/Tray";
 import Measurements from "../components/Measurements/Measurements";
 import useStore from "../Store";
-
+import Extra from "./Extra/Extra";
 
 const Container = styled.div`
   height: 839px;
@@ -94,11 +94,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
     productName,
     templates,
     items,
-    groups
+    groups,
   } = useZakeke();
-  
+
   const newGroup = useActualGroups();
-  
+
   const { showDialog, closeDialog } = useDialogManager();
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -144,7 +144,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   if (indexToRemove !== -1) {
     newGroup.splice(indexToRemove, 1);
   }
-  
+
   var selectedGroup = newGroup.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
@@ -153,7 +153,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   //Inner Menu open
   const [menuTrayOpen, setMenuTrayOpen] = useState<boolean | null>(false);
 
-  
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
     false
   );
@@ -188,15 +187,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-console.log(newGroup,'newGroup');
+    console.log(newGroup, "newGroup");
 
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
 
       if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
-
-    
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroup]);
@@ -217,7 +214,6 @@ console.log(newGroup,'newGroup');
   }, [selectedAttribute, attributes]);
 
   useEffect(() => {
-
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
 
@@ -250,7 +246,7 @@ console.log(newGroup,'newGroup');
   // Open the first group and the first step when loaded
   // useEffect(() => {
   //   console.log(newGroup,'newGroup');
-    
+
   //   if (!selectedGroup && newGroup.length > 0) {
   //     selectGroup(newGroup[0].id);
   //   }
@@ -261,9 +257,8 @@ console.log(newGroup,'newGroup');
   //     imageUrl: string | null | undefined;
   //   }[] = [];
 
-
   //   if (newGroup.length > 0) {
-     
+
   //     newGroup.map((group) => {
   //       groupRec.push({
   //         id: group.id,
@@ -273,7 +268,7 @@ console.log(newGroup,'newGroup');
   //     });
 
   //     console.log(groupRec,'groupRec');
-      
+
   //     selectGroupList(groupRec);
   //   }
 
@@ -281,34 +276,30 @@ console.log(newGroup,'newGroup');
   // }, []);
 
   useEffect(() => {
-  
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
     }
-  
-    var groupRec = newGroup.map(group => ({
+
+    var groupRec = newGroup.map((group) => ({
       id: group.id,
       name: group.name,
-      imageUrl: group.imageUrl
+      imageUrl: group.imageUrl,
     }));
-  
+
     selectGroupList(groupRec);
-    
   }, []);
 
-
   const loadMenu = () => {
-    var groupRec = newGroup.map(group => ({
+    var groupRec = newGroup.map((group) => ({
       id: group.id,
       name: group.name,
-      imageUrl: group.imageUrl
+      imageUrl: group.imageUrl,
     }));
-  
-    console.log(groupRec, 'groupRec');
-    selectGroupList(groupRec);
-  }
 
-  
+    console.log(groupRec, "groupRec");
+    selectGroupList(groupRec);
+  };
+
   const handleLeftClick = () => {
     selectColorName("");
     if (selectedGroup) {
@@ -332,7 +323,6 @@ console.log(newGroup,'newGroup');
   };
 
   const handleRightClick = () => {
- 
     selectColorName("");
     if (selectedGroup) {
       setCurrentIndex(
@@ -361,7 +351,6 @@ console.log(newGroup,'newGroup');
   const addOptionToList = (optionId: number | string) => {
     setSelectedStepList((prevList) => [...prevList, optionId]);
   };
-
 
   if (isSceneLoading || !newGroup || newGroup.length === 0 || isLoading)
     return <Loader visible={true} />;
@@ -408,9 +397,6 @@ console.log(newGroup,'newGroup');
       {/* )} */}
       {/* </div> */}
 
-      
-
-
       {menuTrayOpen && (
         <Tray
           groupNameList={selectedGroupList}
@@ -432,7 +418,7 @@ console.log(newGroup,'newGroup');
               selectGroup(group.id);
               selectOptionName("");
               setCurrentIndex(0);
-              if (group.steps){
+              if (group.steps) {
                 selectStep(group?.steps[0]?.id);
               }
             };
@@ -455,227 +441,106 @@ console.log(newGroup,'newGroup');
         </div>
         <br />
 
-        { (selectedGroupId && selectedGroupId > 0) ?
-        <div className="menu_choice_steps">
-          <div className="active-marketing-component-name">
-            <div
-              className="arrows"
-              onClick={() => {
-                handleLeftClick();
-              }}
-            >
-              {"<"}
-            </div>
-           <div>
-            <span className="active-marketing-component-name-detail"
-              style={{
-                whiteSpace: "nowrap",
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                lineHeight: "28px",
-                fontFamily: "PF DinDisplay Pro",
-                fontWeight: "700",
-                fontSize: "18px",
-                fontStyle: "italic",
-                paddingRight: "10px",
-                paddingLeft: "10px",
-              }}
-            >
-              {selectedGroup?.steps[currentIndex]?.name}
-            </span>
-            <span className="active-marketing-component-index">
-              {" "}
-              {currentIndex + 1} / {selectedGroup?.steps.length}
-            </span>
-            </div>
-            <div
-              className="arrows"
-              onClick={() => {
-                handleRightClick();
-              }}
-            >
-              {">"}
-            </div>
-          </div>
-
-          {/* <div
-            style={{ display: "flex", flexDirection: "column", width: "100%" }}
-          >
-            {selectedGroup && selectedGroup.steps.length > 0 && (
-              <List>
-                {selectedGroup.steps.map((step) => {
-                  return (
-                    <ListItem
-                      key={step.id}
-                      onClick={() => selectStep(step.id)}
-                      selected={selectedStep === step}
-                    >
-                      Step: {step.name}
-                    </ListItem>
-                  );
-                })}
-              </List>
-            )}
-          </div> */}
-
-          <div
-            className="new"
-            style={{
-              width: "100%",
-              marginTop: "30px",
-              display: "flex",
-              flexDirection: "row",
-              flexFlow: "wrap",
-            }}
-          >
-            {selectedStep?.attributes.map((attribute, index) => {
-              if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
-
-              return attribute.options.map((option) => {
-                if (!option.imageUrl) return null; // Skip options without image URL
-
-                return (
-                  <ListItem
-                    key={option.id}
-                    onClick={() => {
-                      // Logic for selecting options
-                      selectOption(option.id);
-                      selectOptionName(option.name);
-                      addOptionToList(option.attribute.stepId);
-                    }}
-                    className="menu_choice_option"
-                  >
-                    <div className="menu_choice_option_image_container">
-                      <ListItemImage
-                        src={option.imageUrl}
-                        big={attribute.code === "PROTECTORS" ? "Yes" : ""}
-                      />
-                    </div>
-                  </ListItem>
-                );
-              });
-            })}
-
-            <div className="menu_tray_selection">
+        {selectedGroupId && selectedGroupId > 0 ? (
+          <div className="menu_choice_steps">
+            <div className="active-marketing-component-name">
               <div
-                className="menu_tray_name"
+                className="arrows"
                 onClick={() => {
-                  loadMenu()
-                  setMenuTrayOpen(!menuTrayOpen)
+                  handleLeftClick();
                 }}
               >
-                MENU
+                {"<"}
               </div>
-              <HamburgerIcon />
-            </div>
-          </div>
-
-         
-        </div> : ''}
-        
-        {/*
-
-        {selectedGroup && selectedGroup.steps.length > 0 && (
-          <div className="menu_choice_steps">
-            {selectedGroup.steps.map((step) => {
-              return (
-                <div
-                  className="menu_choice_step_step"
-                  key={step.id}
-                  onClick={() => {
-                    selectStepName(step.name);
-                    selectStep(step.id);
-                    setCamera(step?.cameraLocationID || "");
-                    if (selectedStepId != step.id) {
-                      selectOptionName("");
-                    }
+              <div>
+                <span
+                  className="active-marketing-component-name-detail"
+                  style={{
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                    lineHeight: "28px",
+                    fontFamily: "PF DinDisplay Pro",
+                    fontWeight: "700",
+                    fontSize: "18px",
+                    fontStyle: "italic",
+                    paddingRight: "10px",
+                    paddingLeft: "10px",
                   }}
                 >
+                  {selectedGroup?.steps[currentIndex]?.name}
+                </span>
+                <span className="active-marketing-component-index">
+                  {" "}
+                  {currentIndex + 1} / {selectedGroup?.steps.length}
+                </span>
+              </div>
+              <div
+                className="arrows"
+                onClick={() => {
+                  handleRightClick();
+                }}
+              >
+                {">"}
+              </div>
+            </div>
 
+            <div
+              className="new"
+              style={{
+                width: "100%",
+                marginTop: "30px",
+                display: "flex",
+                flexDirection: "row",
+                flexFlow: "wrap",
+              }}
+            >
+              {selectedStep?.attributes.map((attribute, index) => {
+                if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
 
-                 <div
-                    className="menu_choice_step_title"
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      borderBottom: "1px solid var(--template-primary--400)",
-                    }}
-                  >
-                    <div
-                      className="menu_choice_step_description"
-                      style={{
-                        paddingBottom: "1em",
-                        justifyContent: "center",
+                return attribute.options.map((option) => {
+                  if (!option.imageUrl) return null; // Skip options without image URL
+
+                  return (
+                    <ListItem
+                      key={option.id}
+                      onClick={() => {
+                        // Logic for selecting options
+                        selectOption(option.id);
+                        selectOptionName(option.name);
+                        addOptionToList(option.attribute.stepId);
                       }}
+                      className="menu_choice_option"
                     >
-                      {step.name}
-                    </div>
-                  </div>
+                      <div className="menu_choice_option_image_container">
+                        <ListItemImage
+                          src={option.imageUrl}
+                          big={attribute.code === "PROTECTORS" ? "Yes" : ""}
+                        />
+                      </div>
+                    </ListItem>
+                  );
+                });
+              })}
 
-                  {step.attributes.map((attribute) => {
-                    if (attribute.enabled === false) return <></>;
-                    return (
-                      <>
-                        <div
-                          style={{
-                            marginTop: "10px",
-                            display: "flex",
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                          }}
-                        >
-                          {attribute.options.map((option) => {
-                            return (
-                              <>
-                                {
-                                  <div
-                                    style={{
-                                      marginLeft: "5px",
-                                      width: "23%",
-                                    }}
-                                  >
-                                    <div>
-                                      {option.imageUrl && (
-                                        <ListItem
-                                          key={option.id}
-                                          onClick={() => {
-                                            attribute.options.map((x) => {
-                                              if (x.selected === true)
-                                                selectLiningTypeName(x.name);
-                                            });
-
-                                            selectOption(option.id);
-                                            selectOptionName(option.name);
-                                          }}
-                                          selected={option.selected}
-                                          className="menu_choice_option"
-                                        >
-                                          <div className="menu_choice_option_image_container">
-                                            {option.imageUrl && (
-                                              <ListItemImage
-                                                src={option.imageUrl}
-                                              />
-                                            )}
-                                          </div>
-                                        </ListItem>
-                                      )}
-                                    </div>
-                                  </div>
-                                }
-                              </>
-                            );
-                          })}
-                        </div>
-                      </>
-                    );
-                  })} 
+              <div className="menu_tray_selection">
+                <div
+                  className="menu_tray_name"
+                  onClick={() => {
+                    loadMenu();
+                    setMenuTrayOpen(!menuTrayOpen);
+                  }}
+                >
+                  MENU
                 </div>
-              );
-            })}
+                <HamburgerIcon />
+              </div>
+            </div>
           </div>
+        ) : (
+          ""
         )}
-*/}
-        
+
         {selectedGroup?.id === -4 && (
           <div>
             <div
@@ -686,8 +551,7 @@ console.log(newGroup,'newGroup');
             </div>
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
-            >
-            </div>
+            ></div>
           </div>
         )}
 
@@ -701,41 +565,30 @@ console.log(newGroup,'newGroup');
             </div>
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
+            ></div>
+          </div>
+        )}
+
+        {selectedGroup?.id === -6 && (
+          <div>
+            <div
+              className="textEditor"
+              style={{ overflowX: "hidden", width: "30vw", height: "70vh" }}
             >
+              <Extra />
             </div>
+            <div
+              style={{ position: "relative", bottom: "370px", left: "20px" }}
+            ></div>
           </div>
         )}
 
         <br />
         <br />
         <br />
-        {/* closed recently */}
-        {/* {screenWidth > 500 && (<MenuFooter viewFooter={viewFooter} />)} */}
+   
 
-        {/* ----------------------------------------- */}
-
-        {/* <Menu
-           //  newGroup={newGroup}
-             //price={price}
-           //  selectedGroupId={selectedGroupId || null}
-          // selectedStepId={viewerState?.stepId || null}
-          // selectedAttributeId={viewerState?.attributeId || null}
-          // setViewerState={setViewerState}
-          // viewerState={viewerState}
-          //   isCartLoading={isCartLoading}
-          // newGroupelected={onSelectGroup}
-          // stepSelect={onSelectStep}
-          // attributeSelected={onSelectAttribute}
-          // optionSelected={onSelectOptions}
-          // saveText={onSaveText}
-          // showCustomizationInfo={onShowCustomizationInfo}
-          //   addToCart={onAddToCart}
-          // showOptionPreview={onShowOptionPreview}
-          // params={customizationParams}
-          // share={onShare}
-            /> */}
-
-            {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
+        {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
       </div>
     </Container>
   );

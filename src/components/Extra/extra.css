@@ -1,0 +1,43 @@
+.extra_main_box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding-top: 50px;
+}
+
+.extra_sub_box {
+    display: flex
+    /* border: 3px solid #100e0e;
+    border-radius: 25%; */
+}
+
+.extra_img {
+    border-radius: 25%;
+    border: 3px solid #100e0e;
+    border-radius: 25%;
+}
+
+.extra_sub_input {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.extra_quality {
+    font-family: "PF DinDisplay Pro";
+    font-weight: 600;
+    font-size: 20px;
+    font-style: italic;
+    color: #100e0e;
+    margin-bottom: 10px;
+}
+
+.extra_quantity_inputs {
+    width: 120px;
+    height: 38px;
+    border-radius: 8%;
+    font-size: 33px;
+}

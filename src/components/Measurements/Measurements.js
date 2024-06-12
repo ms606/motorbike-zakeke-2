@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState} from "react";
 import "./measurements.css";
-import { useZakeke } from "zakeke-configurator-react";
 import MeasurementsInfo from "../MeasurementsInfo/MeasurementsInfo";
 import PairedMeasurementInput  from "../MeasurementsInfo/PairedMeasurements";
 import useStore from "../../Store";
