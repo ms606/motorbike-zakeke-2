@@ -7,53 +7,59 @@ import useStore from "../../Store";
 
 const DownloadPDF = () => {
 
-    const { bodyMeasurements, addBodyMeasurements} = useStore();
+    const { bodyMeasurements, kneeSliders} = useStore();
 
   const downloadPDF = () => {
     // Create a new jsPDF instance
     const doc = new jsPDF();
 
-      const bodyMeasurement = bodyMeasurements[0].bodyMeasurements;
-      const measurements = [
-          `Height: ${bodyMeasurement.height} cms`,
-          `Neck: ${bodyMeasurement.neck} cms`,
-          `Chest: ${bodyMeasurement.chest} cms`,
-          `Waist: ${bodyMeasurement.waist} cms`,
-          `Hip: ${bodyMeasurement.hip} cms`,
-          `Thigh (Left): ${bodyMeasurement.thighLeft} cms`,
-          `Thigh (Right): ${bodyMeasurement.thighRight} cms`,
-          `Knee (Left): ${bodyMeasurement.kneeLeft} cms`,
-          `Knee (Right): ${bodyMeasurement.kneeRight} cms`,
-          `Calf (Left): ${bodyMeasurement.calfLeft} cms`,
-          `Calf (Right): ${bodyMeasurement.calfRight} cms`,
-          `Ankle (Left): ${bodyMeasurement.ankleLeft} cms`,
-          `Ankle (Right): ${bodyMeasurement.ankleRight} cms`
-      ];
-  
-      let yOffset = 43; // starting y position
-      doc.setFontSize(20);
-      doc.setFont("bold"); 
-      doc.setFont("italic"); 
-      doc.text('MIZURO', 80, 15)
-      
-      doc.setFont("italic");
-    //   doc.text('Body Measurements', 80, 15);
-      doc.setFontSize(10);
-      doc.line(22, 22, 195, 22);
-      doc.text(`Printed On: ${Date()}`, 70, 27)
-      doc.setFontSize(12).setFont(undefined, 'bold');
-      doc.text('* Custom Body Measurements', 10, 33);
-      doc.setFontSize(10);
-      doc.setFont("normal"); 
-      measurements.forEach((measurement, index) => {
-           if (measurement.split(': ')[1].trim() !== 'cms') { // check if the value is not empty
-              doc.text(`${index + 1}. ${measurement}`, 10, yOffset).setFont(undefined, 'bold');;
-              yOffset += 10; // move down for next line
-           }
-        })
+      const bodyMeasurement = bodyMeasurements[0]?.bodyMeasurements;
+      if (bodyMeasurement) {
+        const measurements = [
+            `Height: ${bodyMeasurement.height} cms`,
+            `Neck: ${bodyMeasurement.neck} cms`,
+            `Chest: ${bodyMeasurement.chest} cms`,
+            `Waist: ${bodyMeasurement.waist} cms`,
+            `Hip: ${bodyMeasurement.hip} cms`,
+            `Thigh (Left): ${bodyMeasurement.thighLeft} cms`,
+            `Thigh (Right): ${bodyMeasurement.thighRight} cms`,
+            `Knee (Left): ${bodyMeasurement.kneeLeft} cms`,
+            `Knee (Right): ${bodyMeasurement.kneeRight} cms`,
+            `Calf (Left): ${bodyMeasurement.calfLeft} cms`,
+            `Calf (Right): ${bodyMeasurement.calfRight} cms`,
+            `Ankle (Left): ${bodyMeasurement.ankleLeft} cms`,
+            `Ankle (Right): ${bodyMeasurement.ankleRight} cms`,
+            `Knee Sliders: ${kneeSliders.name.Black_white}`
+        ];
+    
+        let yOffset = 43; // starting y position
+        doc.setFontSize(20);
+        doc.setFont("bold"); 
+        doc.setFont("italic"); 
+        doc.text('MIZURO', 80, 15)
+        
+        doc.setFont("italic");
+      //   doc.text('Body Measurements', 80, 15);
+        doc.setFontSize(10);
+        doc.line(22, 22, 195, 22);
+        doc.text(`Printed On: ${Date()}`, 70, 27)
+        doc.setFontSize(12).setFont(undefined, 'bold');
+        doc.text('* Custom Body Measurements', 10, 33);
+        doc.setFontSize(10);
+        doc.setFont("normal"); 
+        measurements.forEach((measurement, index) => {
+             if (measurement.split(': ')[1].trim() !== 'cms') { // check if the value is not empty
+                doc.text(`${index + 1}. ${measurement}`, 10, yOffset).setFont(undefined, 'bold');;
+                yOffset += 10; // move down for next line
+             }
+          })
+        
+          const jsonString = JSON.stringify(measurements, null, 2);
+
+      }
 
     // Convert JSON object to a formatted string
-    const jsonString = JSON.stringify(measurements, null, 2);
+
 
     // Add content to the PDF
     // doc.text('Body Measurement Details:', 10, 10);

@@ -63,6 +63,8 @@ interface Store {
 	removeNotification: (id: number) => void;
 	bodyMeasurements: {bodyMeasurements: string}[];
 	addBodyMeasurements: (bodyMeasurements: any) => void;
+	kneeSliders: {kneeSliders: string}[];
+	addKneeSliders: (kneeSliders: any) => void;
 }
 
 const useStore = create<Store>((set) => ({
@@ -205,6 +207,13 @@ const useStore = create<Store>((set) => ({
 			bodyMeasurements: [{ bodyMeasurements }]
 		}));
 	},
+	kneeSliders: [],
+	addKneeSliders: (kneeSliders: any) => {
+		set((state) => ({
+			kneeSliders:  kneeSliders 
+		}))
+	}
+	
 }));
 
 export default useStore;

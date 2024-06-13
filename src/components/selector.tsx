@@ -187,7 +187,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    console.log(newGroup, "newGroup");
+
 
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
@@ -573,7 +573,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <div>
             <div
               className="textEditor"
-              style={{ overflowX: "hidden", width: "30vw", height: "70vh" }}
+              style={{ overflowX: "hidden", width: "100%", height: "70vh", backgroundColor: '#fff'}}
             >
               <Extra />
             </div>

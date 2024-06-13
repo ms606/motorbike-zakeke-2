@@ -11,7 +11,7 @@ interface MenuFooterProps {
 const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
   const { isAddToCartLoading, addToCart, price, useLegacyScreenshot } =
     useZakeke();
-  const { priceFormatter, bodyMeasurements } = useStore();
+  const { priceFormatter, bodyMeasurements, kneeSliders } = useStore();
 
   return (
     <div style={{position: 'absolute', bottom: '0px', right: '0px'}}>
