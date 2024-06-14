@@ -770,7 +770,7 @@ const Designer: FC<{
             return null;
           })}
 
-          {/* {(showAddTextButton || showUploadButton || showGalleryButton) && (
+          {(showAddTextButton || showUploadButton || showGalleryButton) && (
             <UploadButtons>
               {showAddTextButton && (
                 <Button isFullWidth onClick={handleAddTextClick}>
@@ -853,7 +853,7 @@ const Designer: FC<{
                 </CopyrightMessage>
               )}
             </UploadButtons>
-          )} */}
+          )}
           {itemsFiltered.length > 0 && !allStaticElements && (
             <MoveElementButton
               isFullWidth

@@ -5,26 +5,22 @@ import PairedMeasurementInput  from "../MeasurementsInfo/PairedMeasurements";
 import useStore from "../../Store";
 
 const Measurements = () => {
-    // const [height, setHeight] = useState('');
-    // const [neck, setNeck] = useState('');
-
-    const { bodyMeasurements, addBodyMeasurements} = useStore();
-
+    const {bodyMeasurements, addBodyMeasurements} = useStore();
 
     const [measurements, setMeasurements] = useState({
-        height: '',
-        neck: '',
-        chest: '', 
-        waist: '',
-        hip: '',
-        thighLeft: '',
-        thighRight: '',
-        kneeLeft: '',
-        kneeRight: '',
-        calfLeft: '',
-        calfRight: '',
-        ankleLeft: '',
-        ankleRight: '',
+        height: '0',
+        neck: '0',
+        chest: '0', 
+        waist: '0',
+        hip: '0',
+        thighLeft: '0',
+        thighRight: '0',
+        kneeLeft: '0',
+        kneeRight: '0',
+        calfLeft: '0',
+        calfRight: '0',
+        ankleLeft: '0',
+        ankleRight: '0',
     })
 
         const handleInputKeyDown = (event) => {
@@ -40,8 +36,6 @@ const Measurements = () => {
      
     // Generic handler to update state on input change
     const handleInputChange = (event) => {
-
-        console.log(event.target.value);
         const { name, value } = event.target;
         setMeasurements({
         ...measurements,

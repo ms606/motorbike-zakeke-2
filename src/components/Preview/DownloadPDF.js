@@ -8,7 +8,7 @@ import useStore from "../../Store";
 const DownloadPDF = () => {
 
     const { bodyMeasurements, kneeSliders} = useStore();
-
+console.log(kneeSliders,'kneeSliders');
   const downloadPDF = () => {
     // Create a new jsPDF instance
     const doc = new jsPDF();
@@ -29,7 +29,12 @@ const DownloadPDF = () => {
             `Calf (Right): ${bodyMeasurement.calfRight} cms`,
             `Ankle (Left): ${bodyMeasurement.ankleLeft} cms`,
             `Ankle (Right): ${bodyMeasurement.ankleRight} cms`,
-            `Knee Sliders: ${kneeSliders.name.Black_white}`
+            // `Black White Sliders: ${kneeSliders.name.Black_white}`,
+            // `Green White Sliders: ${kneeSliders.name.Green_white}`,
+            // `Orange White Sliders: ${kneeSliders.name.Orange_white}`,
+            // `Red White Sliders: ${kneeSliders.name.Red_white}`,
+            // `White Red Sliders: ${kneeSliders.name.White_red}`,
+            // `Yellow Grey Sliders: ${kneeSliders.name.Yellow_grey}`
         ];
     
         let yOffset = 43; // starting y position
@@ -39,7 +44,6 @@ const DownloadPDF = () => {
         doc.text('MIZURO', 80, 15)
         
         doc.setFont("italic");
-      //   doc.text('Body Measurements', 80, 15);
         doc.setFontSize(10);
         doc.line(22, 22, 195, 22);
         doc.text(`Printed On: ${Date()}`, 70, 27)
@@ -53,6 +57,7 @@ const DownloadPDF = () => {
                 yOffset += 10; // move down for next line
              }
           })
+
         
           const jsonString = JSON.stringify(measurements, null, 2);
 
