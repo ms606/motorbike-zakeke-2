@@ -6,8 +6,8 @@ const ExtraInput = ({src, name, value, onKeyDown, handleInputChange}) => {
       <img
         className="extra_img"
         src={src}
-        width="90"
-        height="90"
+        width="80"
+        height="80"
       />
       <div className="extra_sub_input">
         <div className="extra_quality">QUANTITY</div>

@@ -7,8 +7,7 @@ import useStore from "../../Store";
 
 const DownloadPDF = () => {
 
-    const { bodyMeasurements, kneeSliders} = useStore();
-console.log(kneeSliders,'kneeSliders');
+  const { bodyMeasurements, kneeSliders} = useStore();
   const downloadPDF = () => {
     // Create a new jsPDF instance
     const doc = new jsPDF();

@@ -573,7 +573,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <div>
             <div
               className="textEditor"
-              style={{ overflowX: "hidden", width: "100%", height: "70vh", backgroundColor: '#fff'}}
+              style={{ overflowX: "hidden", width: "39vw", height: "70vh", backgroundColor: '#fff'}}
             >
               <Extra />
             </div>

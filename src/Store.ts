@@ -61,9 +61,9 @@ interface Store {
 	notifications: Notification[];
 	setNotifications: (notifications: Notification[]) => void;
 	removeNotification: (id: number) => void;
-	bodyMeasurements: {bodyMeasurements: string}[];
+	bodyMeasurements: {};
 	addBodyMeasurements: (bodyMeasurements: any) => void;
-	kneeSliders: {kneeSliders: string}[];
+	kneeSliders: {};
 	addKneeSliders: (kneeSliders: any) => void;
 }
 
@@ -156,7 +156,6 @@ const useStore = create<Store>((set) => ({
 			isRedo
 		});
 	},
-
 	lastSelectedItem: { type: 'attribute', id: null },
 	setLastSelectedItem: (lastSelectedItem: { type: string; id: number | null }) => {
 		set({
@@ -201,16 +200,16 @@ const useStore = create<Store>((set) => ({
 			notifications: state.notifications.filter((notification) => null !== id)
 		}));
 	},
-	bodyMeasurements: [],
+	bodyMeasurements: {},
 	addBodyMeasurements: (bodyMeasurements: string) => {
-		set((state) => ({
-			bodyMeasurements: [{ bodyMeasurements }]
+		set(() => ({
+			bodyMeasurements: bodyMeasurements 
 		}));
 	},
-	kneeSliders: [],
-	addKneeSliders: (kneeSliders: any) => {
-		set((state) => ({
-			kneeSliders:  kneeSliders 
+	kneeSliders: {},
+	addKneeSliders: (kneeSliders: string) => {
+		set(() => ({
+			kneeSliders: kneeSliders 
 		}))
 	}
 	

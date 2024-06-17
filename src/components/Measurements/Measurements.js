@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import "./measurements.css";
 import MeasurementsInfo from "../MeasurementsInfo/MeasurementsInfo";
 import PairedMeasurementInput  from "../MeasurementsInfo/PairedMeasurements";
@@ -6,7 +6,7 @@ import useStore from "../../Store";
 
 const Measurements = () => {
     const {bodyMeasurements, addBodyMeasurements} = useStore();
-
+// console.log(bodyMeasurements,'bodyMeasurementsbodyMeasurements');
     const [measurements, setMeasurements] = useState({
         height: '0',
         neck: '0',
@@ -23,6 +23,13 @@ const Measurements = () => {
         ankleRight: '0',
     })
 
+    useEffect(() => {
+      if (bodyMeasurements) {
+          setMeasurements(bodyMeasurements);
+      }
+  }, [bodyMeasurements]);
+
+
         const handleInputKeyDown = (event) => {
             const { name, value } = event.target;
             const numericKeys = /^[0-9]$/;
@@ -31,7 +38,7 @@ const Measurements = () => {
             if (!numericKeys.test(event.key) && event.key !== 'Backspace' && event.key !== 'Delete') {
              event.preventDefault();
             }  
-        addBodyMeasurements(measurements)
+        // addBodyMeasurements(measurements)
     }
      
     // Generic handler to update state on input change
