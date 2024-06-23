@@ -41,7 +41,7 @@ const Extra = () => {
   return (
     <div>
       <div className="extra_header">
-        <h1>Knee Sliders</h1>
+        <h1>KNEE SLIDERS</h1>
       </div>
       <div className="extra_main_box">
         <ExtraInput 

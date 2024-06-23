@@ -26,8 +26,8 @@ export const ListItem = styled.div<{ selected?: boolean }>`
 `;
 
     export const ListItemImage = styled.img<{big?: any}>`
-    width: ${props => props.big ? '88px' : '81px' };
-    height: ${props => props.big ? '88px' : '81px' };
+    width: ${props => props.big ? '80px' : '80px' };
+    height: ${props => props.big ? '80px' : '80px' };
       background-size: contain;
       background-position: 50%;
       background-repeat: no-repeat;
@@ -66,8 +66,8 @@ export const ListItem = styled.div<{ selected?: boolean }>`
     cursor: pointer;
     margin: 0 11px;
     border-radius: 100%;
-    width: ${props => props.big ? '88px' : '36px' };
-    height: ${props => props.big ? '88px' : '36px' };
+    width: ${props => props.big ? '81px' : '36px' };
+    height: ${props => props.big ? '81px' : '36px' };
     white-space: nowrap;  
     font-size: 12px;  
     border-color: ${props => props.selected ? 'black' : '#DDD'};

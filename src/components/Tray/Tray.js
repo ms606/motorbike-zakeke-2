@@ -32,7 +32,6 @@ const Tray = ({
   const itemAvailable = items?.filter((item) => item.type === 0).length > 0;
   const acopName = groups;
 
-  console.log('aaaa',groupNameList);
   // var selectedStep = selectedGroup
   //   ? selectedGroup.steps.find((step) => step.id === selectedStepId)
   //   : null;
@@ -164,6 +163,7 @@ const Tray = ({
                 </div>
                 <div className="tray-mc-grid">
                   {groupNameList.map((groupName, i) => {
+                    if(groupName.id < 0) return <></>
                     return (
                       <div className={`heading ${groupName.id == selectedGroupId ? 'selected-group-tray' : ''}`}
                         id={groupName.name}>

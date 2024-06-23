@@ -77,11 +77,12 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
 	user-select: none;
 	width: 100%;
 	padding: 30px 30px 70px 30px;
+	align-items: center;
 	background-color:#ffffff;
 	position: relative;
     bottom: 1.5em;
 	border-radius: 32px;
-
+	align-items: center;
 	@media screen and (max-width: 568px) {
 		position:absolute;
         top:60px;
@@ -115,6 +116,7 @@ const UploadButtons = styled.div`
 	flex-direction: column;
 	grid-gap: 5px;
 	margin: 20px 0px;
+	width: 430px;
 `;
 
 const Area = styled.div<{ selected?: boolean }>`
@@ -474,7 +476,7 @@ const Designer: FC<{ onCloseClick?: () => void }> = ({ onCloseClick }) => {
 	
 	return ( 
 	 	<>
-		<div className="menu_help_customization_help">Your name or initials will be applied on your blazer's inner pocket</div>
+		
 	    	{!moveElements && (			  	
 				<DesignerContainer isMobile={isMobile}>
 					{/* Templates */}

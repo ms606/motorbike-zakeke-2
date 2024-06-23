@@ -40,7 +40,7 @@ export const TextArea = styled.textarea`
 	// min-height: 35px;
 	margin-top: 14px;
 	font-family: 'PF DinDisplay Pro';
-	font-style: italic;
+	// font-style: italic;
 	text-transform: uppercase;
 	outline: none;
 	resize: none;
@@ -54,7 +54,7 @@ export const TextArea = styled.textarea`
 	&:focus {
 		// border: 1px black solid;
 		// outline: none;
-		border: none;
+		// border: none;
 		border-bottom: 1px var(--template-primary--400) solid;
 	}
 `;

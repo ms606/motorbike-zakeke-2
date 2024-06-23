@@ -63,9 +63,9 @@ export const HamburgerIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     style={{ marginRight: "5px" }}
   >
-    <rect y="3" width="16" height="2" fill="currentColor" />
-    <rect y="7" width="16" height="2" fill="currentColor" />
-    <rect y="11" width="16" height="2" fill="currentColor" />
+    <rect y="3" width="16" height="1" fill="currentColor" />
+    <rect y="7" width="16" height="1" fill="currentColor" />
+    <rect y="11" width="16" height="1" fill="currentColor" />
   </svg>
 );
 
@@ -559,7 +559,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <div>
             <div
               className="textEditor"
-              style={{ overflowX: "hidden", width: "30vw", height: "70vh" }}
+              style={{ overflowX: "hidden", width: "37vw", height: "70vh", borderRadius: "15px" }}
             >
               <Designer />
             </div>
@@ -573,7 +573,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <div>
             <div
               className="textEditor"
-              style={{ overflowX: "hidden", width: "39vw", height: "70vh", backgroundColor: '#fff'}}
+              style={{ overflowX: "hidden", width: "37vw", height: "80vh", backgroundColor: '#fff', borderRadius: "15px"}}
             >
               <Extra />
             </div>

@@ -36,13 +36,13 @@ font-style: italic;
  font-size: 12px;
  padding-top: 8px;
  color: #060505;
- font-style: italic;
+ /* font-style: italic; */
 }
 
 .measurement_sub_head-2 {
  font-size: 12px;
  color: #060505;
- font-style: italic;
+ /* font-style: italic; */
 }
 
 .measurement_inputs_paired {
@@ -51,4 +51,15 @@ font-style: italic;
  margin-right: 5px;
  border-radius: 8%;
  font-size: 25px;
+}
+
+.paired_measurements {
+    display: flex;
+}
+
+.paired_measurements_fonts {
+    font-size: 10px;
+    font-family: "PF DinDisplay Pro";
+    color: #060505;
+    text-align: center;
 }

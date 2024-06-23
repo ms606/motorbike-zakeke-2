@@ -81,6 +81,7 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
   flex-flow: column;
   user-select: none;
   width: 100%;
+  align-items: center;
   padding: 30px 30px 70px 30px;
   background-color: #ffff;
   //  rgb(235, 237, 242);
@@ -108,6 +109,7 @@ const UploadButtons = styled.div`
   flex-direction: column;
   grid-gap: 5px;
   margin: 20px 0px;
+  width: 430px;
 `;
 
 const Area = styled.div<{ selected?: boolean }>`
@@ -654,7 +656,7 @@ const Designer: FC<{
             >
               {"<"}
             </div>
-
+           <div>
             <span
               style={{
                 whiteSpace: "nowrap",
@@ -674,7 +676,7 @@ const Designer: FC<{
               {" "}
               {currentIndex + 1} / {finalVisibleAreas?.length}
             </span>
-
+            </div>      
             <div
               onClick={() => {
                 handleRightClick();

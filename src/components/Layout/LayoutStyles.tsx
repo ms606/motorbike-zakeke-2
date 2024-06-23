@@ -423,6 +423,7 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	z-index: 3;
 	height: 87%;
 	width: 100%;
+	align-items: center;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -468,6 +469,7 @@ export const UploadButtons = styled.div`
 	flex-direction: column;
 	grid-gap: 5px;
 	margin: 20px 0px;
+	width: 430px;
 `;
 
 export type PropChangeHandler = (

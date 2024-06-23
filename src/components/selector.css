@@ -1,3 +1,7 @@
+body {
+  font-family: "PF DinDisplay Pro";
+}
+
 div {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -14,7 +18,7 @@ div {
   justify-content: center;
   flex-direction: column;
   padding-top: 15px;
-  /* position: absolute;  */
+  font-family: "PF DinDisplay Pro";
   right: 93.6%;
   /* top: 42%;  */
   color: var(--template-primary--1000);
@@ -58,7 +62,7 @@ div {
   justify-content: center;
   align-items: center;
   padding: 9px;
-  border-radius: 16px;
+  border-radius: 10px;
 }
 
 .btn.btn-primary,
@@ -217,7 +221,7 @@ div {
 
 @media (min-width: 61.25em) {
   .menu_btn_cart {
-    width: 176px;
+    width: 210px;
   }
 }
 

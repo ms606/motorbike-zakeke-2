@@ -14,7 +14,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
   const { priceFormatter, bodyMeasurements, kneeSliders } = useStore();
 
   return (
-    <div style={{position: 'absolute', bottom: '0px', right: '0px'}}>
+    <div style={{position: 'absolute', bottom: '0px', right: '20px'}}>
       <div
         className="menu_footer"
         ref={viewFooter}
