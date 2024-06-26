@@ -11,8 +11,8 @@ const DownloadPDF = () => {
   const downloadPDF = () => {
     // Create a new jsPDF instance
     const doc = new jsPDF();
-
-      const bodyMeasurement = bodyMeasurements[0]?.bodyMeasurements;
+console.log(kneeSliders,'kneeSliders');
+      const bodyMeasurement = bodyMeasurements; //[0]?.bodyMeasurements;
       if (bodyMeasurement) {
         const measurements = [
             `Height: ${bodyMeasurement.height} cms`,
@@ -28,15 +28,38 @@ const DownloadPDF = () => {
             `Calf (Right): ${bodyMeasurement.calfRight} cms`,
             `Ankle (Left): ${bodyMeasurement.ankleLeft} cms`,
             `Ankle (Right): ${bodyMeasurement.ankleRight} cms`,
-            // `Black White Sliders: ${kneeSliders.name.Black_white}`,
-            // `Green White Sliders: ${kneeSliders.name.Green_white}`,
-            // `Orange White Sliders: ${kneeSliders.name.Orange_white}`,
-            // `Red White Sliders: ${kneeSliders.name.Red_white}`,
-            // `White Red Sliders: ${kneeSliders.name.White_red}`,
-            // `Yellow Grey Sliders: ${kneeSliders.name.Yellow_grey}`
+            `Arm (Left): ${bodyMeasurement.armLeft} cms`,
+            `Arm (Right): ${bodyMeasurement.armRight} cms`,
+            `Forearm (Left): ${bodyMeasurement.foreArmLeft} cms`,
+            `Forearm (Right): ${bodyMeasurement.foreArmRight} cms`,
+            `Wrist (Left): ${bodyMeasurement.wristLeft} cms`,
+            `Wrist (Right): ${bodyMeasurement.wristRight} cms`,
+            `Shoulder Width: ${bodyMeasurement.shoulderWidth} cms`,
+            `Neck to Wrist (Left): ${bodyMeasurement.neckToWristLeft} cms`,
+            `Neck to Wrist (Right): ${bodyMeasurement.neckToWristRight} cms`,
+            `Sleeve Length (Left): ${bodyMeasurement.sleeveLengthLeft} cms`,
+            `Sleeve Length (Right): ${bodyMeasurement.sleeveLengthRight} cms`,
+            `Shoulder to Elbow (Left): ${bodyMeasurement.shoulderToElbowLeft} cms`,
+            `Shoulder to Elbow (Right): ${bodyMeasurement.shoulderToElbowRight} cms`,
+            `Elbow to Wrist (Left): ${bodyMeasurement.elbowToWristLeft} cms`,
+            `Elbow to Wrist (Right): ${bodyMeasurement.elbowToWristRight} cms`,
+            `Spine Length: ${bodyMeasurement.spineLength} cms`,
+            `Waist to Ankle: ${bodyMeasurement.waistToAnkle} cms`,
+            `Knee to Ankle (Left): ${bodyMeasurement.kneeToAnkleLeft} cms`,
+            `Knee to Ankle (Right): ${bodyMeasurement.kneeToAnkleRight} cms`,
+            `Groin to Ground: ${bodyMeasurement.groinToGround} cms`,
+            `Groin to Knee: ${bodyMeasurement.groinToKnee} cms`,
+            `Weight: ${bodyMeasurement.weight} kgs`,
+            `Black White Sliders: ${kneeSliders.Black_white}`,
+            `Green White Sliders: ${kneeSliders.Green_white}`,
+            `Orange White Sliders: ${kneeSliders.Orange_white}`,
+            `Red White Sliders: ${kneeSliders.Red_white}`,
+            `White Red Sliders: ${kneeSliders.White_red}`,
+            `Yellow Grey Sliders: ${kneeSliders.Yellow_grey}`
         ];
     
         let yOffset = 43; // starting y position
+        let pageHeight = doc.internal.pageSize.height; // page height
         doc.setFontSize(20);
         doc.setFont("bold"); 
         doc.setFont("italic"); 
@@ -52,6 +75,10 @@ const DownloadPDF = () => {
         doc.setFont("normal"); 
         measurements.forEach((measurement, index) => {
              if (measurement.split(': ')[1].trim() !== 'cms') { // check if the value is not empty
+              if (yOffset > pageHeight - 20) { // if the yOffset is greater than the page height - margin
+                doc.addPage();
+                yOffset = 20; // reset yOffset for the new page
+            }
                 doc.text(`${index + 1}. ${measurement}`, 10, yOffset).setFont(undefined, 'bold');;
                 yOffset += 10; // move down for next line
              }
