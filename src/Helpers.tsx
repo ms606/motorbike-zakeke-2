@@ -186,7 +186,7 @@ export const useDefinitiveGroups = (
   if (definitiveGroups.length > 1 ) {
     definitiveGroups.push(measurementConfigurationsGroup);
     definitiveGroups.push(logoConfigurationsGroup);
-   // definitiveGroups.push(extraConfigurationsGroup);
+    definitiveGroups.push(extraConfigurationsGroup);
   }
   
 

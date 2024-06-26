@@ -133,11 +133,35 @@ const Measurements = () => {
         nameRight='ankleRight'
         valueRight={measurements.ankleRight}
         measurement_main='ANKLE CIRCUMFERENCE'
-        measurement_sub_head=''
+        measurement_sub_head='Measure the circumference of each ankle just above the ankle bone.'
         measurement_sub_head_2=''
         onKeyDown={handleInputKeyDown}
         handleInputChange={handleInputChange}
       />       
+
+      <PairedMeasurementInput 
+        nameLeft='armLeft'
+        valueLeft={measurements.armLeft}
+        nameRight='armRight'
+        valueRight={measurements.armRight}
+        measurement_main='ARM CIRCUMFERENCE'
+        measurement_sub_head = 'Measure the circumference of each upper arm whilst keeping the bicep muscle slightly tensioned.'
+        measurement_sub_head_2=''
+        onKeyDown={handleInputKeyDown}
+        handleInputChange={handleInputChange}
+      />  
+
+      <PairedMeasurementInput 
+        nameLeft='foreArmLeft'
+        valueLeft={measurements.foreArmLeft}
+        nameRight='foreArmRight'
+        valueRight={measurements.foreArmRight}
+        measurement_main='FOREARM CIRCUMFERENCE'
+        measurement_sub_head = 'Measure the circumference of the lower arm at the widest point whilst gently squeezing your'
+        measurement_sub_head_2=' hand to keep the muscles slightly tensioned.'
+        onKeyDown={handleInputKeyDown}
+        handleInputChange={handleInputChange}
+      />    
 
     </div>
   );
