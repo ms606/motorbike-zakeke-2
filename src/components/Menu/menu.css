@@ -55,8 +55,6 @@
   background-color: var(--template-primary--000);
 }
 
-
-
 .menu_choice_step_step {
   width: 100%;
   display: flex;
@@ -101,6 +99,13 @@
   height: 68px; */
   margin: 0 auto;
   border-radius: 8px;
+}
+
+.menu_choice_option_image_name {  
+  font-size: 15px;
+  text-align: center;
+  width: 80px;
+  padding-top: 5px;
 }
 
 .menu_choice_option_description {

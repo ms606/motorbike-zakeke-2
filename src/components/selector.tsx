@@ -507,6 +507,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
                           big={attribute.code === "PROTECTORS" ? "Yes" : ""}
                         />
                       </div>
+                      <div className="menu_choice_option_image_name">
+                      {option.name}
+                        </div>  
+                      
                     </ListItem>
                   );
                 });

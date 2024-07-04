@@ -84,7 +84,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
     };
 
     &:after {
-    // content: "${props => { return props.selected ? props.selectedColor : '' }}";
+    content: "${props => { return props.selectedColor }}";
     position: absolute;
     bottom: 7%;
     }
