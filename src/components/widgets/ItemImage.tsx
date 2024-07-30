@@ -99,8 +99,8 @@ const ItemImage: FC<{ item: ImageItem, handleItemPropChange: any, currentTemplat
         <ImageAndButtonsContainer>
             <ImagePreview><img src={item.url} alt="" /></ImagePreview>
             <ButtonsContainer>
-                {showUploadButton && <Button disabled={uploadImgDisabled} isFullWidth onClick={handleChangeClick}>{T._("Incarcă", "Composer")}</Button>}
-                {showGalleryButton && <Button isFullWidth onClick={handleGalleryClick}>{T._("Galerie", "Composer")}</Button>}
+                {showUploadButton && <Button disabled={uploadImgDisabled} isFullWidth onClick={handleChangeClick}>{T._("Add Image", "Composer")}</Button>}
+                {showGalleryButton && <Button isFullWidth onClick={handleGalleryClick}>{T._("Gallery", "Composer")}</Button>}
             </ButtonsContainer>
             <input type="file" ref={input => inputHtml = input!} onChange={handleInputChange} />
         </ImageAndButtonsContainer>

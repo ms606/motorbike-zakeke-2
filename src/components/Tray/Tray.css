@@ -1,10 +1,10 @@
 .full-tray {
     overflow: hidden;
-    background: #fff;
+    background: rgb(204, 204, 204);
     padding-left: 13px;
     transition: all 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
     
-    right: 25px;
+    right: 0px;
     width: 76%;
     height: 76vh;
 

@@ -157,10 +157,10 @@ const Tray = ({
 
             <div className="tray-mc-content">
               <div className="tray-mc-list-wrapper">
-                <div className="mc-list-title">
+                {/* <div className="mc-list-title">
                   {" "}
                   {dynamicsVals?.get("Select Colors") ?? "Select Colors"}{" "}
-                </div>
+                </div> */}
                 <div className="tray-mc-grid">
                   {groupNameList.map((groupName, i) => {
                     if(groupName.id < 0) return <></>

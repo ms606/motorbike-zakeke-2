@@ -78,12 +78,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
   refViewer,
   fullScreen,
 }) => {
-  const {
-    isSceneLoading,
-    selectOption,
-    setCamera,
-    
-  } = useZakeke();
+  const { isSceneLoading, selectOption, setCamera } = useZakeke();
+
+  console.log(useZakeke());
 
   const newGroup = useActualGroups();
 
@@ -132,7 +129,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   if (indexToRemove !== -1) {
     newGroup.splice(indexToRemove, 1);
   }
-  
+
   var selectedGroup = newGroup.find((group) => group.id === selectedGroupId);
   var selectedStep = selectedGroup
     ? selectedGroup.steps.find((step) => step.id === selectedStepId)
@@ -175,7 +172,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-
     if (!selectedGroup && newGroup.length > 0) {
       selectGroup(newGroup[0].id);
 
@@ -187,8 +183,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Select attribute first time
   useEffect(() => {
-    console.log(attributes,'att');
-    
+    console.log(attributes, "att");
+
     if (!selectedAttribute && attributes.length === 1)
       selectAttribute(attributes[0]?.id);
 
@@ -452,7 +448,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     fontFamily: "PF DinDisplay Pro",
                     fontWeight: "700",
                     fontSize: "18px",
-                    fontStyle: "italic",
+                    // fontStyle: "italic",
                     paddingRight: "10px",
                     paddingLeft: "10px",
                   }}
@@ -508,9 +504,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
                         />
                       </div>
                       <div className="menu_choice_option_image_name">
-                      {option.name}
-                        </div>  
-                      
+                        {option.name}
+                      </div>
                     </ListItem>
                   );
                 });
@@ -524,7 +519,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     setMenuTrayOpen(!menuTrayOpen);
                   }}
                 >
-                  MENU
+                  SUMMARY
                 </div>
                 <HamburgerIcon />
               </div>
@@ -535,13 +530,27 @@ const Selector: FunctionComponent<SelectorProps> = ({
         )}
 
         {selectedGroup?.id === -4 && (
-          <div>
+          <div style={{ position: "relative" }}>
             <div
               className="textEditor"
               style={{ overflowX: "hidden", height: "70vh" }}
             >
               <Measurements />
+
+              <div className="menu_tray_selection">
+                <div
+                  className="menu_tray_name"
+                  onClick={() => {
+                    loadMenu();
+                    setMenuTrayOpen(!menuTrayOpen);
+                  }}
+                >
+                  SUMMARY
+                </div>
+                <HamburgerIcon />
+              </div>
             </div>
+
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
             ></div>
@@ -549,13 +558,32 @@ const Selector: FunctionComponent<SelectorProps> = ({
         )}
 
         {selectedGroup?.id === -5 && (
-          <div>
+          <div style={{ position: "relative" }}>
             <div
               className="textEditor"
-              style={{ overflowX: "hidden", width: "37vw", height: "70vh", borderRadius: "15px" }}
+              style={{
+                overflowX: "hidden",
+                width: "37vw",
+                height: "70vh",
+                borderRadius: "15px",
+              }}
             >
               <Designer />
             </div>
+
+            <div className="menu_tray_selection">
+              <div
+                className="menu_tray_name"
+                onClick={() => {
+                  loadMenu();
+                  setMenuTrayOpen(!menuTrayOpen);
+                }}
+              >
+                SUMMARY
+              </div>
+              <HamburgerIcon />
+            </div>
+
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
             ></div>
@@ -563,13 +591,32 @@ const Selector: FunctionComponent<SelectorProps> = ({
         )}
 
         {selectedGroup?.id === -6 && (
-          <div>
+          <div style={{position: 'relative'}}>
             <div
               className="textEditor"
-              style={{ overflowX: "hidden", width: "37vw", height: "80vh", backgroundColor: '#fff', borderRadius: "15px"}}
+              style={{
+                overflowX: "hidden",
+                width: "37vw",
+                height: "80vh",
+                backgroundColor: "#fff",
+                borderRadius: "15px",
+              }}
             >
               <Extra />
             </div>
+
+            <div className="menu_tray_selection">
+                <div
+                  className="menu_tray_name"
+                  onClick={() => {
+                    loadMenu();
+                    setMenuTrayOpen(!menuTrayOpen);
+                  }}
+                >
+                  SUMMARY
+                </div>
+                <HamburgerIcon />
+              </div>
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
             ></div>
@@ -579,7 +626,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
         <br />
         <br />
-   
 
         {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
       </div>
