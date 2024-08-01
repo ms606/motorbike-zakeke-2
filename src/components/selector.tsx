@@ -41,7 +41,7 @@ import Extra from "./Extra/Extra";
 const Container = styled.div`
   height: 839px;
   overflow: auto;
-  font-family: "Avenir Next", sans-serif;
+  font-family: "PF DinDisplay Pro", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;

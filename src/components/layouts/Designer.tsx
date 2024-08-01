@@ -665,7 +665,6 @@ const Designer: FC<{
                 lineHeight: "28px",
                 fontWeight: "700",
                 fontSize: "17px",
-                fontStyle: "italic",
                 paddingRight: "10px",
                 paddingLeft: "10px",
               }}

@@ -2,7 +2,7 @@
     color: #000;
     font-family: "PF DinDisplay Pro";
     text-align: center;
-    font-style: italic;
+    /* font-style: italic; */
     font-size: 15px;
     padding-top: 20px;
 }
@@ -44,7 +44,7 @@
     font-family: "PF DinDisplay Pro";
     font-weight: 600;
     font-size: 20px;
-    font-style: italic;
+    /* font-style: italic; */
     color: #100e0e;
     margin-bottom: 10px;
 }

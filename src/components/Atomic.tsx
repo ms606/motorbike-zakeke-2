@@ -105,7 +105,7 @@ export const Button = styled.button<{
 	cursor: ${(props) => (!props.disabled ? 'pointer' : 'auto')};
 	border-radius: 6px;
 	font-weight: 800;
-	font-style: italic;
+	// font-style: italic;
 	text-transform: uppercase;
 	${(props) =>
 		props.selected &&

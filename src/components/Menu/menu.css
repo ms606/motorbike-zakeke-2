@@ -12,7 +12,7 @@
   flex-direction: column;
   height: 58px;
   white-space: nowrap;
-  font-family: "Avenir", sans-serif;
+  font-family: "PF DinDisplay Pro", sans-serif;
   top: 30px;
   font-weight: 500;
 }
@@ -24,7 +24,7 @@
   background: var(--template-boundary-color);
   color: #fff;
   font-size: 16px;
-  font-style: italic;
+  /* font-style: italic; */
   font-weight: 750;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -60,7 +60,7 @@
   display: flex;
   flex-direction: column;
   padding: 12px 4px;
-  font-family: "Avenir", sans-serif;
+  font-family: "PF DinDisplay Pro", sans-serif;
   font-style: normal;
   line-height: 10px;
   font-weight: 400;
@@ -73,7 +73,7 @@
   line-height: 16px;
   font-weight: 500;
   font-size: 17px;
-  font-family: "Avenir", sans-serif;
+  font-family: "PF DinDisplay Pro", sans-serif;
   color: var(--template-primary--800);
 }
 
@@ -87,7 +87,7 @@
   width: 100%;
   cursor: pointer;
   padding: 12px 4px;
-  font-family: "Avenir", sans-serif;
+  font-family: "PF DinDisplay Pro", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -123,7 +123,7 @@
   bottom: 0px;
   left: 0px;
   font-size: larger;
-  font-style: italic;
+  /* font-style: italic; */
   font-weight: 300;
   color: #2c2a2a;
   padding: 4px 6px;

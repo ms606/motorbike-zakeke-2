@@ -121,7 +121,7 @@
   .mc-list-title {
     font-size: 22px;
     font-weight: 300;
-    font-style: italic;
+    /* font-style: italic; */
     color: #fff;
     line-height: 22px;
     margin-bottom: 19px;
@@ -162,13 +162,12 @@
     font-size: 15px;
     line-height: 10px;
     font-weight: 800;
-    font-style: italic;
+    /* font-style: italic; */
     display: table-cell;
     position: relative;
     height: 44px;
     vertical-align: middle;
     text-align: center;
-    font-style: italic;
     padding-top: 5px;
     border-radius: 0px 0px 5px 5px;
     margin: 0px auto;
@@ -210,7 +209,7 @@
     column-count: 2; /* Set to 2 columns */
     column-gap: 20px; 
     font-size: 14px;
-    font-style: italic;
+    /* font-style: italic; */
   }
 
   .tray-mc-sub-list {
