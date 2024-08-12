@@ -78,9 +78,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
   refViewer,
   fullScreen,
 }) => {
-  const { isSceneLoading, selectOption, setCamera } = useZakeke();
-
-  console.log(useZakeke());
+  const {
+    isSceneLoading,
+    selectOption,
+    setCamera,
+    addFocusAttributesListener,
+    isViewerReady,
+  } = useZakeke();
 
   const newGroup = useActualGroups();
 
@@ -183,8 +187,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Select attribute first time
   useEffect(() => {
-    console.log(attributes, "att");
-
     if (!selectedAttribute && attributes.length === 1)
       selectAttribute(attributes[0]?.id);
 
@@ -212,7 +214,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   useEffect(() => {
     if (selectedCameraID) setCamera(selectedCameraID);
 
-    setSelectedCameraID("");
+    // setSelectedCameraID("");
   }, [selectedCameraID, selectedGroup]);
 
   // Camera for attributes
@@ -227,6 +229,31 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, !isSceneLoading]);
+
+  useEffect(() => {
+    if (isViewerReady) {
+      addFocusAttributesListener((event: { groups: string | any[] }) => {
+        if (event.groups.length > 0) {
+          selectGroup(event.groups[0].groupId);
+          const group = newGroup.find(
+            (group) => group.id === event.groups[0].groupId
+          );
+
+          if (group && group.steps) {
+
+            const firstStep = group.steps.find((step) => step.attributes.find((attr) => attr.id == event.groups[0].visibleAttributes[0]));
+            const index = group.steps.findIndex((step) => step.attributes.find((attr) => attr.id == event.groups[0].visibleAttributes[0]));
+
+            if (index > 0 && firstStep && selectedGroup) {
+              setCurrentIndex(0 +1 )
+              setCurrentIndex(index  )
+              selectStep(firstStep.id);
+            }
+          }
+        }
+      });
+    }
+  }, [isViewerReady, selectedGroupId]);
 
   // Open the first group and the first step when loaded
   // useEffect(() => {
@@ -281,7 +308,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
       imageUrl: group.imageUrl,
     }));
 
-    console.log(groupRec, "groupRec");
     selectGroupList(groupRec);
   };
 
@@ -591,7 +617,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         )}
 
         {selectedGroup?.id === -6 && (
-          <div style={{position: 'relative'}}>
+          <div style={{ position: "relative" }}>
             <div
               className="textEditor"
               style={{
@@ -606,17 +632,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
             </div>
 
             <div className="menu_tray_selection">
-                <div
-                  className="menu_tray_name"
-                  onClick={() => {
-                    loadMenu();
-                    setMenuTrayOpen(!menuTrayOpen);
-                  }}
-                >
-                  SUMMARY
-                </div>
-                <HamburgerIcon />
+              <div
+                className="menu_tray_name"
+                onClick={() => {
+                  loadMenu();
+                  setMenuTrayOpen(!menuTrayOpen);
+                }}
+              >
+                SUMMARY
               </div>
+              <HamburgerIcon />
+            </div>
             <div
               style={{ position: "relative", bottom: "370px", left: "20px" }}
             ></div>
