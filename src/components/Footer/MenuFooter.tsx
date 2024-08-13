@@ -41,7 +41,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               }
               className="btn btn-primary menu_btn_cart"
             >
-              NEXT
+              FINNISH
             </div>
           )}
           {/* {
