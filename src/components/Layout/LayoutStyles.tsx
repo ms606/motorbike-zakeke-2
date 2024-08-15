@@ -427,7 +427,8 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	background: var(--template-primary--400);
+	// background: var(--template-primary--400);
+    background: var(--template-boundary-color);
 	// background: #ffffff
 	@media (max-width: 1024px) {
 		background: var(--template-primary--400);
