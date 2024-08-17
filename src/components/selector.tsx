@@ -512,6 +512,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 display: "flex",
                 flexDirection: "row",
                 flexFlow: "wrap",
+                overflow: "auto",
               }}
             >
               {selectedStep?.attributes.map((attribute, index) => {
