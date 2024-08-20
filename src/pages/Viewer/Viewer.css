@@ -1,3 +1,12 @@
+.master_box {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    /* padding: 40px 60px; */
+    height: 100%;
+    width: 100%;
+}
+
 .layout {
     padding: 12px 24px 60px;
     display: grid;
@@ -8,9 +17,17 @@
 
 .ff_root {
     position: relative;
-    background-color: var(--template-background-color);
+    background-color: var(--template-background-color);    
+    width: 100%;
+    height: 100%;
     /* user-select: none;
     overflow: auto;  */
+}
+
+.ff_viewer {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 .ff_viewer_left_actions {

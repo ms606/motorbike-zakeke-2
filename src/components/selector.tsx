@@ -55,20 +55,39 @@ export const ExplodeIcon = styled(Icon)`
   height: 32px;
 `;
 
-export const HamburgerIcon = () => (
-  <svg
-    width="30"
-    height="30"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    style={{ marginRight: "5px" }}
-  >
-    <rect y="3" width="16" height="1" fill="currentColor" />
-    <rect y="7" width="16" height="1" fill="currentColor" />
-    <rect y="11" width="16" height="1" fill="currentColor" />
-  </svg>
-);
+export const HamburgerIcon = () => {
+  const [iconSize, setIconSize] = useState(30); // Default size
+
+  useEffect(() => {
+    const updateIconSize = () => {
+      if (window.innerWidth < 1318) {
+        setIconSize(28); // Smaller size for small screens
+      } else {
+        setIconSize(30); // Default size for larger screens
+      }
+    };
+
+    window.addEventListener("resize", updateIconSize);
+    updateIconSize(); // Initial size set
+
+    return () => window.removeEventListener("resize", updateIconSize);
+  }, []);
+
+  return (
+    <svg
+      width={iconSize}
+      height={iconSize}
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ marginRight: "5px" }}
+    >
+      <rect y="3" width="16" height="1" fill="currentColor" />
+      <rect y="7" width="16" height="1" fill="currentColor" />
+      <rect y="11" width="16" height="1" fill="currentColor" />
+    </svg>
+  );
+};
 
 interface SelectorProps {
   refViewer: any; // React.RefObject<HTMLElement>;
@@ -88,7 +107,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   } = useZakeke();
 
   const newGroup = useActualGroups();
-  
+
   const { showDialog, closeDialog } = useDialogManager();
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -179,16 +198,16 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-  // console.log(selectedGroup, newGroup, 'fasadssd');
-   
+    // console.log(selectedGroup, newGroup, 'fasadssd');
+
     if (!onLoadFirstTime && newGroup.length > 0) {
-      setOnLoadFirstTime(true)
+      setOnLoadFirstTime(true);
       selectGroup(newGroup[0].id);
-    //  console.log(newGroup[0].steps,'first group and step open');      
-      
+      //  console.log(newGroup[0].steps,'first group and step open');
+
       if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
-  
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroup]);
 
@@ -241,20 +260,26 @@ const Selector: FunctionComponent<SelectorProps> = ({
     if (isViewerReady) {
       addFocusAttributesListener((event: { groups: string | any[] }) => {
         if (event.groups.length > 0) {
-
           selectGroup(event.groups[0].groupId);
           const group = newGroup.find(
             (group) => group.id === event.groups[0].groupId
           );
-          
-          if (group && group.steps) {
 
-            const firstStep = group.steps.find((step) => step.attributes.find((attr) => attr.id == event.groups[0].visibleAttributes[0]));
-            const index = group.steps.findIndex((step) => step.attributes.find((attr) => attr.id == event.groups[0].visibleAttributes[0]));
-            
+          if (group && group.steps) {
+            const firstStep = group.steps.find((step) =>
+              step.attributes.find(
+                (attr) => attr.id == event.groups[0].visibleAttributes[0]
+              )
+            );
+            const index = group.steps.findIndex((step) =>
+              step.attributes.find(
+                (attr) => attr.id == event.groups[0].visibleAttributes[0]
+              )
+            );
+
             if (index >= 0 && firstStep && selectedGroup) {
-              setCurrentIndex(0 +1 )
-              setCurrentIndex(index  )
+              setCurrentIndex(0 + 1);
+              setCurrentIndex(index);
               selectStep(firstStep.id);
             }
           }
@@ -461,103 +486,105 @@ const Selector: FunctionComponent<SelectorProps> = ({
         <br />
 
         {selectedGroupId && selectedGroupId > 0 ? (
-          <div className="menu_choice_steps">
-            <div className="active-marketing-component-name">
-              <div
-                className="arrows"
-                onClick={() => {
-                  handleLeftClick();
-                }}
-              >
-                {"<"}
-              </div>
-              <div>
-                <span
-                  className="active-marketing-component-name-detail"
-                  style={{
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    lineHeight: "28px",
-                    fontFamily: "PF DinDisplay Pro",
-                    fontWeight: "700",
-                    fontSize: "18px",
-                    // fontStyle: "italic",
-                    paddingRight: "10px",
-                    paddingLeft: "10px",
+          <div style={{position: 'relative', width: '100%', height: '100%'}}>
+            <div className="menu_choice_steps">
+              <div className="active-marketing-component-name">
+                <div
+                  className="arrows"
+                  onClick={() => {
+                    handleLeftClick();
                   }}
                 >
-                  {selectedGroup?.steps[currentIndex]?.name}
-                </span>
-                <span className="active-marketing-component-index">
-                  {" "}
-                  {currentIndex + 1} / {selectedGroup?.steps.length}
-                </span>
+                  {"<"}
+                </div>
+                <div>
+                  <span
+                    className="active-marketing-component-name-detail"
+                    style={{
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      lineHeight: "28px",
+                      fontFamily: "PF DinDisplay Pro",
+                      fontWeight: "700",
+                      fontSize: "18px",
+                      // fontStyle: "italic",
+                      paddingRight: "10px",
+                      paddingLeft: "10px",
+                    }}
+                  >
+                    {selectedGroup?.steps[currentIndex]?.name}
+                  </span>
+                  <span className="active-marketing-component-index">
+                    {" "}
+                    {currentIndex + 1} / {selectedGroup?.steps.length}
+                  </span>
+                </div>
+                <div
+                  className="arrows"
+                  onClick={() => {
+                    handleRightClick();
+                  }}
+                >
+                  {">"}
+                </div>
               </div>
+
               <div
-                className="arrows"
-                onClick={() => {
-                  handleRightClick();
+                className="new"
+                style={{
+                  width: "100%",
+                  marginTop: "30px",
+                  display: "flex",
+                  flexDirection: "row",
+                  flexFlow: "wrap",
+                  overflow: "auto",
                 }}
               >
-                {">"}
+                {selectedStep?.attributes.map((attribute, index) => {
+                  if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
+
+                  return attribute.options.map((option) => {
+                    if (!option.imageUrl) return null; // Skip options without image URL
+
+                    return (
+                      <ListItem
+                        key={option.id}
+                        onClick={() => {
+                          // Logic for selecting options
+                          selectOption(option.id);
+                          selectOptionName(option.name);
+                          addOptionToList(option.attribute.stepId);
+                        }}
+                        className="menu_choice_option"
+                      >
+                        <div className="menu_choice_option_image_container">
+                          <ListItemImage
+                            src={option.imageUrl}
+                            big={attribute.code === "PROTECTORS" ? "Yes" : ""}
+                          />
+                        </div>
+                        <div className="menu_choice_option_image_name">
+                          {option.name}
+                        </div>
+                      </ListItem>
+                    );
+                  });
+                })}
               </div>
             </div>
 
-            <div
-              className="new"
-              style={{
-                width: "100%",
-                marginTop: "30px",
-                display: "flex",
-                flexDirection: "row",
-                flexFlow: "wrap",
-                overflow: "auto",
-              }}
-            >
-              {selectedStep?.attributes.map((attribute, index) => {
-                if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
-
-                return attribute.options.map((option) => {
-                  if (!option.imageUrl) return null; // Skip options without image URL
-
-                  return (
-                    <ListItem
-                      key={option.id}
-                      onClick={() => {
-                        // Logic for selecting options
-                        selectOption(option.id);
-                        selectOptionName(option.name);
-                        addOptionToList(option.attribute.stepId);
-                      }}
-                      className="menu_choice_option"
-                    >
-                      <div className="menu_choice_option_image_container">
-                        <ListItemImage
-                          src={option.imageUrl}
-                          big={attribute.code === "PROTECTORS" ? "Yes" : ""}
-                        />
-                      </div>
-                      <div className="menu_choice_option_image_name">
-                        {option.name}
-                      </div>
-                    </ListItem>
-                  );
-                });
-              })}
-
-              <div className="menu_tray_selection">
-                <div
-                  className="menu_tray_name"
-                  onClick={() => {
-                    loadMenu();
-                    setMenuTrayOpen(!menuTrayOpen);
-                  }}
-                >
-                  SUMMARY
-                </div>
-                <HamburgerIcon />
+            <div className="menu_tray_selection">
+              <div
+                className="menu_tray_name"
+                onClick={() => {
+                  loadMenu();
+                  setMenuTrayOpen(!menuTrayOpen);
+                }}
+              >
+                SUMMARY
               </div>
+              <HamburgerIcon />
             </div>
           </div>
         ) : (

@@ -32,6 +32,10 @@ export const ListItem = styled.div<{ selected?: boolean }>`
       background-position: 50%;
       background-repeat: no-repeat;
       position: relative;
+        @media screen and (max-width: 1318px) {
+          width: 70px;
+          height: 70px;
+        }
         @media screen and (max-width: 1013px) {
           width: 60px;
           height: 60px;

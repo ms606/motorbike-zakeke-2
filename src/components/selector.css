@@ -124,6 +124,12 @@ div {
   top: 45%;
 }
 
+.menu_footer_master {
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
 .menu_footer {
   display: flex;
   flex-flow: row;
@@ -227,6 +233,17 @@ div {
 @media screen and (max-width: 1538px) {
   .active-marketing-component-name-detail {
     font-size: 15px !important;
+  }
+}
+
+@media screen and (max-width: 1318px) {
+  .menu_footer_master {
+    bottom: -114px;
+  }
+
+  .menu_btn_cart {
+    width: 170px;
+    font-size: 20px;
   }
 }
 

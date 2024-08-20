@@ -153,6 +153,11 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	display: flex;
 	flex-direction: column;
 	background: #ffffff;
+
+	@media screen and (max-width: 1538px) {
+   	   transform: scale(0.9);
+	}
+	   
 	${(props) =>
 		props.isMobile &&
 		`

@@ -90,6 +90,10 @@ const DesignerContainer = styled.div<{ isMobile?: boolean }>`
   font-family: Inter, sans-serif;
   border-radius: 23px;
 
+  @media screen and (max-width: 1538px) {
+   	   transform: scale(0.9);
+	}
+
   ${(props) =>
     props.isMobile &&
     `

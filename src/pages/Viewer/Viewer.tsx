@@ -45,7 +45,7 @@ const Viewer: FunctionComponent<{}> = () => {
   }
   
   return (
-    <>
+    <div className="master_box">
       <div className="layout">
       <>
       <div className="ff_root">
@@ -79,7 +79,7 @@ const Viewer: FunctionComponent<{}> = () => {
       <Selector refViewer={viewElement} fullScreen={() =>fullScreen()} />
       </div>
       
-    </>
+    </div>
   );
 };
 
