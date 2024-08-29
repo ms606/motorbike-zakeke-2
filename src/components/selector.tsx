@@ -42,7 +42,7 @@ import { log } from "console";
 const Container = styled.div`
   height: 839px;
   overflow: auto;
-  font-family: "PF DinDisplay Pro", sans-serif;
+  font-family: "Helvetica", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -407,40 +407,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // -- -- -- options
 
   return (
-    <Container>
-      {/* <div
-        className="iHdtWA group-item selected"
-        style={{
-          position: "absolute",
-          top: "5%",
-          right: "1%",
-          cursor: "pointer",
-          marginLeft: "20px",
-          width: "30vw",
-        }}
-      >
-        <div
-          className="button-53"
-          onClick={() => setSelectedPersonalize(!selectedPersonalize)}
-        >
-          <span
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "7px",
-            }}
-          >
-            "Personalizează"
-          </span>
-        </div> */}
-      {/* {selectedPersonalize ? ( */}
-      {/* <Designer /> */}
-      {/* ) : ( */}
-      {/* "" */}
-      {/* )} */}
-      {/* </div> */}
-
+    <div>
       {menuTrayOpen && (
         <Tray
           groupNameList={selectedGroupList}
@@ -455,6 +422,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
         />
       )}
 
+<Container>
       <div className="menu">
         <div className="menu_group">
           {newGroup.map((group) => {
@@ -505,7 +473,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                       textOverflow: "ellipsis",
                       overflow: "hidden",
                       lineHeight: "28px",
-                      fontFamily: "PF DinDisplay Pro",
+                      fontFamily: "Helvetica",
                       fontWeight: "700",
                       fontSize: "18px",
                       // fontStyle: "italic",
@@ -692,6 +660,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
         {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
       </div>
     </Container>
+
+    </div>
+    
   );
 };
 

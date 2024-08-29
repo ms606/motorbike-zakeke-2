@@ -1,6 +1,6 @@
 .extra_header {
     color: #000;
-    font-family: "PF DinDisplay Pro";
+    font-family: "Helvetica";
     text-align: center;
     /* font-style: italic; */
     font-size: 15px;
@@ -41,7 +41,7 @@
 }
 
 .extra_quality {
-    font-family: "PF DinDisplay Pro";
+    font-family: "Helvetica";
     font-weight: 600;
     font-size: 20px;
     /* font-style: italic; */

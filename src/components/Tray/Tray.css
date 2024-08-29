@@ -1,13 +1,15 @@
 .full-tray {
     overflow: hidden;
-    background: rgb(204, 204, 204);
+    background: #fff;
     padding-left: 13px;
     transition: all 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
-    
+    border-radius: 2%;
+    box-shadow: 3px 3px 2px 2px #aaaaaa;
     right: 0px;
-    width: 76%;
-    height: 76vh;
-
+    width: 96%;
+    height: 66vh;
+    display: flex;
+    flex-direction: column;
     /* width: 445px;
     height: 80%; */
     position: absolute;
@@ -32,22 +34,23 @@
     right: 0px;
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding-right: 20px;
     width: 100%;
     height: 36px;
+    margin-top: 20px;
     /* right: 60px; */
 }
 
 .tray-trigger-menu-button {
   padding: 0px;
-  width: 36px;
+  width: 100%;
   height: 36px;
   border-radius: 12%; 
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Saira', sans-serif;
-  font-size: 20px;
+  font-size: 40px;
   font-weight: 600;
   font-style: italic;
   background-color: nono;
@@ -58,7 +61,7 @@
     padding: 0px;
     width: 36px;
     height: 36px;
-    border-radius: 12%; 
+    border-radius: 60%; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,8 +82,9 @@
   }
   
 .tray-mc-content {
+    padding-top: 40px;
     width: 100%;
-    height: 10em;
+    height: 9em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -135,9 +139,9 @@
   }
 
   .heading {
-    background: rgba(196, 195, 195, 0.2);
-    border: rgb(45, 44, 44);
-    border-radius: 15px;
+    /* background: rgba(196, 195, 195, 0.2); */
+    border: 1px solid rgb(45, 44, 44);
+    border-radius: 10px;
     color: rgb(24, 21, 21);
     text-align: center;
     align-items: center;
@@ -204,12 +208,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding-left: 5px;
-    width: 33em;
+    width: 41em;
     /* width: 650px; */
     column-count: 2; /* Set to 2 columns */
     column-gap: 20px; 
     font-size: 14px;
     /* font-style: italic; */
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .tray-mc-sub-list {
@@ -226,6 +232,27 @@
     background-color: black;
     color: #fff;
     font-size: 12px;
+  }
+
+  @media screen and (max-width: 1316px) {
+    .full-tray {
+      width: 55vw;
+      height: 70vh;
+    }
+
+    .heading {
+      width: 20%;
+    }
+
+    .slabel {
+      height: 35px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .tray-mc-sub-steps {
+      font-size: 12px;
+    }
   }
 
   @media screen and (max-width: 400px) {

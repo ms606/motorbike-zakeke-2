@@ -39,7 +39,7 @@ export const TextArea = styled.textarea`
 	width: 100%;
 	// min-height: 35px;
 	margin-top: 14px;
-	font-family: 'PF DinDisplay Pro';
+	font-family: 'Helvetica';
 	// font-style: italic;
 	text-transform: uppercase;
 	outline: none;

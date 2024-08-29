@@ -123,14 +123,23 @@ const Tray = ({
 
   return (
     <div
-      style={{ transition: "all 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) 0s", position: "relative" }}
+      style={{ transition: "all 0.6s cubic-bezier(0.075, 0.82, 0.165, 1) 0s", position: "relative",
+        position: "absolute",
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100vh',
+        height: '100vh',
+        zIndex: '999999',
+
+       }}
     >
       {groupNameList && (
         <div>
           <div className="full-tray">            
             <div className="tray-mc-header">
               <div className="tray-trigger-menu-button">
-                MENU
+                SUMMARY
               </div>  
               
               <button
@@ -202,6 +211,8 @@ const Tray = ({
             </div>
 
             <div className="tray-mc-sub-steps">
+       
+
             {selectedGroup?.steps.map((x,i) => (
               <div className="tray-mc-sub-list" key={i}>
                 <div className="tray-mc-sub-key"> {i+1}.</div>

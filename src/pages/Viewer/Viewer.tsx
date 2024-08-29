@@ -12,6 +12,7 @@ import ExplodeSolid from "../../assets/icons/expand-arrows-alt-solid.js";
 
 import { Icon } from '../../components/Atomic';
 import Zoom from "../../components/Zoom/Zoom";
+import Tray from "../../components/Tray/Tray";
 // import Zoom from "../../Zoom/Zoom";
 
 
@@ -46,7 +47,7 @@ const Viewer: FunctionComponent<{}> = () => {
   
   return (
     <div className="master_box">
-      <div className="layout">
+      <div className="layout">      
       <>
       <div className="ff_root">
         <div
