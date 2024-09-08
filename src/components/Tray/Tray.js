@@ -139,7 +139,7 @@ const Tray = ({
           <div className="full-tray">            
             <div className="tray-mc-header">
               <div className="tray-trigger-menu-button">
-                SUMMARY
+                SUMMARY.
               </div>  
               
               <button
