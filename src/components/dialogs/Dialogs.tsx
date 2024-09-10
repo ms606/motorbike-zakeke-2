@@ -172,7 +172,11 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref)
 	const Window = props.windowDecorator || DialogWindow;
 	const { removeDialog, isMobile } = useStore();
 	const { dialogId } = useContext(dialogContext);
-	const onClose = props.onClose || (() => removeDialog(dialogId));
+	const onClose = props.onClose || (() => {
+		console.log('remove dialog');
+		
+		removeDialog(dialogId)
+	});
 	return (
 		<DialogOverlay>
 			{React.createElement(

@@ -41,7 +41,7 @@ import { log } from "console";
 
 const Container = styled.div`
   height: 839px;
-  overflow: auto;
+  overflow: none;
   font-family: "Helvetica", sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -198,13 +198,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    // console.log(selectedGroup, newGroup, 'fasadssd');
-
     if (!onLoadFirstTime && newGroup.length > 0) {
       setOnLoadFirstTime(true);
       selectGroup(newGroup[0].id);
-      //  console.log(newGroup[0].steps,'first group and step open');
-
+    
       if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
 
@@ -256,37 +253,38 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, !isSceneLoading]);
 
-  useEffect(() => {
-    if (isViewerReady) {
-      addFocusAttributesListener((event: { groups: string | any[] }) => {
-        if (event.groups.length > 0) {
-          selectGroup(event.groups[0].groupId);
-          const group = newGroup.find(
-            (group) => group.id === event.groups[0].groupId
-          );
+  // On clicking the suit it opens the attributes
+  // useEffect(() => {
+  //   if (isViewerReady) {
+  //     addFocusAttributesListener((event: { groups: string | any[] }) => {
+  //       if (event.groups.length > 0) {
+  //         selectGroup(event.groups[0].groupId);
+  //         const group = newGroup.find(
+  //           (group) => group.id === event.groups[0].groupId
+  //         );
 
-          if (group && group.steps) {
-            const firstStep = group.steps.find((step) =>
-              step.attributes.find(
-                (attr) => attr.id == event.groups[0].visibleAttributes[0]
-              )
-            );
-            const index = group.steps.findIndex((step) =>
-              step.attributes.find(
-                (attr) => attr.id == event.groups[0].visibleAttributes[0]
-              )
-            );
+  //         if (group && group.steps) {
+  //           const firstStep = group.steps.find((step) =>
+  //             step.attributes.find(
+  //               (attr) => attr.id == event.groups[0].visibleAttributes[0]
+  //             )
+  //           );
+  //           const index = group.steps.findIndex((step) =>
+  //             step.attributes.find(
+  //               (attr) => attr.id == event.groups[0].visibleAttributes[0]
+  //             )
+  //           );
 
-            if (index >= 0 && firstStep && selectedGroup) {
-              setCurrentIndex(0 + 1);
-              setCurrentIndex(index);
-              selectStep(firstStep.id);
-            }
-          }
-        }
-      });
-    }
-  }, [isViewerReady, selectedGroupId]);
+  //           if (index >= 0 && firstStep && selectedGroup) {
+  //             setCurrentIndex(0 + 1);
+  //             setCurrentIndex(index);
+  //             selectStep(firstStep.id);
+  //           }
+  //         }
+  //       }
+  //     });
+  //   }
+  // }, [isViewerReady, selectedGroupId]);
 
   // Open the first group and the first step when loaded
   // useEffect(() => {

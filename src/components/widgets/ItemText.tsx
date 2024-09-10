@@ -172,7 +172,8 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
         return <ItemTextContainer>
             <FormControl
                 label={item.name} //|| T._("Text", "Composer")
-                rightComponent={!hideRemoveButton && item.constraints!.canDelete && <Icon onClick={() => removeItem(item.guid)}><CloseIcon /></Icon>}>
+                rightComponent={!hideRemoveButton && item.constraints!.canDelete && <Icon onClick={() => removeItem(item.guid)}><CloseIcon /></Icon>}
+                >
 
                 <TextArea
                     placeholder="Input your text here" 
@@ -243,7 +244,7 @@ const ItemText: FC<{ item: EditTextItem, handleItemPropChange: PropChangeHandler
                     </TextColorsContainer>}
                 </ColorsContainer>
             </FormControl>}
-        </ItemTextContainer >
+        </ItemTextContainer>
     else
         return null;
 }

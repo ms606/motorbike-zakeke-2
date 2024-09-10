@@ -1,6 +1,6 @@
 .measurements {
  width: 34vw;
- height: 70vh;
+ height: 66vh;
  position: absolute;
  left: 1em;
  top: 0.5em;
@@ -15,10 +15,11 @@
 }
 
 .measurement_inputs {
- width: 130px;
- height: 48px;
+ width: 114px;
+ height: 44px;
  border-radius: 8%;
- font-size: 33px;
+ font-size: 20px;
+ font-weight: 500;
 }
 
 .measurement_title {
@@ -46,11 +47,12 @@ color: #060505;
 }
 
 .measurement_inputs_paired {
- width: 62px;
- height: 48px;
+ width: 55px;
+ height: 44px;
  margin-right: 5px;
  border-radius: 8%;
- font-size: 25px;
+ font-size: 20px;
+ font-weight: 500;
 }
 
 .paired_measurements {
@@ -62,4 +64,11 @@ color: #060505;
     font-family: "Helvetica";
     color: #060505;
     text-align: center;
+}
+
+
+@media screen and (max-width: 1240px) {
+    .measurements {
+        height: 84vh;
+    }
 }

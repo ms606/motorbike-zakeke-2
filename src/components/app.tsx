@@ -5,7 +5,7 @@ import Selector from './selector';
 import Viewer from '../pages/Viewer/Viewer';
 import useStore from '../Store';
 import LayoutMobile from '../LayoutMobile';
-import { DialogsRenderer } from "./dialogs/Dialogs";
+import { DialogsRenderer } from "./dialog/Dialogs";
 
 // const Layout = styled.div`
 //     display: grid;
