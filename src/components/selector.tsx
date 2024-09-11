@@ -201,7 +201,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     if (!onLoadFirstTime && newGroup.length > 0) {
       setOnLoadFirstTime(true);
       selectGroup(newGroup[0].id);
-    
+
       if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
     }
 
@@ -420,247 +420,264 @@ const Selector: FunctionComponent<SelectorProps> = ({
         />
       )}
 
-<Container>
-      <div className="menu">
-        <div className="menu_group">
-          {newGroup.map((group) => {
-            const handleGroupClick = (group: any) => {
-              selectGroup(group.id);
-              selectOptionName("");
-              setCurrentIndex(0);
-              if (group.steps) {
-                selectStep(group?.steps[0]?.id);
-              }
-            };
+      <Container>
+        <div className="menu">
+          <div className="menu_group">
+            {newGroup.map((group) => {
+              const handleGroupClick = (group: any) => {
+                selectGroup(group.id);
+                selectOptionName("");
+                setCurrentIndex(0);
+                if (group.steps) {
+                  selectStep(group?.steps[0]?.id);
+                }
+              };
 
-            return (
-              <div
-                className={`menu_item ${
-                  group.id === selectedGroupId ? "selected" : ""
-                }`}
-                key={group.id}
-                onClick={() => {
-                  scrollDownOnClick(checkOnce, setCheckOnce);
-                  handleGroupClick(group);
-                }}
-              >
-                {group.id === -1 ? "Other" : group.name}
-              </div>
-            );
-          })}
-        </div>
-        <br />
-
-        {selectedGroupId && selectedGroupId > 0 ? (
-          <div style={{position: 'relative', width: '100%', height: '100%'}}>
-            <div className="menu_choice_steps">
-              <div className="active-marketing-component-name">
+              return (
                 <div
-                  className="arrows"
+                  className={`menu_item ${
+                    group.id === selectedGroupId ? "selected" : ""
+                  }`}
+                  key={group.id}
                   onClick={() => {
-                    handleLeftClick();
+                    scrollDownOnClick(checkOnce, setCheckOnce);
+                    handleGroupClick(group);
                   }}
                 >
-                  {"<"}
+                  {group.id === -1 ? "Other" : group.name}
                 </div>
-                <div>
-                  <span
-                    className="active-marketing-component-name-detail"
-                    style={{
-                      whiteSpace: "nowrap",
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      lineHeight: "28px",
-                      fontFamily: "Helvetica",
-                      fontWeight: "700",
-                      fontSize: "18px",
-                      // fontStyle: "italic",
-                      paddingRight: "10px",
-                      paddingLeft: "10px",
+              );
+            })}
+          </div>
+          <br />
+
+          {selectedGroupId && selectedGroupId > 0 ? (
+            <div
+              style={{ position: "relative", width: "100%", height: "100%" }}
+            >
+              <div className="menu_choice_steps">
+                <div className="active-marketing-component-name">
+                  <div
+                    className="arrows"
+                    onClick={() => {
+                      handleLeftClick();
                     }}
                   >
-                    {selectedGroup?.steps[currentIndex]?.name}
-                  </span>
-                  <span className="active-marketing-component-index">
-                    {" "}
-                    {currentIndex + 1} / {selectedGroup?.steps.length}
-                  </span>
+                    {"<"}
+                  </div>
+                  <div>
+                    <span
+                      className="active-marketing-component-name-detail"
+                      style={{
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        lineHeight: "28px",
+                        fontFamily: "Helvetica",
+                        fontWeight: "700",
+                        fontSize: "18px",
+                        // fontStyle: "italic",
+                        paddingRight: "10px",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      {selectedGroup?.steps[currentIndex]?.name}
+                    </span>
+                    <span className="active-marketing-component-index">
+                      {" "}
+                      {currentIndex + 1} / {selectedGroup?.steps.length}
+                    </span>
+                  </div>
+                  <div
+                    className="arrows"
+                    onClick={() => {
+                      handleRightClick();
+                    }}
+                  >
+                    {">"}
+                  </div>
                 </div>
+
                 <div
-                  className="arrows"
-                  onClick={() => {
-                    handleRightClick();
+                  className="new"
+                  style={{
+                    width: "100%",
+                    marginTop: "30px",
+                    display: "flex",
+                    flexDirection: "row",
+                    flexFlow: "wrap",
+                    overflow: "auto",
                   }}
                 >
-                  {">"}
+                  {selectedStep?.attributes.map((attribute, index) => {
+                    if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
+
+                    return attribute.options.map((option) => {
+                      if (!option.imageUrl) return null; // Skip options without image URL
+
+                      return (
+                        <ListItem
+                          key={option.id}
+                          onClick={() => {
+                            // Logic for selecting options
+                            selectOption(option.id);
+                            selectOptionName(option.name);
+                            addOptionToList(option.attribute.stepId);
+                          }}
+                          className="menu_choice_option"
+                        >
+                          <div className="menu_choice_option_image_container">
+                            <ListItemImage
+                              src={option.imageUrl}
+                              big={attribute.code === "PROTECTORS" ? "Yes" : ""}
+                            />
+                          </div>
+                          <div className="menu_choice_option_image_name">
+                            {option.name}
+                          </div>
+                        </ListItem>
+                      );
+                    });
+                  })}
                 </div>
               </div>
 
+              <div className="menu_tray_footer">
+                <div className="menu_tray_footer_selection">
+                  <div
+                    className="menu_tray_footer_name"
+                    onClick={() => {
+                      loadMenu();
+                      setMenuTrayOpen(!menuTrayOpen);
+                    }}
+                  >
+                    <div className="menu_tray_footer_summary">SUMMARY</div>
+
+                    <HamburgerIcon />
+                  </div>
+                </div>
+                <div className="menu_tray_add_to_cart">
+                  <MenuFooter viewFooter={viewFooter} />                  
+                </div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {selectedGroup?.id === -4 && (
+            <div style={{ position: "relative", width: "100%"}}>
               <div
-                className="new"
+                className="textEditor"
+                style={{ overflowX: "hidden", height: "70vh" }}
+              >
+                <Measurements />
+
+                
+              </div>
+
+              <div className="menu_tray_footer">
+                <div className="menu_tray_footer_selection">
+                  <div
+                    className="menu_tray_footer_name"
+                    onClick={() => {
+                      loadMenu();
+                      setMenuTrayOpen(!menuTrayOpen);
+                    }}
+                  >
+                    <div className="menu_tray_footer_summary">SUMMARY</div>
+
+                    <HamburgerIcon />
+                  </div>
+                </div>
+                <div className="menu_tray_add_to_cart">
+                  <MenuFooter viewFooter={viewFooter} />                  
+                </div>
+              </div>
+
+              
+            </div>
+          )}
+
+          {selectedGroup?.id === -5 && (
+            <div style={{ position: "relative" }}>
+              <div
+                className="textEditor"
                 style={{
-                  width: "100%",
-                  marginTop: "30px",
-                  display: "flex",
-                  flexDirection: "row",
-                  flexFlow: "wrap",
-                  overflow: "auto",
+                  overflowX: "hidden",
+                  width: "37vw",
+                  height: "70vh",
+                  borderRadius: "15px",
                 }}
               >
-                {selectedStep?.attributes.map((attribute, index) => {
-                  if (!attribute.enabled || !attribute.options) return null; // Skip disabled or missing options
-
-                  return attribute.options.map((option) => {
-                    if (!option.imageUrl) return null; // Skip options without image URL
-
-                    return (
-                      <ListItem
-                        key={option.id}
-                        onClick={() => {
-                          // Logic for selecting options
-                          selectOption(option.id);
-                          selectOptionName(option.name);
-                          addOptionToList(option.attribute.stepId);
-                        }}
-                        className="menu_choice_option"
-                      >
-                        <div className="menu_choice_option_image_container">
-                          <ListItemImage
-                            src={option.imageUrl}
-                            big={attribute.code === "PROTECTORS" ? "Yes" : ""}
-                          />
-                        </div>
-                        <div className="menu_choice_option_image_name">
-                          {option.name}
-                        </div>
-                      </ListItem>
-                    );
-                  });
-                })}
+                <Designer />
               </div>
-            </div>
 
-            <div className="menu_tray_selection">
-              <div
-                className="menu_tray_name"
-                onClick={() => {
-                  loadMenu();
-                  setMenuTrayOpen(!menuTrayOpen);
-                }}
-              >
-                SUMMARY
-              </div>
-              <HamburgerIcon />
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
+              <div className="menu_tray_footer">
+                <div className="menu_tray_footer_selection">
+                  <div
+                    className="menu_tray_footer_name"
+                    onClick={() => {
+                      loadMenu();
+                      setMenuTrayOpen(!menuTrayOpen);
+                    }}
+                  >
+                    <div className="menu_tray_footer_summary">SUMMARY</div>
 
-        {selectedGroup?.id === -4 && (
-          <div style={{ position: "relative" }}>
-            <div
-              className="textEditor"
-              style={{ overflowX: "hidden", height: "70vh" }}
-            >
-              <Measurements />
-
-              <div className="menu_tray_selection">
-                <div
-                  className="menu_tray_name"
-                  onClick={() => {
-                    loadMenu();
-                    setMenuTrayOpen(!menuTrayOpen);
-                  }}
-                >
-                  SUMMARY
+                    <HamburgerIcon />
+                  </div>
                 </div>
-                <HamburgerIcon />
+                <div className="menu_tray_add_to_cart">
+                  <MenuFooter viewFooter={viewFooter} />                  
+                </div>
               </div>
             </div>
+          )}
 
-            <div
-              style={{ position: "relative", bottom: "370px", left: "20px" }}
-            ></div>
-          </div>
-        )}
-
-        {selectedGroup?.id === -5 && (
-          <div style={{ position: "relative" }}>
-            <div
-              className="textEditor"
-              style={{
-                overflowX: "hidden",
-                width: "37vw",
-                height: "70vh",
-                borderRadius: "15px",
-              }}
-            >
-              <Designer />
-            </div>
-
-            <div className="menu_tray_selection">
+          {selectedGroup?.id === -6 && (
+            <div style={{ position: "relative" }}>
               <div
-                className="menu_tray_name"
-                onClick={() => {
-                  loadMenu();
-                  setMenuTrayOpen(!menuTrayOpen);
+                className="textEditor"
+                style={{
+                  overflowX: "hidden",
+                  width: "37vw",
+                  height: "80vh",
+                  backgroundColor: "#fff",
+                  borderRadius: "15px",
                 }}
               >
-                SUMMARY
+                <Extra />
               </div>
-              <HamburgerIcon />
-            </div>
+              <div className="menu_tray_footer">
+                <div className="menu_tray_footer_selection">
+                  <div
+                    className="menu_tray_footer_name"
+                    onClick={() => {
+                      loadMenu();
+                      setMenuTrayOpen(!menuTrayOpen);
+                    }}
+                  >
+                    <div className="menu_tray_footer_summary">SUMMARY</div>
 
-            <div
-              style={{ position: "relative", bottom: "370px", left: "20px" }}
-            ></div>
-          </div>
-        )}
-
-        {selectedGroup?.id === -6 && (
-          <div style={{ position: "relative" }}>
-            <div
-              className="textEditor"
-              style={{
-                overflowX: "hidden",
-                width: "37vw",
-                height: "80vh",
-                backgroundColor: "#fff",
-                borderRadius: "15px",
-              }}
-            >
-              <Extra />
-            </div>
-
-            <div className="menu_tray_selection">
-              <div
-                className="menu_tray_name"
-                onClick={() => {
-                  loadMenu();
-                  setMenuTrayOpen(!menuTrayOpen);
-                }}
-              >
-                SUMMARY
+                    <HamburgerIcon />
+                  </div>
+                </div>
+                <div className="menu_tray_add_to_cart">
+                  <MenuFooter viewFooter={viewFooter} />                  
+                </div>
               </div>
-              <HamburgerIcon />
+              
             </div>
-            <div
-              style={{ position: "relative", bottom: "370px", left: "20px" }}
-            ></div>
-          </div>
-        )}
+          )}
 
-        <br />
-        <br />
-        <br />
+          <br />
+          <br />
+          <br />
 
-        {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />}
-      </div>
-    </Container>
-
+          {/* {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />} */}
+        </div>
+      </Container>
     </div>
-    
   );
 };
 

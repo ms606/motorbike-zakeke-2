@@ -19,8 +19,6 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
         className="menu_footer"
         ref={viewFooter}
         style={{
-          position: "relative",
-          bottom: "5px",
           display: "flex",
           justifyContent: "space-between",
           width: "100%", 

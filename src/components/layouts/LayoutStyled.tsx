@@ -155,7 +155,7 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
 	background: #ffffff;
 
 	@media screen and (max-width: 1538px) {
-   	   transform: scale(0.9);
+   	//    transform: scale(0.9);
 	}
 	   
 	${(props) =>

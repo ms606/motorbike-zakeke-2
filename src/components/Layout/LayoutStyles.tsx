@@ -431,7 +431,7 @@ export const ZakekeDesignerContainer = styled.div<{ isMobile?: boolean }>`
     background: var(--template-boundary-color);
 	// background: #ffffff
 	@media screen and (max-width: 1538px) {
-   	   transform: scale(0.9);
+   	//    transform: scale(0.9);
 	}
 	
 	@media (max-width: 1024px) {
