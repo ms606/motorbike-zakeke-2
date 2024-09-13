@@ -230,14 +230,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
       if (camera) setCamera(camera);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [selectedGroupId, selectedCameraID, selectedStepId]);
   }, [selectedGroupId, selectedGroup, currentIndex]);
 
   // Camera for left icons
   useEffect(() => {
     if (selectedCameraID) setCamera(selectedCameraID);
 
-    // setSelectedCameraID("");
   }, [selectedCameraID, selectedGroup]);
 
   // Camera for attributes
@@ -411,12 +409,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
           groupNameList={selectedGroupList}
           menuTrayToggle={menuTrayToggle}
           selectedStepList={selectedStepList}
-          // filteredAreas={filteredAreas}
-          // toggleFunc={toggleTray}
-          // UpdateGroupId={groupIdFromFunc}
-          // updCurrentIndex={updCurrentIndex}
-          // selectedTray={selectedTrayType}
-          // selectStepName={selectStepName}
         />
       )}
 
