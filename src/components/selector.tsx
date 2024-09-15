@@ -7,37 +7,22 @@ import React, {
 } from "react";
 import styled from "styled-components";
 import { useZakeke } from "zakeke-configurator-react";
-import { List, ListItem, ListItemImage } from "./list";
+import { ListItem, ListItemImage } from "./list";
 import "./selector.css";
 import "./Menu/menu.css";
-import { Dialog, useDialogManager } from "../components/dialogs/Dialogs";
-import ErrorDialog from "../components/dialogs/ErrorDialog";
-import Preview from "./Preview/Preview";
-import SvgArrowDown from "../icons/Arrowdown";
+import { useDialogManager } from "../components/dialogs/Dialogs";
 import Loader from "../components/Loader/Loader";
-import Scroll from "./Scroll/Scroll";
-import SelectionIcon from "../icons/SelectionIcon";
-import ExplodeSolid from "../assets/icons/expand-arrows-alt-solid.js";
-
-import { ExplodeIconL } from "../assets/icons/ExplodeIcon";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
 import Designer from "./layouts/Designer";
-import { customizeGroup, useActualGroups } from "../Helpers";
-import { AiIcon, ArIcon } from "../components/Layout/LayoutStyles";
+import {  useActualGroups } from "../Helpers";
 
 import {
-  PRODUCT_FULL_SUIT,
-  PRODUCT_BLAZER,
-  PRODUCT_PANT,
   scrollDownOnClick,
 } from "../Helpers";
-import Zoom from "./Zoom/Zoom";
 import Tray from "../components/Tray/Tray";
 import Measurements from "../components/Measurements/Measurements";
-import useStore from "../Store";
 import Extra from "./Extra/Extra";
-import { log } from "console";
 
 const Container = styled.div`
   height: 839px;
@@ -662,11 +647,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
             </div>
           )}
 
-          <br />
-          <br />
-          <br />
-
-          {/* {screenWidth > 500 && <MenuFooter viewFooter={viewFooter} />} */}
         </div>
       </Container>
     </div>
