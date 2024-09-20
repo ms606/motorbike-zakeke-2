@@ -14,6 +14,7 @@ import { useDialogManager } from "../components/dialogs/Dialogs";
 import Loader from "../components/Loader/Loader";
 import { Icon } from "./Atomic";
 import MenuFooter from "./Footer/MenuFooter";
+import {MenuFooterNew} from "./Menu/MenuFooterNew";
 import Designer from "./layouts/Designer";
 import {  useActualGroups } from "../Helpers";
 
@@ -102,22 +103,13 @@ const Selector: FunctionComponent<SelectorProps> = ({
   // Keep saved the ID and not the refereces, they will change on each update
   const [selectedGroupId, selectGroup] = useState<number | null>(12014);
   const [selectedStepId, selectStep] = useState<number | null>(null);
-  const [selectedStepName, selectStepName] = useState<string | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
   const [selectedAttributeOptionName, setSelectedAttributeOptionName] =
     useState<string | null>(null);
   const [selectedOptionName, selectOptionName] = useState<string | null>(null);
 
-  const [selectedLiningTypeHeadName, selectLiningTypeHeadName] = useState<
-    string | null
-  >(null);
-
   const [selectedCameraID, setSelectedCameraID] = useState<string | null>(null);
-  const [selectedCameraAngle, setSelectedCameraAngle] = useState<string | null>(
-    null
-  );
-  const [previewImage, setPreviewImage] = useState<any | null>(null);
-
+  
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
   const [checkOnce, setCheckOnce] = useState<boolean | null>(true);
 
@@ -145,7 +137,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     : null;
 
   //Inner Menu open
-  const [menuTrayOpen, setMenuTrayOpen] = useState<boolean | null>(false);
+  const [menuTrayOpen, setMenuTrayOpen] = useState<boolean>(false);
 
   const [selectedPersonalize, setSelectedPersonalize] = useState<any | null>(
     false
@@ -219,7 +211,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Camera for left icons
   useEffect(() => {
-    if (selectedCameraID) setCamera(selectedCameraID);
+     if (selectedCameraID) setCamera(selectedCameraID);
 
   }, [selectedCameraID, selectedGroup]);
 
@@ -419,6 +411,18 @@ const Selector: FunctionComponent<SelectorProps> = ({
                   onClick={() => {
                     scrollDownOnClick(checkOnce, setCheckOnce);
                     handleGroupClick(group);
+                    setSelectedCameraID(group?.cameraLocationId)
+                    if(group){
+                      const cameraId = group?.cameraLocationId;
+                      
+                      console.log(cameraId,'camera angle checks');
+                      if(cameraId) {
+                         setCamera(cameraId)
+                      }
+                    }
+                    
+               
+                    
                   }}
                 >
                   {group.id === -1 ? "Other" : group.name}
@@ -519,24 +523,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 </div>
               </div>
 
-              <div className="menu_tray_footer">
-                <div className="menu_tray_footer_selection">
-                  <div
-                    className="menu_tray_footer_name"
-                    onClick={() => {
-                      loadMenu();
-                      setMenuTrayOpen(!menuTrayOpen);
-                    }}
-                  >
-                    <div className="menu_tray_footer_summary">SUMMARY</div>
-
-                    <HamburgerIcon />
-                  </div>
-                </div>
-                <div className="menu_tray_add_to_cart">
-                  <MenuFooter viewFooter={viewFooter} />                  
-                </div>
-              </div>
+              <MenuFooterNew 
+                  loadMenu = {loadMenu} 
+                  setMenuTrayOpen = {setMenuTrayOpen} 
+                  menuTrayOpen = {menuTrayOpen} 
+                  viewFooter = {viewFooter} />
             </div>
           ) : (
             ""
@@ -553,24 +544,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 
               </div>
 
-              <div className="menu_tray_footer">
-                <div className="menu_tray_footer_selection">
-                  <div
-                    className="menu_tray_footer_name"
-                    onClick={() => {
-                      loadMenu();
-                      setMenuTrayOpen(!menuTrayOpen);
-                    }}
-                  >
-                    <div className="menu_tray_footer_summary">SUMMARY</div>
-
-                    <HamburgerIcon />
-                  </div>
-                </div>
-                <div className="menu_tray_add_to_cart">
-                  <MenuFooter viewFooter={viewFooter} />                  
-                </div>
-              </div>
+              <MenuFooterNew 
+                  loadMenu = {loadMenu} 
+                  setMenuTrayOpen = {setMenuTrayOpen} 
+                  menuTrayOpen = {menuTrayOpen} 
+                  viewFooter = {viewFooter} />
 
               
             </div>
@@ -590,24 +568,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 <Designer />
               </div>
 
-              <div className="menu_tray_footer">
-                <div className="menu_tray_footer_selection">
-                  <div
-                    className="menu_tray_footer_name"
-                    onClick={() => {
-                      loadMenu();
-                      setMenuTrayOpen(!menuTrayOpen);
-                    }}
-                  >
-                    <div className="menu_tray_footer_summary">SUMMARY</div>
-
-                    <HamburgerIcon />
-                  </div>
-                </div>
-                <div className="menu_tray_add_to_cart">
-                  <MenuFooter viewFooter={viewFooter} />                  
-                </div>
-              </div>
+              <MenuFooterNew 
+                  loadMenu = {loadMenu} 
+                  setMenuTrayOpen = {setMenuTrayOpen} 
+                  menuTrayOpen = {menuTrayOpen} 
+                  viewFooter = {viewFooter} />
             </div>
           )}
 
@@ -625,25 +590,12 @@ const Selector: FunctionComponent<SelectorProps> = ({
               >
                 <Extra />
               </div>
-              <div className="menu_tray_footer">
-                <div className="menu_tray_footer_selection">
-                  <div
-                    className="menu_tray_footer_name"
-                    onClick={() => {
-                      loadMenu();
-                      setMenuTrayOpen(!menuTrayOpen);
-                    }}
-                  >
-                    <div className="menu_tray_footer_summary">SUMMARY</div>
-
-                    <HamburgerIcon />
-                  </div>
-                </div>
-                <div className="menu_tray_add_to_cart">
-                  <MenuFooter viewFooter={viewFooter} />                  
-                </div>
-              </div>
-              
+            
+                <MenuFooterNew 
+                  loadMenu = {loadMenu} 
+                  setMenuTrayOpen = {setMenuTrayOpen} 
+                  menuTrayOpen = {menuTrayOpen} 
+                  viewFooter = {viewFooter} />
             </div>
           )}
 
