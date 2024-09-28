@@ -157,6 +157,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
     setSelectedPersonalize(!selectedPersonalize);
   };
 
+  const [selectedMenuTitle,setSelectedMenuTitle] = useState<any | null>();
+
+
   // Attributes can be in both newGroup and steps, so show the attributes of step or in a group based on selection
   const attributes = useMemo(
     () => (selectedStep || selectedGroup)?.attributes ?? [],
@@ -176,7 +179,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
     };
   }, []);
 
-  //  console.log(previewImage,'previewImage');
+  
   const selectedAttribute = attributes.find(
     (attribute) => attribute.id === selectedAttributeId
   );
@@ -211,24 +214,43 @@ const Selector: FunctionComponent<SelectorProps> = ({
   useEffect(() => {
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
-
-      if (camera) setCamera(camera);
+      if (selectedMenuTitle !== 'LOGO'){
+        if (camera) setCamera(camera);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedGroup, currentIndex]);
 
   // Camera for left icons
   useEffect(() => {
-    if (selectedCameraID) setCamera(selectedCameraID);
+    if (selectedMenuTitle !== 'LOGO'){
+      if (selectedCameraID) setCamera(selectedCameraID);
+    }
 
   }, [selectedCameraID, selectedGroup]);
+
+  useEffect(() => {
+    if(selectedGroup){
+      if (selectedStepId) {
+
+        setSelectedCameraID(
+          selectedGroup?.steps[
+            (currentIndex + selectedGroup?.steps.length) %
+              selectedGroup?.steps.length
+          ].cameraLocationID
+        );
+      }
+    }
+  },[selectedStepId])
+
 
   // Camera for attributes
   useEffect(() => {
     if (
       !isSceneLoading &&
       selectedAttribute &&
-      selectedAttribute.cameraLocationId
+      selectedAttribute.cameraLocationId &&
+      selectedMenuTitle !== 'LOGO' 
     ) {
       setCamera(selectedAttribute.cameraLocationId);
     }
@@ -236,70 +258,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, !isSceneLoading]);
 
-  // On clicking the suit it opens the attributes
-  // useEffect(() => {
-  //   if (isViewerReady) {
-  //     addFocusAttributesListener((event: { groups: string | any[] }) => {
-  //       if (event.groups.length > 0) {
-  //         selectGroup(event.groups[0].groupId);
-  //         const group = newGroup.find(
-  //           (group) => group.id === event.groups[0].groupId
-  //         );
-
-  //         if (group && group.steps) {
-  //           const firstStep = group.steps.find((step) =>
-  //             step.attributes.find(
-  //               (attr) => attr.id == event.groups[0].visibleAttributes[0]
-  //             )
-  //           );
-  //           const index = group.steps.findIndex((step) =>
-  //             step.attributes.find(
-  //               (attr) => attr.id == event.groups[0].visibleAttributes[0]
-  //             )
-  //           );
-
-  //           if (index >= 0 && firstStep && selectedGroup) {
-  //             setCurrentIndex(0 + 1);
-  //             setCurrentIndex(index);
-  //             selectStep(firstStep.id);
-  //           }
-  //         }
-  //       }
-  //     });
-  //   }
-  // }, [isViewerReady, selectedGroupId]);
-
-  // Open the first group and the first step when loaded
-  // useEffect(() => {
-  //   console.log(newGroup,'newGroup');
-
-  //   if (!selectedGroup && newGroup.length > 0) {
-  //     selectGroup(newGroup[0].id);
-  //   }
-
-  //   var groupRec: {
-  //     id: number;
-  //     name: string;
-  //     imageUrl: string | null | undefined;
-  //   }[] = [];
-
-  //   if (newGroup.length > 0) {
-
-  //     newGroup.map((group) => {
-  //       groupRec.push({
-  //         id: group.id,
-  //         name: group.name,
-  //         imageUrl: group.imageUrl,
-  //       });
-  //     });
-
-  //     console.log(groupRec,'groupRec');
-
-  //     selectGroupList(groupRec);
-  //   }
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     if (!selectedGroup && newGroup.length > 0) {
@@ -327,6 +285,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   const handleLeftClick = () => {
     selectColorName("");
+    
     if (selectedGroup) {
       setCurrentIndex(
         (currentIndex - 1 + selectedGroup?.steps.length) %
@@ -405,20 +364,20 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 selectGroup(group.id);
                 selectOptionName("");
                 setCurrentIndex(0);
+                
                 if (group.steps) {
-                  selectStep(group?.steps[0]?.id);
+                  selectStep(group?.steps[0]?.id);                  
                 }
               };
 
               return (
                 <div
-                  className={`menu_item ${
-                    group.id === selectedGroupId ? "selected" : ""
-                  }`}
+                  className={`menu_item ${group.id === selectedGroupId ? "selected" : ""}`}
                   key={group.id}
                   onClick={() => {
                     scrollDownOnClick(checkOnce, setCheckOnce);
                     handleGroupClick(group);
+                    setSelectedMenuTitle(group.name)
                   }}
                 >
                   {group.id === -1 ? "Other" : group.name}
