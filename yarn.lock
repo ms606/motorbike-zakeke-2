@@ -12528,10 +12528,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zakeke-configurator-react@0.1.260:
-  version "0.1.260"
-  resolved "https://registry.npmjs.org/zakeke-configurator-react/-/zakeke-configurator-react-0.1.260.tgz"
-  integrity sha512-92QTsb8tOg97Jb0DAXjcSRhlKQmEOjlX2g0MfLznJRNDjr4QPjvoObsVFGJBc+NWVkJhs+akLRXRhlayquu81w==
+zakeke-configurator-react@0.1.281-prod:
+  version "0.1.281-prod"
+  resolved "https://registry.npmjs.org/zakeke-configurator-react/-/zakeke-configurator-react-0.1.281-prod.tgz"
+  integrity sha512-hptoXJFq9gERajbKaVHjnutR+dHrA+TesvklNBwoRJXrsINcfC69CAR+ZrnJvzSBUNdm7AwVuUALBdCfSwIXxw==
   dependencies:
     lodash "^4.17.15"
     querystring "^0.2.0"
