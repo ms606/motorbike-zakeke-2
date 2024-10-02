@@ -214,9 +214,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
   useEffect(() => {
     if (selectedGroup) {
       const camera = selectedGroup.cameraLocationId;
-      if (selectedMenuTitle !== 'LOGO'){
+      // if (selectedMenuTitle !== 'LOGO'){
         if (camera) setCamera(camera);
-      }
+     // }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGroupId, selectedGroup, currentIndex]);
