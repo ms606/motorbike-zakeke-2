@@ -211,15 +211,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAttribute, attributes]);
 
-  useEffect(() => {
-    if (selectedGroup) {
-      const camera = selectedGroup.cameraLocationId;
-      // if (selectedMenuTitle !== 'LOGO'){
-        if (camera) setCamera(camera);
-     // }
-    }
+  //useEffect(() => {
+    //console.log(selectedGroup,'Updating camera');
+    
+    // if (selectedGroup) {
+    //   const camera = selectedGroup.cameraLocationId;
+    //   // if (selectedMenuTitle !== 'LOGO'){
+    //     if (camera) setCamera(camera);
+    //  // }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroupId, selectedGroup, currentIndex]);
+  //}, [selectedGroup, currentIndex]);
 
   // Camera for left icons
   useEffect(() => {
@@ -227,7 +229,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
       if (selectedCameraID) setCamera(selectedCameraID);
     }
 
-  }, [selectedCameraID, selectedGroup]);
+  }, [selectedCameraID]);
 
   useEffect(() => {
     if(selectedGroup){
