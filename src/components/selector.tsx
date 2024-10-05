@@ -225,28 +225,29 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Camera for left icons
   useEffect(() => {
-    if (selectedMenuTitle !== 'LOGO'){
+ //   if (selectedMenuTitle !== 'LOGO'){
       if (selectedCameraID) setCamera(selectedCameraID);
-    }
+   // }
 
   }, [selectedCameraID]);
 
   useEffect(() => {
+   
     if(selectedGroup){
-
       console.log('new group', selectedGroup, selectedStepId);
-      
-      if (selectedStepId) {
-
-        setSelectedCameraID(
+       if (selectedStepId) {
+         setSelectedCameraID(
           selectedGroup?.steps[
             (currentIndex + selectedGroup?.steps.length) %
               selectedGroup?.steps.length
           ].cameraLocationID
         );
-      }
+
+        if (selectedCameraID) setCamera(selectedCameraID);
+         
+       }
     }
-  },[selectedStepId])
+  },[selectedStepId, selectedGroup])
 
 
   // Camera for attributes
