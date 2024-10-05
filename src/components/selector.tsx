@@ -233,6 +233,9 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   useEffect(() => {
     if(selectedGroup){
+
+      console.log('new group', selectedGroup, selectedStepId);
+      
       if (selectedStepId) {
 
         setSelectedCameraID(
@@ -365,6 +368,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
               const handleGroupClick = (group: any) => {
                 selectGroup(group.id);
                 selectOptionName("");
+                selectStep(null);
                 setCurrentIndex(0);
                 
                 if (group.steps) {
