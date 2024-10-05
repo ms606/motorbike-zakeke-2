@@ -244,10 +244,10 @@ const Selector: FunctionComponent<SelectorProps> = ({
         );
 
         if (selectedCameraID) setCamera(selectedCameraID);
-         
+
        }
     }
-  },[selectedStepId, selectedGroup])
+  },[selectedStepId])
 
 
   // Camera for attributes
