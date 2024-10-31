@@ -3,15 +3,31 @@ import ShareIcon from "../../icons/ShareIcon";
 import { useZakeke } from "zakeke-configurator-react";
 import useStore from "../../Store";
 import DownloadPDF from "../Preview/DownloadPDF";
-
+import { useDialogManager } from '../dialog/Dialogs';
+//import QuotationFormDialog from '../dialog/QuotationFormDialog';
 interface MenuFooterProps {
   viewFooter: any;
 }
 
 const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
-  const { isAddToCartLoading, addToCart, price, useLegacyScreenshot } =
+  const { isAddToCartLoading, addToCart, price, useLegacyScreenshot, product } =
     useZakeke();
-  const { priceFormatter, bodyMeasurements, kneeSliders } = useStore();
+  const { priceFormatter, bodyMeasurements, kneeSliders, isDraftEditor, isEditorMode } = useStore();
+
+  const { showDialog, closeDialog } = useDialogManager();
+
+
+  	// Handle the "Get Quote" button click event
+	const handleGetQuoteClick = async () => {
+		let rule = product?.quoteRule;
+		// if (rule)
+		// 	showDialog(
+		// 		'request-quotation',
+		// 		<QuotationFormDialog getQuoteRule={rule} onFormSubmit={handleSubmitRequestQuote} />
+		// 	);
+	};
+
+
 
   return (
     <div className="menu_footer_master">
@@ -39,7 +55,12 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
               }
               className="btn btn-primary menu_btn_cart"
             >
-              FINISH
+              {/* FINISH */}
+              <span>
+									{isDraftEditor || isEditorMode
+										? 'Save'
+										: 'Get a quote'}
+								</span>
             </div>
           )}
           {/* {

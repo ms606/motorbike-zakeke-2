@@ -508,7 +508,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
             ""
           )}
 
-          {selectedGroup?.id === -4 && (
+          {/* {selectedGroup?.id === -4 && (
             <div style={{ position: "relative", width: "100%"}}>
               <div
                 className="textEditor"
@@ -540,7 +540,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
               
             </div>
-          )}
+          )} */}
 
           {selectedGroup?.id === -5 && (
             <div style={{ position: "relative" }}>
@@ -577,7 +577,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
             </div>
           )}
 
-          {selectedGroup?.id === -6 && (
+          {/* {selectedGroup?.id === -6 && (
             <div style={{ position: "relative" }}>
               <div
                 className="textEditor"
@@ -611,7 +611,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
               </div>
               
             </div>
-          )}
+          )} */}
 
         </div>
       </Container>

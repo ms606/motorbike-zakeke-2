@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 // import { useStore } from 'zustand';
 
 import useStore from "../../Store";
-
+import ZakekePDF from './ZakekePDF';
 
 const DownloadPDF = () => {
 
@@ -100,12 +100,16 @@ console.log(kneeSliders,'kneeSliders');
     doc.save('data.pdf');
   };
 
+  
+
+
   return (
-    <div onClick={downloadPDF}>
-        <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/length.png" alt="length"/>
-        <img width="20" height="20" src="https://img.icons8.com/ios/50/pdf--v1.png" alt="pdf--v1"/>
-      {/* <button onClick={downloadPDF}>Download JSON as PDF</button> */}
-    </div>
+    <ZakekePDF />
+    // <div onClick={downloadPDF}>
+    //     {/* <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/length.png" alt="length"/> */}
+    //     <img width="20" height="20" src="https://img.icons8.com/ios/50/pdf--v1.png" alt="pdf--v1"/>
+    //   {/* <button onClick={downloadPDF}>Download JSON as PDF</button> */}
+    // </div>
   );
 };
 
