@@ -3,7 +3,7 @@ import { FC, useState } from "react";
 import styled from 'styled-components';
 import { T } from "../../Helpers";
 import { Dialog, DialogWindow } from "./Dialogs";
-//import GenerateForm from "./generateForm/GenerateForm";
+import GenerateForm from "../generateForm/GenerateForm";
 
 const CustomWindow = styled(DialogWindow)`
   max-width: 600px;
@@ -30,30 +30,28 @@ const QuotationFormDialog: FC<{ getQuoteRule: any, onFormSubmit: (result: any) =
     onFormSubmit(updatedJson);
   }
 
-   return <></> 
-
-//<Dialog
-//     windowDecorator={CustomWindow}
-//     alignButtons="center"
-//     noMarginFooterButton
-//     buttons={[
-//       {
-//         label: T._("Send", "Composer"),
-//         onClick: () => onConfirm(),
-//         isFullWidth: true,
-//         upperCase: true
-//       }]}
-//   >
-//     <>
-//       <H3>{T._("Request quotation", "Composer")}</H3>
-//       <GenerateForm
-//         updatedJson={updatedJson}
-//         setUpdatedJson={setUpdatedJson}
-//         readonly={false}
-//         showSubmitButton={true}
-//         submitLabel={T._("Send", "Composer")}
-//       />
-//     </>
-//   </Dialog >;
+   return <Dialog
+    windowDecorator={CustomWindow}
+    alignButtons="center"
+    noMarginFooterButton
+    buttons={[
+      {
+        label: T._("Send", "Composer"),
+        onClick: () => onConfirm(),
+        isFullWidth: true,
+        upperCase: true
+      }]}
+  >
+    <>
+      <H3>{T._("Request quotation", "Composer")}</H3>
+      <GenerateForm
+        updatedJson={updatedJson}
+        setUpdatedJson={setUpdatedJson}
+        readonly={false}
+        showSubmitButton={true}
+        submitLabel={T._("Send", "Composer")}
+      />
+    </>
+  </Dialog >;
 }
 export default QuotationFormDialog;

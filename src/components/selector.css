@@ -218,6 +218,17 @@ div {
   color: var(--template-primary--1000);
 }
 
+.new {   
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+  gap: 10px;
+  width: 100%;
+  margin-top: 30px;
+  overflow: auto;
+  justify-items: center; 
+  align-items: center;  */
+}
+
 @media (min-width: 61.25em) {
   .menu_btn_cart {
     width: 160px;

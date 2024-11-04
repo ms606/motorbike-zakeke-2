@@ -234,7 +234,6 @@ const Selector: FunctionComponent<SelectorProps> = ({
   useEffect(() => {
    
     if(selectedGroup){
-      console.log('new group', selectedGroup, selectedStepId);
        if (selectedStepId) {
          setSelectedCameraID(
           selectedGroup?.steps[
@@ -450,6 +449,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                     flexDirection: "row",
                     flexFlow: "wrap",
                     overflow: "auto",
+                    marginLeft: "10px"
                   }}
                 >
                   {selectedStep?.attributes.map((attribute, index) => {
