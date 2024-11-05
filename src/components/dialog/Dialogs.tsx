@@ -12,11 +12,8 @@ export const dialogContext = React.createContext({ dialogId: '' });
 
 export function useDialogManager() {
 	const { addDialog, removeDialog } = useStore();
-	// console.log(addDialog,'addDialog', removeDialog, 'removeDialog');
 	
 	const { dialogId } = useContext(dialogContext);
-	// console.log(dialogId, 'dialogIDDDD');
-	
 	
 	const showDialog = (key: string, dialog: ReactElement) => addDialog(key, dialog);
 	const closeDialog = (key: string) => removeDialog(key);
@@ -175,11 +172,9 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref)
 	const Window = props.windowDecorator || DialogWindow;
 	const { removeDialog, isMobile } = useStore();
 	const { dialogId } = useContext(dialogContext);
-	const onClose = props.onClose || (() => {
-		console.log('dialog id', dialogId);		
+	const onClose = props.onClose || (() => {	
 		removeDialog(dialogId)
 	});
-	//console.log(removeDialog, 'removeDialog');
 	return (
 		<DialogOverlay>
 			{React.createElement(
@@ -224,7 +219,6 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>((props, ref)
 
 export const DialogsRenderer: FunctionComponent<{}> = (props) => {
 	const { dialogs } = useStore();
-	console.log(dialogs,'dialog use store renderer');
 	
 	return (
 		<>
