@@ -23,6 +23,7 @@ import {
 import Tray from "../components/Tray/Tray";
 import Measurements from "../components/Measurements/Measurements";
 import Extra from "./Extra/Extra";
+import DesignsDraftList from "./Layout/DesignsDraftList";
 
 const Container = styled.div`
   height: 839px;
@@ -576,6 +577,44 @@ const Selector: FunctionComponent<SelectorProps> = ({
               </div>
             </div>
           )}
+
+
+          {selectedGroup?.id === -3 && (
+            <div style={{ position: "relative" }}>
+              <div
+                className="textEditor"
+                style={{
+                  overflowX: "hidden",
+                  width: "37vw",
+                  height: "70vh",
+                  borderRadius: "15px",
+                }}
+              >
+                <DesignsDraftList />
+              </div>
+
+              <div className="menu_tray_footer">
+                <div className="menu_tray_footer_selection">
+                  <div
+                    className="menu_tray_footer_name"
+                    onClick={() => {
+                      loadMenu();
+                      setMenuTrayOpen(!menuTrayOpen);
+                    }}
+                  >
+                    <div className="menu_tray_footer_summary">SUMMARY</div>
+
+                    <HamburgerIcon />
+                  </div>
+                </div>
+                <div className="menu_tray_add_to_cart">
+                  <MenuFooter viewFooter={viewFooter} />                  
+                </div>
+              </div>
+            </div>
+          )}
+
+          
 
           {/* {selectedGroup?.id === -6 && (
             <div style={{ position: "relative" }}>
