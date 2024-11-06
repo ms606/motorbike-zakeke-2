@@ -499,7 +499,8 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
                     <HamburgerIcon />
                   </div>
-                </div>
+                </div>                   
+
                 <div className="menu_tray_add_to_cart">
                   <MenuFooter viewFooter={viewFooter} />                  
                 </div>
