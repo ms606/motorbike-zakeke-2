@@ -70,7 +70,7 @@ export const useDefinitiveGroups = (
 
   const savedConfigurationsGroup: Group = {
     id: -3,
-    name: "Saved designs",
+    name: "SAVED DESIGN",
     imageUrl: "../src/assets/icons/saved_designs.svg",
     attributes: [],
     steps: [],

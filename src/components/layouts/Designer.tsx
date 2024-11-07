@@ -113,7 +113,8 @@ const UploadButtons = styled.div`
   flex-direction: column;
   grid-gap: 5px;
   margin: 20px 0px;
-  width: 430px;
+  // width: 430px;
+  width: 100%
 `;
 
 const Area = styled.div<{ selected?: boolean }>`

@@ -558,7 +558,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
                 <Designer />
               </div>
 
-              <div className="menu_tray_footer">
+              <div className="menu_tray_footer" style={{marginTop: '40px'}}>
                 <div className="menu_tray_footer_selection">
                   <div
                     className="menu_tray_footer_name"

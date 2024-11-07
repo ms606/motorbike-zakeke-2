@@ -8,8 +8,8 @@ export const CarouselContainer = styled(Carousel)`
 
 export const Icon = styled.div<{ hoverable?: boolean }>`
 	display: inline-block;
-	width: 24px;
-	height: 24px;
+	width: 40px;
+	height: 40px;
 	cursor: pointer;
 
 	${(props) =>

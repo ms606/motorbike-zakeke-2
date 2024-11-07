@@ -3,6 +3,8 @@ import ShareIcon from "../../icons/ShareIcon";
 import { useZakeke } from "zakeke-configurator-react";
 import useStore from "../../Store";
 import DownloadPDF from "../Preview/DownloadPDF";
+import { Button, Icon, TooltipContent } from "../Atomic";
+import { ReactComponent as SaveSolid } from "../../assets/icons/save-solid.svg";
 import {
   MessageDialog,
   QuestionDialog,
@@ -10,7 +12,7 @@ import {
 } from "../dialog/Dialogs";
 import ErrorDialog from "../dialogs/ErrorDialog";
 import QuotationFormDialog from "../dialog/QuotationFormDialog";
-import SaveDesignsDraftDialog from '..//dialog/SaveDesignsDraftDialog';
+import SaveDesignsDraftDialog from "..//dialog/SaveDesignsDraftDialog";
 import { T } from "../../Helpers";
 import { CustomQuotationConfirmMessage } from "../Layout/SharedComponents";
 import { TailSpin } from "react-loader-spinner";
@@ -150,25 +152,26 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
         </div>
         <DownloadPDF /> */}
 
-        <div>
+        <div style={{ paddingRight: "2px" }}>
           {/* Save composition */}
-          {!isDraftEditor &&
-            !isEditorMode &&
-            !isViewerMode && (
+          {!isDraftEditor && !isEditorMode && !isViewerMode && (
             // sellerSettings &&
             // sellerSettings.canSaveDraftComposition && (
-            //   <Button key={"save"} onClick={() => handleSaveClick()}>
-            //     <Icon>
-            //       <SaveSolid />
-            //     </Icon>
-            //   </Button>
-			<div key={"save"} onClick={() => handleSaveClick()}>
-                SAVE ME
-              </div>
-            )}
-        </div>
 
-		
+            <Button key={"save"} onClick={() => handleSaveClick()}>
+              <Icon>
+                <SaveSolid />
+              </Icon>
+            </Button>
+          )}
+        </div>
+        <div style={{ paddingRight: "2px" }}>
+          <div key={"save"} onClick={() => handleSaveClick()}>
+            <Icon>
+              <SaveSolid />
+            </Icon>
+          </div>
+        </div>
 
         {/* Get a quote */}
         {/* {product?.quoteRule && !isViewerMode && !isDraftEditor && !isEditorMode && !isDraftEditor && ( */}
