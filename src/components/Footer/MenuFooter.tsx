@@ -165,13 +165,13 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
             </Button>
           )}
         </div>
-        <div style={{ paddingRight: "2px" }}>
+        {/* <div style={{ paddingRight: "2px" }}>
           <div key={"save"} onClick={() => handleSaveClick()}>
             <Icon>
               <SaveSolid />
             </Icon>
           </div>
-        </div>
+        </div> */}
 
         {/* Get a quote */}
         {/* {product?.quoteRule && !isViewerMode && !isDraftEditor && !isEditorMode && !isDraftEditor && ( */}
