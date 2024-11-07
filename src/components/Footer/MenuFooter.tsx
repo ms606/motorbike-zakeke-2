@@ -158,11 +158,11 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
             // sellerSettings &&
             // sellerSettings.canSaveDraftComposition && (
 
-            <Button key={"save"} onClick={() => handleSaveClick()}>
+            <div key={"save"} onClick={() => handleSaveClick()}>
               <Icon>
                 <SaveSolid />
               </Icon>
-            </Button>
+            </div>
           )}
         </div>
         {/* <div style={{ paddingRight: "2px" }}>
