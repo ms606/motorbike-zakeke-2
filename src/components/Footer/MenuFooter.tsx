@@ -149,8 +149,8 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
             </div>
           )}
          
-        </div>
-        <DownloadPDF /> */}
+        </div> */}
+        <DownloadPDF />
 
         <div style={{ paddingRight: "2px" }}>
           {/* Save composition */}
