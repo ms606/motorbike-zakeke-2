@@ -5,6 +5,7 @@ import { ReactComponent as PdfSolid } from '../../assets/icons/file-pdf-solid.sv
 import { useDialogManager } from '../dialog/Dialogs';
 import ErrorDialog from '../dialog/ErrorDialog';
 import PdfDialog from '../dialog/PdfDialog';
+import PDF from '../../assets/images/PDF.png';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -34,8 +35,6 @@ const FooterMobileIcon = styled.div<{
 		width: 32px;
 		height: 32px;
 	}
-
-	
 `;
 
 const ZakekePDF = () => {
@@ -101,9 +100,12 @@ const handlePdfClick = async () => {
 return (
     <>
         {!isSceneLoading && ( 
-        <div style={{width: '32px', height: '32px' }} onClick={handlePdfClick}>
+        <div style={{width: '40px', height: '40px', overflow: 'hidden' }} onClick={handlePdfClick}>
             <FooterMobileIcon>
-            <PdfSolid />
+             {/* <PdfSolid /> */}
+			 <div >
+			 <img style={{ maxWidth: '100%',  maxHeight: '100%',  objectFit: 'contain'}} src={PDF} alt='pdf' />
+			 </div>
             </FooterMobileIcon>
         </div>
         )}
