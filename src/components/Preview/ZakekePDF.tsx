@@ -1,11 +1,11 @@
 import { useZakeke } from 'zakeke-configurator-react';
 import useStore from '../../Store';
 import styled from 'styled-components';
-import { ReactComponent as PdfSolid } from '../../assets/icons/file-pdf-solid.svg';
+import { ReactComponent as PdfSolid } from '../../assets/icons/file-pdf-regular.svg';
 import { useDialogManager } from '../dialog/Dialogs';
 import ErrorDialog from '../dialog/ErrorDialog';
 import PdfDialog from '../dialog/PdfDialog';
-import PDF from '../../assets/images/PDF.png';
+// import PDF from '../../assets/images/PDF.png';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -102,10 +102,10 @@ return (
         {!isSceneLoading && ( 
         <div style={{width: '40px', height: '40px', overflow: 'hidden' }} onClick={handlePdfClick}>
             <FooterMobileIcon>
-             {/* <PdfSolid /> */}
-			 <div >
+             <PdfSolid />
+			 {/* <div >
 			 <img style={{ maxWidth: '100%',  maxHeight: '100%',  objectFit: 'contain'}} src={PDF} alt='pdf' />
-			 </div>
+			 </div> */}
             </FooterMobileIcon>
         </div>
         )}
