@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent, useRef, useEffect } from "react";
 import styled from "styled-components";
 import {
   ZakekeEnvironment,
@@ -9,7 +9,7 @@ import Cameras from "../../components/Cameras/Cameras";
 import  "./Viewer.css"
 import Selector from "../../components/selector";
 import ExplodeSolid from "../../assets/icons/expand-arrows-alt-solid.js";
-
+import { MessageDialog, useDialogManager }  from "../../components/dialog/Dialogs";
 import { Icon } from '../../components/Atomic';
 import Zoom from "../../components/Zoom/Zoom";
 import Tray from "../../components/Tray/Tray";
@@ -36,8 +36,36 @@ const Viewer: FunctionComponent<{}> = () => {
     isSceneLoading,
     zoomIn,
     zoomOut,
-    setCamera
+    setCamera,
+    product,
+    eventMessages,
+    personalizedMessages
+
   } = useZakeke();
+  
+  const { showDialog } = useDialogManager();
+  
+	useEffect(() => {
+		if (product && !isSceneLoading //&& !isDraftEditor && !isEditorMode
+      ) {
+			const personalizedMessage = personalizedMessages?.find((message) => message.eventID === 3);
+			const welcomeMessage = eventMessages?.find((message) => message.eventID === 3 && message.isDefault);
+			if ((personalizedMessage && personalizedMessage.visible) || (welcomeMessage && welcomeMessage.visible))
+				showDialog(
+					'WelcomeMessage',
+					<MessageDialog
+						alignButtons='center'
+						message={
+							personalizedMessage && personalizedMessage.visible
+								? personalizedMessage.description
+								: welcomeMessage!.description
+						}
+					/>
+				);
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [product, isSceneLoading, eventMessages]);
 
   const viewElement = useRef<HTMLDivElement | null>(null);
   
