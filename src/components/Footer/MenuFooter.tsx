@@ -183,7 +183,7 @@ const MenuFooter: React.FC<MenuFooterProps> = ({ viewFooter }) => {
             // primary
             onClick={() => handleGetQuoteClick()}
           >
-            QUOTE
+            CONFIRM DESIGN
             {isQuoteLoading && <TailSpin color="#FFFFFF" height="25px" />}
             {/*{!isQuoteLoading && <span>{T._('Get a quote', 'Composer')}</span>} */}
           </div>
