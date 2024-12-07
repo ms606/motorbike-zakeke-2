@@ -101,7 +101,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Keep saved the ID and not the refereces, they will change on each update
-  const [selectedGroupId, selectGroup] = useState<number | null>(12014);
+  const [selectedGroupId, selectGroup] = useState<number | null>(18503);
   const [selectedStepId, selectStep] = useState<number | null>(null);
   const [selectedStepName, selectStepName] = useState<string | null>(null);
   const [selectedAttributeId, selectAttribute] = useState<number | null>(null);
@@ -187,15 +187,17 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   // Open the first group and the first step when loaded
   useEffect(() => {
-    if (!onLoadFirstTime && newGroup.length > 0) {
+    if (!onLoadFirstTime && newGroup.length > 0) {      
       setOnLoadFirstTime(true);
+     
       selectGroup(newGroup[0].id);
-
-      if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);
+      
+      if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);      
+      
+      // if (newGroup[0].steps.length > 0) selectStep(newGroup[0].steps[0].id);      
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedGroup]);
+  }, [selectedGroup,selectedGroupId]);
 
   // Select attribute first time
   useEffect(() => {
@@ -267,6 +269,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
   useEffect(() => {
     if (!selectedGroup && newGroup.length > 0) {
+      
       selectGroup(newGroup[0].id);
     }
 
@@ -367,6 +370,7 @@ const Selector: FunctionComponent<SelectorProps> = ({
           <div className="menu_group">
             {newGroup.map((group) => {
               const handleGroupClick = (group: any) => {
+                
                 selectGroup(group.id);
                 selectOptionName("");
                 selectStep(null);
