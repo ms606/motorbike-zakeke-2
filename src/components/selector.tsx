@@ -462,9 +462,11 @@ const Selector: FunctionComponent<SelectorProps> = ({
 
                     return attribute.options.map((option) => {
                       if (!option.imageUrl) return null; // Skip options without image URL
-
+                      console.log(option.name , selectedOptionName, option.name === selectedOptionName, 'option.name === selectedOptionName');
+                      
                       return (
                         <ListItem
+                          selected={option.name === selectedOptionName}
                           key={option.id}
                           onClick={() => {
                             // Logic for selecting options
