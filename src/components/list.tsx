@@ -19,8 +19,9 @@ export const ListItem = styled.div<{ selected?: boolean }>`
      margin-bottom: 12px;
      margin-right: 6px;
      cursor: pointer;
-     background-color: ${props => props.selected ? '#d8d8d8' : 'none'};
-     box-shadow:  ${props => props.selected ? '4px 4px' : 'none'};
+     text-decoration: ${props => props.selected ? 'underline' : 'none'};
+    //  background-color: ${props => props.selected ? '#d8d8d8' : 'none'};
+    //  box-shadow:  ${props => props.selected ? '4px 4px' : 'none'};
        @media screen and (max-width: 568px) {
          font-size: 24px;
        }
